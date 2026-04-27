@@ -25,7 +25,7 @@
   <p>
     Zusätzlich bietet GymSense kontextbasierte Unterstützung, beispielsweise durch
     Videoempfehlungen bei neuen Übungen oder Hinweise zur Trainingsoptimierung.
-    So trainierst du nicht nur härter, sondern vor allem smarter.
+    So trainierst du nicht nur härter, sondern vor allm smarter.
   </p>
 
 </section>
