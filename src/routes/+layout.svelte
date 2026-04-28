@@ -1,6 +1,6 @@
 <script>
 	import 'bootstrap/dist/css/bootstrap.min.css';
-	import logo from '$lib/assets/logo.png';
+	import logo from '$lib/assets/Logo.png';
 
 	let { data, children } = $props();
 </script>
