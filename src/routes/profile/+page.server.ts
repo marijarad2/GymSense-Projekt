@@ -20,10 +20,18 @@ export async function load({ locals }: { locals: App.Locals }) {
 		.sort({ date: -1 })
 		.toArray();
 
-	const calendarEntries = await db
-		.collection('calendarEntries')
-		.find({ userId: locals.user.id })
-		.toArray();
+const calendarEntriesRaw = await db
+	.collection('calendarEntries')
+	.find({ userId: locals.user.id })
+	.toArray();
+
+const calendarEntries = calendarEntriesRaw.map((entry) => ({
+	id: entry._id.toString(),
+	userId: entry.userId,
+	date: entry.date,
+	type: entry.type,
+	note: entry.note ?? ''
+}));
 
 	const totalWorkouts = workouts.length;
 	const lastWorkout = workouts[0] ?? null;
