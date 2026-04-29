@@ -37,7 +37,13 @@ export const actions = {
 			return fail(400, { error: 'Keine Übungen vorhanden.' });
 		}
 
-		const exercises = JSON.parse(exercisesRaw);
+		const exercises = JSON.parse(exercisesRaw).map((exercise) => ({
+	...exercise,
+	sets: exercise.sets.map((set) => ({
+		weight: Number(set.weight),
+		reps: Number(set.reps)
+	}))
+}));
 
 		if (!exercises.length) {
 			return fail(400, { error: 'Bitte mindestens eine Übung hinzufügen.' });
