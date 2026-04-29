@@ -37,9 +37,8 @@
 
 		<div class="stat-card">
 			<span>Lieblingsübung</span>
-			<strong>{data.favoriteExercise?.name ?? 'Noch keine Daten'}</strong>
-		</div>
-
+            <strong>{data.favoriteExercise ?? 'Noch keine gewählt'}</strong>		
+    </div>
 		<div class="stat-card">
 			<span>Höchstes Gewicht</span>
 			<strong>
@@ -76,8 +75,8 @@
 					<li>Du hast bereits {data.totalWorkouts} Trainingseinträge gespeichert.</li>
 
 					{#if data.favoriteExercise}
-						<li>{data.favoriteExercise.name} ist aktuell deine häufigste Übung.</li>
-					{/if}
+	<li>{data.favoriteExercise} ist deine gespeicherte Lieblingsübung.</li>
+{/if}
 
 					{#if data.highestWeight}
 						<li>Dein höchstes gespeichertes Gewicht liegt bei {data.highestWeight.maxWeight} kg.</li>
