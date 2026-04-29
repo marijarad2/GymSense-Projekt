@@ -1,6 +1,8 @@
 <script>
 	let { data } = $props();
 
+	const days = Array.from({ length: 31 }, (_, i) => i + 1);
+
 	function formatDate(date) {
 		if (!date) return 'Noch kein Training';
 
@@ -37,8 +39,9 @@
 
 		<div class="stat-card">
 			<span>Lieblingsübung</span>
-            <strong>{data.favoriteExercise ?? 'Noch keine gewählt'}</strong>		
-    </div>
+			<strong>{data.favoriteExercise ?? 'Noch keine gewählt'}</strong>
+		</div>
+
 		<div class="stat-card">
 			<span>Höchstes Gewicht</span>
 			<strong>
@@ -75,14 +78,41 @@
 					<li>Du hast bereits {data.totalWorkouts} Trainingseinträge gespeichert.</li>
 
 					{#if data.favoriteExercise}
-	<li>{data.favoriteExercise} ist deine gespeicherte Lieblingsübung.</li>
-{/if}
+						<li>{data.favoriteExercise} ist deine gespeicherte Lieblingsübung.</li>
+					{/if}
 
 					{#if data.highestWeight}
 						<li>Dein höchstes gespeichertes Gewicht liegt bei {data.highestWeight.maxWeight} kg.</li>
 					{/if}
 				</ul>
 			{/if}
+		</div>
+	</div>
+
+	<div class="profile-card calendar-card">
+		<h2>Trainingskalender</h2>
+		<p class="calendar-info">🏋️ Trainingstage · 💤 Rest Days</p>
+
+		<div class="calendar">
+			{#each days as day}
+				{@const dateString = `2026-04-${String(day).padStart(2, '0')}`}
+				{@const entry = data.calendarEntries.find((item) => item.date === dateString)}
+
+				<div
+					class="day"
+					class:training={entry?.type === 'training'}
+					class:rest={entry?.type === 'rest'}
+					title={entry?.note ?? ''}
+				>
+					<span>{day}</span>
+
+					{#if entry?.type === 'training'}
+						<small>🏋️</small>
+					{:else if entry?.type === 'rest'}
+						<small>💤</small>
+					{/if}
+				</div>
+			{/each}
 		</div>
 	</div>
 </section>
@@ -151,6 +181,7 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 		gap: 24px;
+		margin-bottom: 28px;
 	}
 
 	.profile-card h2 {
@@ -177,5 +208,48 @@
 
 	.hints li {
 		margin-bottom: 10px;
+	}
+
+	.calendar-card {
+		margin-top: 28px;
+	}
+
+	.calendar-info {
+		margin-bottom: 16px;
+		color: #666;
+	}
+
+	.calendar {
+		display: grid;
+		grid-template-columns: repeat(7, 1fr);
+		gap: 10px;
+	}
+
+	.day {
+		min-height: 70px;
+		background: #f8f0f8;
+		border-radius: 14px;
+		padding: 10px;
+		text-align: center;
+		font-weight: 700;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.day.training {
+		background: #d9f8df;
+		border: 2px solid #71c783;
+	}
+
+	.day.rest {
+		background: #ffe4ee;
+		border: 2px solid #d990aa;
+	}
+
+	.day small {
+		display: block;
+		margin-top: 6px;
+		font-size: 1.1rem;
 	}
 </style>

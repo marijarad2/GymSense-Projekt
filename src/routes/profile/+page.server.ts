@@ -20,6 +20,11 @@ export async function load({ locals }: { locals: App.Locals }) {
 		.sort({ date: -1 })
 		.toArray();
 
+	const calendarEntries = await db
+		.collection('calendarEntries')
+		.find({ userId: locals.user.id })
+		.toArray();
+
 	const totalWorkouts = workouts.length;
 	const lastWorkout = workouts[0] ?? null;
 
@@ -65,6 +70,7 @@ export async function load({ locals }: { locals: App.Locals }) {
 		lastWorkoutDate: lastWorkout?.date ?? null,
 		favoriteExercise,
 		highestWeight,
-		personalRecords
+		personalRecords,
+		calendarEntries
 	};
 }
