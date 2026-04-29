@@ -9,6 +9,16 @@
 		return 'Keine Veränderung';
 	}
 
+	function getBarHeight(entry, history) {
+		const weights = history.map((item) => item.weight);
+		const max = Math.max(...weights);
+		const min = Math.min(...weights);
+
+		if (max === min) return 45;
+
+		return 30 + ((entry.weight - min) / (max - min)) * 70;
+	}
+
 	let showToast = $state(false);
 
 	$effect(() => {
@@ -50,16 +60,12 @@
 					<div class="weight-row">
 						<div>
 							<span class="label">Vorher</span>
-							<strong>
-								{item.previousWeight ?? '-'} kg
-							</strong>
+							<strong>{item.previousWeight ?? '-'} kg</strong>
 						</div>
 
 						<div>
 							<span class="label">Jetzt</span>
-							<strong>
-								{item.currentWeight} kg
-							</strong>
+							<strong>{item.currentWeight} kg</strong>
 						</div>
 					</div>
 
@@ -75,7 +81,7 @@
 								<div class="bar-wrapper">
 									<div
 										class="bar"
-										style={`height: ${entry.weight * 1.5}px`}
+										style={`height: ${getBarHeight(entry, item.history)}px`}
 										title={`${entry.weight} kg`}
 									></div>
 									<small>{entry.weight}</small>
@@ -126,13 +132,12 @@
 	}
 
 	.progress-card {
-	background: white;
-	border-radius: 18px;
-	padding: 24px;
-	box-shadow: 0 8px 24px rgba(176, 110, 176, 0.18);
-	position: relative;
-	z-index: 0;
-}
+		background: white;
+		border-radius: 18px;
+		padding: 24px;
+		box-shadow: 0 8px 24px rgba(176, 110, 176, 0.18);
+		position: relative;
+	}
 
 	.card-top {
 		display: flex;
@@ -176,15 +181,20 @@
 		margin-bottom: 16px;
 	}
 
-.history-bars {
-	display: flex;
-	align-items: flex-end;
-	gap: 12px;
-	height: 120px;
-	margin-top: 12px;
-	position: relative;
-	z-index: 1;
-}
+	.history {
+		margin-top: 18px;
+		border-top: 1px solid #f3dff3;
+		padding-top: 16px;
+	}
+
+	.history-bars {
+		display: flex;
+		align-items: flex-end;
+		gap: 12px;
+		height: 110px;
+		margin-top: 12px;
+		overflow: hidden;
+	}
 
 	.bar-wrapper {
 		display: flex;
@@ -205,28 +215,28 @@
 		color: #555;
 	}
 
-.progress-toast {
-	position: fixed;
-	top: 20px;
-	right: 20px;
-	background: #b06eb0;
-	color: white;
-	padding: 12px 18px;
-	border-radius: 12px;
-	font-weight: 700;
-	box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-	animation: slideIn 0.4s ease;
-	z-index: 999;
-}
+	.progress-toast {
+		position: fixed;
+		top: 20px;
+		right: 20px;
+		background: #b06eb0;
+		color: white;
+		padding: 12px 18px;
+		border-radius: 12px;
+		font-weight: 700;
+		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+		animation: slideIn 0.4s ease;
+		z-index: 999;
+	}
 
-@keyframes slideIn {
-	from {
-		transform: translateX(100%);
-		opacity: 0;
+	@keyframes slideIn {
+		from {
+			transform: translateX(100%);
+			opacity: 0;
+		}
+		to {
+			transform: translateX(0);
+			opacity: 1;
+		}
 	}
-	to {
-		transform: translateX(0);
-		opacity: 1;
-	}
-}
 </style>
