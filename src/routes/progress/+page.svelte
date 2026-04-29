@@ -8,6 +8,20 @@
 		if (diff < 0) return `${diff} kg seit dem letzten Training`;
 		return 'Keine Veränderung';
 	}
+
+	let showToast = $state(false);
+
+	$effect(() => {
+		if (progressItems.some((item) => item.difference > 0)) {
+			showToast = true;
+
+			const timer = setTimeout(() => {
+				showToast = false;
+			}, 3000);
+
+			return () => clearTimeout(timer);
+		}
+	});
 </script>
 
 <section class="progress-page">
@@ -75,6 +89,12 @@
 	{/if}
 </section>
 
+{#if showToast}
+	<div class="progress-toast">
+		Du hast Fortschritte gemacht 🚀
+	</div>
+{/if}
+
 <style>
 	.progress-page {
 		max-width: 1100px;
@@ -106,11 +126,13 @@
 	}
 
 	.progress-card {
-		background: white;
-		border-radius: 18px;
-		padding: 24px;
-		box-shadow: 0 8px 24px rgba(176, 110, 176, 0.18);
-	}
+	background: white;
+	border-radius: 18px;
+	padding: 24px;
+	box-shadow: 0 8px 24px rgba(176, 110, 176, 0.18);
+	position: relative;
+	z-index: 0;
+}
 
 	.card-top {
 		display: flex;
@@ -154,13 +176,15 @@
 		margin-bottom: 16px;
 	}
 
-	.history-bars {
-		display: flex;
-		align-items: flex-end;
-		gap: 12px;
-		height: 120px;
-		margin-top: 12px;
-	}
+.history-bars {
+	display: flex;
+	align-items: flex-end;
+	gap: 12px;
+	height: 120px;
+	margin-top: 12px;
+	position: relative;
+	z-index: 1;
+}
 
 	.bar-wrapper {
 		display: flex;
@@ -180,4 +204,29 @@
 		font-size: 0.75rem;
 		color: #555;
 	}
+
+.progress-toast {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	background: #b06eb0;
+	color: white;
+	padding: 12px 18px;
+	border-radius: 12px;
+	font-weight: 700;
+	box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+	animation: slideIn 0.4s ease;
+	z-index: 999;
+}
+
+@keyframes slideIn {
+	from {
+		transform: translateX(100%);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
 </style>
