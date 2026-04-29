@@ -1,4 +1,5 @@
 import { redirect } from '@sveltejs/kit';
+import { ObjectId } from 'mongodb';
 import { getDb } from '$lib/server/db';
 
 export async function load({ locals }: { locals: App.Locals }) {
@@ -7,6 +8,11 @@ export async function load({ locals }: { locals: App.Locals }) {
 	}
 
 	const db = await getDb();
+
+	const user = await db.collection('users').findOne(
+		{ _id: new ObjectId(locals.user.id) },
+		{ projection: { favoriteExercise: 1 } }
+	);
 
 	const workouts = await db
 		.collection('workouts')
@@ -43,7 +49,8 @@ export async function load({ locals }: { locals: App.Locals }) {
 
 	const stats = [...exerciseStats.values()];
 
-	const favoriteExercise = stats.sort((a, b) => b.count - a.count)[0] ?? null;
+	const mostUsedExercise = [...stats].sort((a, b) => b.count - a.count)[0] ?? null;
+	const favoriteExercise = user?.favoriteExercise ?? mostUsedExercise?.name ?? null;
 
 	const personalRecords = [...stats]
 		.filter((item) => item.maxWeight > 0)
