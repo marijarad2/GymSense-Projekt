@@ -1,6 +1,6 @@
 <script>
 	let { form } = $props();
-	let showPassword = false;
+	let showPassword = $state(false);
 </script>
 
 <svelte:head>

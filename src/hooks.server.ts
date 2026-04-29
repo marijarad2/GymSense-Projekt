@@ -20,7 +20,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 			if (user) {
 				event.locals.user = {
 					id: user._id.toString(),
-					name: user.name ?? user.email,
+					name: user.firstName
+						? `${user.firstName} ${user.lastName ?? ''}`.trim()
+						: user.email,
 					email: user.email
 				};
 			}
