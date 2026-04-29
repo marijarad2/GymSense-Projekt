@@ -1,4 +1,4 @@
-import { getDb } from '$lib/db';
+import { getDb } from '$lib/server/db';
 
 export async function load({ locals }) {
 	if (!locals.user) {
