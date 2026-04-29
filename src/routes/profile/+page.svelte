@@ -110,7 +110,21 @@
 						<small>🏋️</small>
 					{:else if entry?.type === 'rest'}
 						<small>💤</small>
+					{:else}
+						<small>–</small>
 					{/if}
+
+					<div class="day-actions">
+						<form method="POST" action="?/addTraining">
+							<input type="hidden" name="date" value={dateString} />
+							<button type="submit">🏋️</button>
+						</form>
+
+						<form method="POST" action="?/addRest">
+							<input type="hidden" name="date" value={dateString} />
+							<button type="submit">💤</button>
+						</form>
+					</div>
 				</div>
 			{/each}
 		</div>
@@ -165,18 +179,6 @@
 		box-shadow: 0 8px 24px rgba(176, 110, 176, 0.16);
 	}
 
-	.stat-card span {
-		display: block;
-		color: #777;
-		font-size: 0.9rem;
-		margin-bottom: 8px;
-	}
-
-	.stat-card strong {
-		font-size: 1.5rem;
-		color: #222;
-	}
-
 	.content-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -184,39 +186,11 @@
 		margin-bottom: 28px;
 	}
 
-	.profile-card h2 {
-		color: #b06eb0;
-		margin-bottom: 18px;
-	}
-
 	.record-row {
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
 		padding: 12px 0;
 		border-bottom: 1px solid #f3dff3;
-	}
-
-	.record-row:last-child {
-		border-bottom: none;
-	}
-
-	.hints {
-		padding-left: 20px;
-		color: #444;
-	}
-
-	.hints li {
-		margin-bottom: 10px;
-	}
-
-	.calendar-card {
-		margin-top: 28px;
-	}
-
-	.calendar-info {
-		margin-bottom: 16px;
-		color: #666;
 	}
 
 	.calendar {
@@ -226,12 +200,11 @@
 	}
 
 	.day {
-		min-height: 70px;
+		min-height: 80px;
 		background: #f8f0f8;
 		border-radius: 14px;
 		padding: 10px;
 		text-align: center;
-		font-weight: 700;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -247,9 +220,18 @@
 		border: 2px solid #d990aa;
 	}
 
-	.day small {
-		display: block;
-		margin-top: 6px;
-		font-size: 1.1rem;
+	.day-actions {
+		display: flex;
+		justify-content: center;
+		gap: 6px;
+		margin-top: 8px;
+	}
+
+	.day-actions button {
+		border: none;
+		background: white;
+		border-radius: 8px;
+		padding: 4px 6px;
+		cursor: pointer;
 	}
 </style>
