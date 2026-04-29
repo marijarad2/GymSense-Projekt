@@ -1,37 +1,55 @@
 <script>
 	import 'bootstrap/dist/css/bootstrap.min.css';
 	import logo from '$lib/assets/Logo.png';
+  import 'bootstrap-icons/font/bootstrap-icons.css';
 
 	let { data, children } = $props();
 </script>
 
-<nav class="navbar">
-  <div class="left-section">
-    <img src={logo} alt="GymSense Logo" class="logo-img" />
+<nav class="navbar navbar-expand-lg custom-navbar">
+	<div class="container-fluid">
+		<a class="navbar-brand d-flex align-items-center gap-2" href="/">
+			<img src={logo} alt="GymSense Logo" class="logo-img" />
+		</a>
 
-    <div class="nav-links">
-      <a href="/">Startseite</a>
-      <a href="/exercises">Übungen</a>
+		<button
+			class="navbar-toggler"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#mainNavbar"
+		>
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-      {#if data.user}
-        <a href="/plans">Trainingspläne</a>
-        <a href="/training">Training</a>
-        <a href="/progress">Fortschritt</a>
-      {/if}
-    </div>
-  </div>
+		<div class="collapse navbar-collapse" id="mainNavbar">
+			<div class="navbar-nav me-auto">
+				<a class="nav-link" href="/">Startseite</a>
+				<a class="nav-link" href="/exercises">Übungen</a>
 
-  <div class="auth-box">
-    {#if data.user}
-      <span class="welcome">Hallo, {data.user.name}</span>
-      <form method="POST" action="/logout">
-        <button class="auth-btn" type="submit">Abmelden</button>
-      </form>
-    {:else}
-      <a class="auth-btn login-link" href="/login">Anmelden</a>
-      <a class="auth-btn login-link" href="/register">Registrieren</a>
-    {/if}
-  </div>
+				{#if data.user}
+					<a class="nav-link" href="/plans">Trainingspläne</a>
+					<a class="nav-link" href="/training">Training</a>
+					<a class="nav-link" href="/progress">Fortschritt</a>
+				{/if}
+			</div>
+
+			<div class="d-flex align-items-center gap-3">
+				{#if data.user}
+					<a href="/profile" class="profile-link" title="Profil">
+						<i class="bi bi-person-circle"></i>
+						<span>{data.user.name}</span>
+					</a>
+
+					<form method="POST" action="/logout">
+						<button class="btn auth-btn" type="submit">Abmelden</button>
+					</form>
+				{:else}
+					<a class="btn auth-btn" href="/login">Anmelden</a>
+					<a class="btn auth-btn" href="/register">Registrieren</a>
+				{/if}
+			</div>
+		</div>
+	</div>
 </nav>
 
 <main class="page-content">
@@ -201,4 +219,54 @@
 		background: linear-gradient(to bottom, #fff8ff, #f8f0f8);
 		font-family: Arial, sans-serif;
 	}
+
+  .custom-navbar {
+	background: #f7d1f8;
+	min-height: 90px;
+}
+
+.logo-img {
+	height: 64px;
+	width: auto;
+	object-fit: contain;
+}
+
+.nav-link {
+	color: white;
+	font-weight: 700;
+	margin-right: 18px;
+}
+
+.nav-link:hover {
+	color: #b06eb0;
+}
+
+.auth-btn {
+	background: #b06eb0;
+	color: white;
+	font-weight: 700;
+	border-radius: 8px;
+}
+
+.auth-btn:hover {
+	background: #9a5a9a;
+	color: white;
+}
+
+.profile-link {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: white;
+	text-decoration: none;
+	font-weight: 700;
+}
+
+.profile-link i {
+	font-size: 1.8rem;
+}
+
+.profile-link:hover {
+	color: #b06eb0;
+}
 </style>

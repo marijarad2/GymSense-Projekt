@@ -1,0 +1,183 @@
+<script>
+	let { data } = $props();
+
+	const progressItems = data.progressItems ?? [];
+
+	function formatDifference(diff) {
+		if (diff > 0) return `+${diff} kg seit dem letzten Training`;
+		if (diff < 0) return `${diff} kg seit dem letzten Training`;
+		return 'Keine Veränderung';
+	}
+</script>
+
+<section class="progress-page">
+	<div class="header">
+		<h1>Dein Fortschritt</h1>
+		<p>Hier siehst du deine Entwicklung pro Übung.</p>
+	</div>
+
+	{#if progressItems.length === 0}
+		<div class="empty">
+			<p>Keine Trainingsdaten vorhanden 😢</p>
+			<p>Starte ein Training, um Fortschritt zu sehen!</p>
+		</div>
+	{:else}
+		<div class="progress-grid">
+			{#each progressItems as item}
+				<div class="progress-card">
+					<div class="card-top">
+						<h2>{item.name}</h2>
+
+						{#if item.isPersonalBest}
+							<span class="record-badge">PR 🎉</span>
+						{/if}
+					</div>
+
+					<div class="weight-row">
+						<div>
+							<span class="label">Vorher</span>
+							<strong>
+								{item.previousWeight ?? '-'} kg
+							</strong>
+						</div>
+
+						<div>
+							<span class="label">Jetzt</span>
+							<strong>
+								{item.currentWeight} kg
+							</strong>
+						</div>
+					</div>
+
+					<p class="difference">
+						{formatDifference(item.difference)}
+					</p>
+
+					<div class="history">
+						<span class="label">Letzte Einträge</span>
+
+						<div class="history-bars">
+							{#each item.history as entry}
+								<div class="bar-wrapper">
+									<div
+										class="bar"
+										style={`height: ${entry.weight * 1.5}px`}
+										title={`${entry.weight} kg`}
+									></div>
+									<small>{entry.weight}</small>
+								</div>
+							{/each}
+						</div>
+					</div>
+				</div>
+			{/each}
+		</div>
+	{/if}
+</section>
+
+<style>
+	.progress-page {
+		max-width: 1100px;
+		margin: 0 auto;
+	}
+
+	.header {
+		text-align: center;
+		margin-bottom: 36px;
+	}
+
+	.header h1 {
+		color: #b06eb0;
+		margin-bottom: 10px;
+	}
+
+	.empty {
+		text-align: center;
+		background: white;
+		padding: 40px;
+		border-radius: 16px;
+		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+	}
+
+	.progress-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 24px;
+	}
+
+	.progress-card {
+		background: white;
+		border-radius: 18px;
+		padding: 24px;
+		box-shadow: 0 8px 24px rgba(176, 110, 176, 0.18);
+	}
+
+	.card-top {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 20px;
+	}
+
+	.record-badge {
+		background: #b06eb0;
+		color: white;
+		padding: 6px 10px;
+		border-radius: 999px;
+		font-size: 0.75rem;
+		font-weight: 700;
+	}
+
+	.weight-row {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 18px;
+	}
+
+	.label {
+		display: block;
+		font-size: 0.8rem;
+		color: #777;
+	}
+
+	strong {
+		font-size: 1.3rem;
+		color: #222;
+	}
+
+	.difference {
+		background: #fff0ff;
+		color: #8e4f8e;
+		padding: 12px;
+		border-radius: 12px;
+		font-weight: 700;
+		margin-bottom: 16px;
+	}
+
+	.history-bars {
+		display: flex;
+		align-items: flex-end;
+		gap: 12px;
+		height: 120px;
+		margin-top: 12px;
+	}
+
+	.bar-wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 6px;
+	}
+
+	.bar {
+		width: 28px;
+		background: #f7d1f8;
+		border-radius: 8px 8px 0 0;
+		min-height: 20px;
+	}
+
+	small {
+		font-size: 0.75rem;
+		color: #555;
+	}
+</style>
