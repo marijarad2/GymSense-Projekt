@@ -1,7 +1,81 @@
 <script>
 	let { data } = $props();
 
-	const days = Array.from({ length: 31 }, (_, i) => i + 1);
+	let currentDate = $state(new Date());
+	let touchStartX = 0;
+
+	const monthNames = [
+		'Januar',
+		'Februar',
+		'März',
+		'April',
+		'Mai',
+		'Juni',
+		'Juli',
+		'August',
+		'September',
+		'Oktober',
+		'November',
+		'Dezember'
+	];
+
+	const weekDays = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+
+	function getCalendarDays(year, month) {
+		const firstDay = new Date(year, month, 1);
+		const lastDay = new Date(year, month + 1, 0);
+
+		let startDay = firstDay.getDay();
+		startDay = startDay === 0 ? 6 : startDay - 1;
+
+		const days = [];
+
+		for (let i = 0; i < startDay; i++) {
+			days.push(null);
+		}
+
+		for (let day = 1; day <= lastDay.getDate(); day++) {
+			days.push(day);
+		}
+
+		return days;
+	}
+
+	function formatDateForDb(year, month, day) {
+		return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+	}
+
+	function previousMonth() {
+		currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
+	}
+
+	function nextMonth() {
+		currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+	}
+
+	function previousYear() {
+		currentDate = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), 1);
+	}
+
+	function nextYear() {
+		currentDate = new Date(currentDate.getFullYear() + 1, currentDate.getMonth(), 1);
+	}
+
+	function handleTouchStart(event) {
+		touchStartX = event.touches[0].clientX;
+	}
+
+	function handleTouchEnd(event) {
+		const diff = touchStartX - event.changedTouches[0].clientX;
+
+		if (Math.abs(diff) > 60) {
+			diff > 0 ? nextMonth() : previousMonth();
+		}
+	}
+
+	let calendarDays = $derived(
+		getCalendarDays(currentDate.getFullYear(), currentDate.getMonth())
+	);
 
 	function formatDate(date) {
 		if (!date) return 'Noch kein Training';
@@ -50,6 +124,57 @@
 		</div>
 	</div>
 
+	<div class="dashboard-grid">
+		<div class="dashboard-card">
+			<span>Wochenziel</span>
+
+			<strong>
+				{data.weeklyProgress.current} / {data.weeklyProgress.goal} Trainings
+			</strong>
+
+			<div class="progress-bar">
+				<div
+					class="progress-fill"
+					style={`width: ${data.weeklyProgress.percentage}%`}
+				></div>
+			</div>
+
+			<small>{data.weeklyProgress.percentage}% erreicht</small>
+
+			<form method="POST" action="?/updateWeeklyGoal" class="weekly-goal-form">
+				<label for="weeklyGoal">Ziel ändern</label>
+
+				<select name="weeklyGoal" id="weeklyGoal">
+					<option value="1" selected={data.weeklyProgress.goal === 1}>1 Training</option>
+					<option value="2" selected={data.weeklyProgress.goal === 2}>2 Trainings</option>
+					<option value="3" selected={data.weeklyProgress.goal === 3}>3 Trainings</option>
+					<option value="4" selected={data.weeklyProgress.goal === 4}>4 Trainings</option>
+					<option value="5" selected={data.weeklyProgress.goal === 5}>5 Trainings</option>
+					<option value="6" selected={data.weeklyProgress.goal === 6}>6 Trainings</option>
+					<option value="7" selected={data.weeklyProgress.goal === 7}>7 Trainings</option>
+				</select>
+
+				<button type="submit">Speichern</button>
+			</form>
+		</div>
+
+		<div class="dashboard-card">
+			<span>Trainings-Streak</span>
+
+			<strong>{data.currentStreak} Tage</strong>
+
+			<small>Längste Serie: {data.longestStreak} Tage</small>
+		</div>
+
+		<div class="dashboard-card smart-hint-card">
+			<span>Intelligenter Hinweis</span>
+
+			<strong>GymSense Tipp</strong>
+
+			<p>{data.smartHint}</p>
+		</div>
+	</div>
+
 	<div class="content-grid">
 		<div class="profile-card">
 			<h2>Persönliche Rekorde</h2>
@@ -90,43 +215,79 @@
 	</div>
 
 	<div class="profile-card calendar-card">
-		<h2>Trainingskalender</h2>
-		<p class="calendar-info">🏋️ Trainingstage · 💤 Rest Days</p>
+		<div class="calendar-top">
+			<div>
+				<h2>Trainingskalender</h2>
+				<p class="calendar-info">🏋️ Trainingstage · 💤 Rest Days</p>
+			</div>
 
-		<div class="calendar">
-			{#each days as day}
-				{@const dateString = `2026-04-${String(day).padStart(2, '0')}`}
-				{@const entry = data.calendarEntries.find((item) => item.date === dateString)}
+			<div class="calendar-controls">
+				<button type="button" on:click={previousYear}>« Jahr</button>
+				<button type="button" on:click={previousMonth}>‹ Monat</button>
 
-				<div
-					class="day"
-					class:training={entry?.type === 'training'}
-					class:rest={entry?.type === 'rest'}
-					title={entry?.note ?? ''}
-				>
-					<span>{day}</span>
+				<strong class="calendar-title">
+					{monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+				</strong>
 
-					{#if entry?.type === 'training'}
-						<small>🏋️</small>
-					{:else if entry?.type === 'rest'}
-						<small>💤</small>
+				<button type="button" on:click={nextMonth}>Monat ›</button>
+				<button type="button" on:click={nextYear}>Jahr »</button>
+			</div>
+		</div>
+
+		<div
+			class="calendar-swipe"
+			on:touchstart={handleTouchStart}
+			on:touchend={handleTouchEnd}
+		>
+			<div class="weekdays">
+				{#each weekDays as weekDay}
+					<div>{weekDay}</div>
+				{/each}
+			</div>
+
+			<div class="calendar">
+				{#each calendarDays as day}
+					{#if day === null}
+						<div class="day empty-day"></div>
 					{:else}
-						<small>–</small>
+						{@const dateString = formatDateForDb(
+							currentDate.getFullYear(),
+							currentDate.getMonth(),
+							day
+						)}
+						{@const entry = data.calendarEntries.find((item) => item.date === dateString)}
+
+						<div
+							class="day"
+							class:training={entry?.type === 'training'}
+							class:rest={entry?.type === 'rest'}
+							title={entry?.note ?? ''}
+						>
+							<span>{day}</span>
+
+							{#if entry?.type === 'training'}
+								<small>🏋️</small>
+							{:else if entry?.type === 'rest'}
+								<small>💤</small>
+							{:else}
+								<small>–</small>
+							{/if}
+
+							<div class="day-actions">
+								<form method="POST" action="?/addTraining">
+									<input type="hidden" name="date" value={dateString} />
+									<button type="submit">🏋️</button>
+								</form>
+
+								<form method="POST" action="?/addRest">
+									<input type="hidden" name="date" value={dateString} />
+									<button type="submit">💤</button>
+								</form>
+							</div>
+						</div>
 					{/if}
-
-					<div class="day-actions">
-						<form method="POST" action="?/addTraining">
-							<input type="hidden" name="date" value={dateString} />
-							<button type="submit">🏋️</button>
-						</form>
-
-						<form method="POST" action="?/addRest">
-							<input type="hidden" name="date" value={dateString} />
-							<button type="submit">💤</button>
-						</form>
-					</div>
-				</div>
-			{/each}
+				{/each}
+			</div>
 		</div>
 	</div>
 </section>
@@ -193,6 +354,138 @@
 		border-bottom: 1px solid #f3dff3;
 	}
 
+	.dashboard-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 18px;
+		margin-bottom: 28px;
+	}
+
+	.dashboard-card {
+		background: white;
+		border-radius: 18px;
+		padding: 22px;
+		box-shadow: 0 8px 24px rgba(176, 110, 176, 0.16);
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.dashboard-card span {
+		color: #777;
+		font-size: 0.9rem;
+	}
+
+	.dashboard-card strong {
+		font-size: 1.4rem;
+		color: #b06eb0;
+	}
+
+	.dashboard-card small {
+		color: #555;
+	}
+
+	.progress-bar {
+		width: 100%;
+		height: 10px;
+		background: #f3dff3;
+		border-radius: 999px;
+		overflow: hidden;
+		margin-top: 6px;
+	}
+
+	.progress-fill {
+		height: 100%;
+		background: #b06eb0;
+		border-radius: 999px;
+	}
+
+	.smart-hint-card p {
+		margin-top: 4px;
+		line-height: 1.5;
+	}
+
+	.weekly-goal-form {
+		display: flex;
+		gap: 10px;
+		align-items: center;
+		flex-wrap: wrap;
+		margin-top: 12px;
+	}
+
+	.weekly-goal-form label {
+		font-weight: 700;
+		color: #b06eb0;
+	}
+
+	.weekly-goal-form select,
+	.weekly-goal-form button {
+		border: none;
+		border-radius: 10px;
+		padding: 8px 12px;
+		background: #f8f0f8;
+		color: #b06eb0;
+		font-weight: 700;
+		cursor: pointer;
+	}
+
+	.weekly-goal-form button:hover {
+		background: #fff0ff;
+	}
+
+	.calendar-top {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 18px;
+		margin-bottom: 18px;
+		flex-wrap: wrap;
+	}
+
+	.calendar-controls {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-wrap: wrap;
+	}
+
+	.calendar-controls button {
+		border: none;
+		background: #f8f0f8;
+		color: #b06eb0;
+		border-radius: 10px;
+		padding: 7px 10px;
+		font-weight: 700;
+		cursor: pointer;
+	}
+
+	.calendar-controls button:hover {
+		background: #fff0ff;
+	}
+
+	.calendar-title {
+		color: #b06eb0;
+		min-width: 160px;
+		text-align: center;
+	}
+
+	.calendar-swipe {
+		touch-action: pan-y;
+	}
+
+	.weekdays {
+		display: grid;
+		grid-template-columns: repeat(7, 1fr);
+		gap: 10px;
+		margin-bottom: 8px;
+	}
+
+	.weekdays div {
+		text-align: center;
+		font-weight: 700;
+		color: #b06eb0;
+	}
+
 	.calendar {
 		display: grid;
 		grid-template-columns: repeat(7, 1fr);
@@ -208,6 +501,12 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		border: 2px solid transparent;
+	}
+
+	.empty-day {
+		background: transparent;
+		pointer-events: none;
 	}
 
 	.day.training {
@@ -227,11 +526,164 @@
 		margin-top: 8px;
 	}
 
+	.day-actions form {
+		margin: 0;
+	}
+
 	.day-actions button {
 		border: none;
 		background: white;
 		border-radius: 8px;
 		padding: 4px 6px;
 		cursor: pointer;
+	}
+
+	.profile-menu {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 4px;
+	}
+
+	.theme-toggle {
+		border: none;
+		background: white;
+		color: #b06eb0;
+		border-radius: 999px;
+		padding: 5px 10px;
+		font-size: 0.75rem;
+		font-weight: 700;
+		cursor: pointer;
+	}
+
+	.theme-toggle:hover {
+		background: #fff0ff;
+	}
+
+	@media (max-width: 768px) {
+		.calendar-controls {
+			width: 100%;
+			justify-content: center;
+		}
+
+		.calendar-title {
+			width: 100%;
+			order: -1;
+		}
+
+		.calendar,
+		.weekdays {
+			gap: 6px;
+		}
+
+		.day {
+			min-height: 72px;
+			padding: 6px;
+			font-size: 0.85rem;
+		}
+	}
+
+	:global(body.dark-mode) {
+		background: linear-gradient(to bottom, #1f1a24, #121015);
+		color: #f5eaf5;
+	}
+
+	:global(body.dark-mode) .page-content {
+		background: transparent;
+	}
+
+	:global(body.dark-mode) .custom-navbar {
+		background: #2a2030;
+	}
+
+	:global(body.dark-mode) .footer {
+		background: #2a2030;
+	}
+
+	:global(body.dark-mode) .stat-card,
+	:global(body.dark-mode) .profile-card,
+	:global(body.dark-mode) .progress-card,
+	:global(body.dark-mode) .exercise-card,
+	:global(body.dark-mode) .empty {
+		background: #2c2432;
+		color: #f5eaf5;
+	}
+
+	:global(body.dark-mode) h1,
+	:global(body.dark-mode) h2 {
+		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) p,
+	:global(body.dark-mode) .label,
+	:global(body.dark-mode) .hints,
+	:global(body.dark-mode) .muscle {
+		color: #ddd;
+	}
+
+	:global(body.dark-mode) strong {
+		color: #ffffff;
+	}
+
+	:global(body.dark-mode) .difference {
+		background: #3a2a42;
+		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) .day {
+		background: #3a2a42;
+	}
+
+	:global(body.dark-mode) .day.training {
+		background: #23442c;
+		border-color: #71c783;
+	}
+
+	:global(body.dark-mode) .day.rest {
+		background: #4a2634;
+		border-color: #d990aa;
+	}
+
+	:global(body.dark-mode) .weekdays div,
+	:global(body.dark-mode) .calendar-title {
+		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) .calendar-controls button,
+	:global(body.dark-mode) .weekly-goal-form select,
+	:global(body.dark-mode) .weekly-goal-form button {
+		background: #3a2a42;
+		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) .weekly-goal-form label {
+		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) .empty-day {
+		background: transparent;
+	}
+
+	:global(body.dark-mode) .dashboard-card {
+		background: #2c2432;
+		color: #f5eaf5;
+	}
+
+	:global(body.dark-mode) .dashboard-card span,
+	:global(body.dark-mode) .dashboard-card small,
+	:global(body.dark-mode) .smart-hint-card p {
+		color: #ddd;
+	}
+
+	:global(body.dark-mode) .dashboard-card strong {
+		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) .progress-bar {
+		background: #3a2a42;
+	}
+
+	:global(body.dark-mode) .progress-fill {
+		background: #f7d1f8;
 	}
 </style>

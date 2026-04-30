@@ -5,10 +5,15 @@ if (!MONGODB_URI) {
 	throw new Error('MONGODB_URI fehlt');
 }
 
-const client = new MongoClient(MONGODB_URI);
-const clientPromise = client.connect();
+let client;
+let clientPromise;
 
 export async function getDb() {
+	if (!clientPromise) {
+		client = new MongoClient(MONGODB_URI);
+		clientPromise = client.connect();
+	}
+
 	const connectedClient = await clientPromise;
 	return connectedClient.db('gymsense');
 }

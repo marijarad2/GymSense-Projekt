@@ -1,84 +1,68 @@
-import { redirect } from '@sveltejs/kit';
-import { ObjectId } from 'mongodb';
-import { getDb } from '$lib/server/db';
+export const actions = {
+	addTraining: async ({ request, locals }) => {
+		const formData = await request.formData();
+		const date = formData.get('date')?.toString();
 
-export async function load({ locals }: { locals: App.Locals }) {
-	if (!locals.user) {
-		throw redirect(303, '/login');
-	}
+		if (!date) return;
 
-	const db = await getDb();
+		const db = await getDb();
 
-	const user = await db.collection('users').findOne(
-		{ _id: new ObjectId(locals.user.id) },
-		{ projection: { favoriteExercise: 1 } }
-	);
+		await db.collection('calendarEntries').updateOne(
+			{ userId: locals.user.id, date },
+			{
+				$set: {
+					userId: locals.user.id,
+					date,
+					type: 'training'
+				}
+			},
+			{ upsert: true }
+		);
 
-	const workouts = await db
-		.collection('workouts')
-		.find({ userId: locals.user.id })
-		.sort({ date: -1 })
-		.toArray();
+		return { success: true };
+	},
 
-const calendarEntriesRaw = await db
-	.collection('calendarEntries')
-	.find({ userId: locals.user.id })
-	.toArray();
+	addRest: async ({ request, locals }) => {
+		const formData = await request.formData();
+		const date = formData.get('date')?.toString();
 
-const calendarEntries = calendarEntriesRaw.map((entry) => ({
-	id: entry._id.toString(),
-	userId: entry.userId,
-	date: entry.date,
-	type: entry.type,
-	note: entry.note ?? ''
-}));
+		if (!date) return;
 
-	const totalWorkouts = workouts.length;
-	const lastWorkout = workouts[0] ?? null;
+		const db = await getDb();
 
-	const exerciseStats = new Map();
+		await db.collection('calendarEntries').updateOne(
+			{ userId: locals.user.id, date },
+			{
+				$set: {
+					userId: locals.user.id,
+					date,
+					type: 'rest'
+				}
+			},
+			{ upsert: true }
+		);
 
-	for (const workout of workouts) {
-		for (const exercise of workout.exercises ?? []) {
-			const current = exerciseStats.get(exercise.name) ?? {
-				name: exercise.name,
-				count: 0,
-				maxWeight: 0
-			};
+		return { success: true };
+	},
 
-			current.count += 1;
+	updateWeeklyGoal: async ({ request, locals }) => {
+		const formData = await request.formData();
+		const weeklyGoal = Number(formData.get('weeklyGoal'));
 
-			for (const set of exercise.sets ?? []) {
-				const weight = Number(set.weight);
+		if (!locals.user) return;
+		if (!weeklyGoal || weeklyGoal < 1 || weeklyGoal > 7) return;
 
-				if (!Number.isNaN(weight) && weight > current.maxWeight) {
-					current.maxWeight = weight;
+		const db = await getDb();
+
+		await db.collection('users').updateOne(
+			{ _id: new ObjectId(locals.user.id) },
+			{
+				$set: {
+					weeklyGoal
 				}
 			}
+		);
 
-			exerciseStats.set(exercise.name, current);
-		}
+		return { success: true };
 	}
-
-	const stats = [...exerciseStats.values()];
-
-	const mostUsedExercise = [...stats].sort((a, b) => b.count - a.count)[0] ?? null;
-	const favoriteExercise = user?.favoriteExercise ?? mostUsedExercise?.name ?? null;
-
-	const personalRecords = [...stats]
-		.filter((item) => item.maxWeight > 0)
-		.sort((a, b) => b.maxWeight - a.maxWeight)
-		.slice(0, 5);
-
-	const highestWeight = personalRecords[0] ?? null;
-
-	return {
-		user: locals.user,
-		totalWorkouts,
-		lastWorkoutDate: lastWorkout?.date ?? null,
-		favoriteExercise,
-		highestWeight,
-		personalRecords,
-		calendarEntries
-	};
-}
+};
