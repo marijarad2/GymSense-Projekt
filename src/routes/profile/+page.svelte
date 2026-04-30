@@ -1,6 +1,17 @@
 <script>
 	let { data } = $props();
 
+	const weeklyProgress = data.weeklyProgress ?? {
+		current: 0,
+		goal: 4,
+		percentage: 0
+	};
+
+	const currentStreak = data.currentStreak ?? 0;
+	const longestStreak = data.longestStreak ?? 0;
+	const smartHint =
+		data.smartHint ?? 'Starte dein erstes Training, damit GymSense dir Hinweise geben kann.';
+
 	let currentDate = $state(new Date());
 	let touchStartX = 0;
 
@@ -129,29 +140,29 @@
 			<span>Wochenziel</span>
 
 			<strong>
-				{data.weeklyProgress.current} / {data.weeklyProgress.goal} Trainings
+				{weeklyProgress.current} / {weeklyProgress.goal} Trainings
 			</strong>
 
 			<div class="progress-bar">
 				<div
 					class="progress-fill"
-					style={`width: ${data.weeklyProgress.percentage}%`}
+					style={`width: ${weeklyProgress.percentage}%`}
 				></div>
 			</div>
 
-			<small>{data.weeklyProgress.percentage}% erreicht</small>
+			<small>{weeklyProgress.percentage}% erreicht</small>
 
 			<form method="POST" action="?/updateWeeklyGoal" class="weekly-goal-form">
 				<label for="weeklyGoal">Ziel ändern</label>
 
 				<select name="weeklyGoal" id="weeklyGoal">
-					<option value="1" selected={data.weeklyProgress.goal === 1}>1 Training</option>
-					<option value="2" selected={data.weeklyProgress.goal === 2}>2 Trainings</option>
-					<option value="3" selected={data.weeklyProgress.goal === 3}>3 Trainings</option>
-					<option value="4" selected={data.weeklyProgress.goal === 4}>4 Trainings</option>
-					<option value="5" selected={data.weeklyProgress.goal === 5}>5 Trainings</option>
-					<option value="6" selected={data.weeklyProgress.goal === 6}>6 Trainings</option>
-					<option value="7" selected={data.weeklyProgress.goal === 7}>7 Trainings</option>
+					<option value="1" selected={weeklyProgress.goal === 1}>1 Training</option>
+					<option value="2" selected={weeklyProgress.goal === 2}>2 Trainings</option>
+					<option value="3" selected={weeklyProgress.goal === 3}>3 Trainings</option>
+					<option value="4" selected={weeklyProgress.goal === 4}>4 Trainings</option>
+					<option value="5" selected={weeklyProgress.goal === 5}>5 Trainings</option>
+					<option value="6" selected={weeklyProgress.goal === 6}>6 Trainings</option>
+					<option value="7" selected={weeklyProgress.goal === 7}>7 Trainings</option>
 				</select>
 
 				<button type="submit">Speichern</button>
@@ -160,18 +171,14 @@
 
 		<div class="dashboard-card">
 			<span>Trainings-Streak</span>
-
-			<strong>{data.currentStreak} Tage</strong>
-
-			<small>Längste Serie: {data.longestStreak} Tage</small>
+			<strong>{currentStreak} Tage</strong>
+			<small>Längste Serie: {longestStreak} Tage</small>
 		</div>
 
 		<div class="dashboard-card smart-hint-card">
 			<span>Intelligenter Hinweis</span>
-
 			<strong>GymSense Tipp</strong>
-
-			<p>{data.smartHint}</p>
+			<p>{smartHint}</p>
 		</div>
 	</div>
 
@@ -222,22 +229,24 @@
 			</div>
 
 			<div class="calendar-controls">
-				<button type="button" on:click={previousYear}>« Jahr</button>
-				<button type="button" on:click={previousMonth}>‹ Monat</button>
+				<button type="button" onclick={previousYear}>« Jahr</button>
+				<button type="button" onclick={previousMonth}>‹ Monat</button>
 
 				<strong class="calendar-title">
 					{monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
 				</strong>
 
-				<button type="button" on:click={nextMonth}>Monat ›</button>
-				<button type="button" on:click={nextYear}>Jahr »</button>
+				<button type="button" onclick={nextMonth}>Monat ›</button>
+				<button type="button" onclick={nextYear}>Jahr »</button>
 			</div>
 		</div>
 
 		<div
 			class="calendar-swipe"
-			on:touchstart={handleTouchStart}
-			on:touchend={handleTouchEnd}
+			role="region"
+			aria-label="Kalender Swipe Bereich"
+			ontouchstart={handleTouchStart}
+			ontouchend={handleTouchEnd}
 		>
 			<div class="weekdays">
 				{#each weekDays as weekDay}
@@ -299,7 +308,7 @@
 	}
 
 	.profile-header {
-		background: white;
+		background: linear-gradient(135deg, #ffffff, #fff4ff);
 		border-radius: 22px;
 		padding: 28px;
 		display: flex;
@@ -307,6 +316,11 @@
 		gap: 20px;
 		box-shadow: 0 8px 24px rgba(176, 110, 176, 0.18);
 		margin-bottom: 28px;
+		border: 1px solid rgba(176, 110, 176, 0.18);
+	}
+
+	.profile-header p {
+	color: #8a6b8a;
 	}
 
 	.avatar i {
@@ -538,28 +552,6 @@
 		cursor: pointer;
 	}
 
-	.profile-menu {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-		gap: 4px;
-	}
-
-	.theme-toggle {
-		border: none;
-		background: white;
-		color: #b06eb0;
-		border-radius: 999px;
-		padding: 5px 10px;
-		font-size: 0.75rem;
-		font-weight: 700;
-		cursor: pointer;
-	}
-
-	.theme-toggle:hover {
-		background: #fff0ff;
-	}
-
 	@media (max-width: 768px) {
 		.calendar-controls {
 			width: 100%;
@@ -588,23 +580,27 @@
 		color: #f5eaf5;
 	}
 
-	:global(body.dark-mode) .page-content {
-		background: transparent;
-	}
+	:global(body.dark-mode) .profile-header {
+	background: linear-gradient(135deg, #2c2432, #3a2a42);
+	border: 1px solid rgba(247, 209, 248, 0.18);
+	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+}
 
-	:global(body.dark-mode) .custom-navbar {
-		background: #2a2030;
-	}
+:global(body.dark-mode) .profile-header p {
+	color: #d8c2dc;
+}
 
-	:global(body.dark-mode) .footer {
-		background: #2a2030;
-	}
+:global(body.dark-mode) .avatar i {
+	color: #f7d1f8;
+}
+
+:global(body.dark-mode) .profile-header h1 {
+	color: #f4bdf5;
+}
 
 	:global(body.dark-mode) .stat-card,
 	:global(body.dark-mode) .profile-card,
-	:global(body.dark-mode) .progress-card,
-	:global(body.dark-mode) .exercise-card,
-	:global(body.dark-mode) .empty {
+	:global(body.dark-mode) .dashboard-card {
 		background: #2c2432;
 		color: #f5eaf5;
 	}
@@ -615,18 +611,15 @@
 	}
 
 	:global(body.dark-mode) p,
-	:global(body.dark-mode) .label,
 	:global(body.dark-mode) .hints,
-	:global(body.dark-mode) .muscle {
+	:global(body.dark-mode) .dashboard-card span,
+	:global(body.dark-mode) .dashboard-card small,
+	:global(body.dark-mode) .smart-hint-card p {
 		color: #ddd;
 	}
 
-	:global(body.dark-mode) strong {
-		color: #ffffff;
-	}
-
-	:global(body.dark-mode) .difference {
-		background: #3a2a42;
+	:global(body.dark-mode) strong,
+	:global(body.dark-mode) .dashboard-card strong {
 		color: #f7d1f8;
 	}
 
@@ -662,21 +655,6 @@
 
 	:global(body.dark-mode) .empty-day {
 		background: transparent;
-	}
-
-	:global(body.dark-mode) .dashboard-card {
-		background: #2c2432;
-		color: #f5eaf5;
-	}
-
-	:global(body.dark-mode) .dashboard-card span,
-	:global(body.dark-mode) .dashboard-card small,
-	:global(body.dark-mode) .smart-hint-card p {
-		color: #ddd;
-	}
-
-	:global(body.dark-mode) .dashboard-card strong {
-		color: #f7d1f8;
 	}
 
 	:global(body.dark-mode) .progress-bar {
