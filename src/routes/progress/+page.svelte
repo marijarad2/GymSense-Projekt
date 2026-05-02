@@ -239,4 +239,60 @@
 			opacity: 1;
 		}
 	}
+
+	:global(body.dark-mode) {
+		background: linear-gradient(to bottom, #1f1a24, #121015);
+		color: #f5eaf5;
+	}
+
+	:global(body.dark-mode) .progress-page {
+		color: #f5eaf5;
+	}
+
+	:global(body.dark-mode) .header h1,
+	:global(body.dark-mode) .progress-card h2 {
+		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) .header p,
+	:global(body.dark-mode) .empty p {
+		color: #ddd;
+	}
+
+	:global(body.dark-mode) .progress-card,
+	:global(body.dark-mode) .empty {
+		background: #2c2432;
+		color: #f5eaf5;
+		border: 1px solid rgba(247, 209, 248, 0.18);
+		box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+	}
+
+	:global(body.dark-mode) .label,
+	:global(body.dark-mode) small {
+		color: #d8c2dc;
+	}
+
+	:global(body.dark-mode) strong {
+		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) .difference {
+		background: #3a2a42;
+		color: #f7d1f8;
+		border: 1px solid rgba(247, 209, 248, 0.16);
+	}
+
+	:global(body.dark-mode) .history {
+		border-top: 1px solid rgba(247, 209, 248, 0.18);
+	}
+
+	:global(body.dark-mode) .bar {
+		background: #f7d1f8;
+	}
+
+	:global(body.dark-mode) .record-badge,
+	:global(body.dark-mode) .progress-toast {
+		background: #f7d1f8;
+		color: #2c2432;
+	}
 </style>

@@ -195,5 +195,52 @@
   margin-bottom: 16px;
   line-height: 1.6;
 }
+
+:global(body.dark-mode) {
+	background: linear-gradient(to bottom, #1f1a24, #121015);
+	color: #f5eaf5;
+}
+
+:global(body.dark-mode) .home-info,
+:global(body.dark-mode) .how-it-works,
+:global(body.dark-mode) .why {
+	color: #f5eaf5;
+}
+
+:global(body.dark-mode) .slogan,
+:global(body.dark-mode) .home-info h2,
+:global(body.dark-mode) .benefits h3,
+:global(body.dark-mode) .how-it-works h3,
+:global(body.dark-mode) .why h3 {
+	color: #f7d1f8;
+}
+
+:global(body.dark-mode) .home-info p,
+:global(body.dark-mode) .step p,
+:global(body.dark-mode) .why p {
+	color: #ddd;
+}
+
+:global(body.dark-mode) .benefits {
+	background: linear-gradient(135deg, #2c2432, #3a2a42);
+	border-top: 1px solid rgba(247, 209, 248, 0.12);
+	border-bottom: 1px solid rgba(247, 209, 248, 0.12);
+}
+
+:global(body.dark-mode) .benefit-item,
+:global(body.dark-mode) .step {
+	background: #2c2432;
+	color: #f5eaf5;
+	border: 1px solid rgba(247, 209, 248, 0.18);
+	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+}
+
+:global(body.dark-mode) .benefit-item {
+	color: #f7d1f8;
+}
+
+:global(body.dark-mode) .step h4 {
+	color: #f7d1f8;
+}
 </style>
 
