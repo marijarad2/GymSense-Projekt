@@ -62,7 +62,9 @@
 	}
 
     function getDirectionsUrl(course) {
-        const destination = `${course.lat},${course.lng}`;
+        const destination = course.address
+            ? `${course.address}, Schweiz`
+            : `${course.lat},${course.lng}`;
 
         if (userLocation) {
             const origin = `${userLocation.lat},${userLocation.lng}`;
