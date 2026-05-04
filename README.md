@@ -1,5 +1,9 @@
 # Projektdokumentation - GymSense
 
+<p align="center">
+  <img src="./src/lib/assets/Logo.png" alt="GymSense Logo" width="200"/>
+</p>
+
 ## Inhaltsverzeichnis
 
 1. [Ausgangslage](#1-ausgangslage)
