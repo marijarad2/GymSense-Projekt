@@ -61,13 +61,17 @@
 		);
 	}
 
-	function getDirectionsUrl(course) {
-		const destination = course.address
-			? course.address
-			: `${course.lat},${course.lng}`;
+    function getDirectionsUrl(course) {
+        const destination = `${course.lat},${course.lng}`;
 
-		return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
-	}
+        if (userLocation) {
+            const origin = `${userLocation.lat},${userLocation.lng}`;
+
+            return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&travelmode=walking`;
+        }
+
+        return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}&travelmode=walking`;
+    }
 
 	const filteredCourses = $derived.by(() => {
 		let courses = data.courses.filter((course) => {
