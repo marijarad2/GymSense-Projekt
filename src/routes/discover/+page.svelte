@@ -1,5 +1,6 @@
 <script>
-    import hero from '$lib/assets/istockphoto-1472027831-612x612.jpg';
+	import hero from '$lib/assets/istockphoto-1472027831-612x612.jpg';
+
 	let { data } = $props();
 
 	let selectedType = $state('Alle');
@@ -51,8 +52,7 @@
 			},
 			(error) => {
 				if (error.code === 1) {
-					locationError =
-						'Standortzugriff wurde blockiert. Bitte im Browser erlauben.';
+					locationError = 'Standortzugriff wurde blockiert. Bitte im Browser erlauben.';
 				} else {
 					locationError = 'Standort konnte nicht ermittelt werden.';
 				}
@@ -62,19 +62,21 @@
 		);
 	}
 
-    function getDirectionsUrl(course) {
-        const destination = course.address
-            ? `${course.address}, Schweiz`
-            : `${course.lat},${course.lng}`;
+	function getDirectionsUrl(course) {
+		const destination = course.address ? `${course.address}, Schweiz` : `${course.lat},${course.lng}`;
 
-        if (userLocation) {
-            const origin = `${userLocation.lat},${userLocation.lng}`;
+		if (userLocation) {
+			const origin = `${userLocation.lat},${userLocation.lng}`;
 
-            return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&travelmode=walking`;
-        }
+			return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
+				origin
+			)}&destination=${encodeURIComponent(destination)}&travelmode=walking`;
+		}
 
-        return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}&travelmode=walking`;
-    }
+		return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+			destination
+		)}&travelmode=walking`;
+	}
 
 	const filteredCourses = $derived.by(() => {
 		let courses = data.courses.filter((course) => {
@@ -104,16 +106,15 @@
 </script>
 
 <section class="courses-page">
+	<div class="hero">
+		<img src={hero} alt="Fitness Kurse" />
+		<div class="hero-overlay"></div>
 
-    <div class="hero">
-        <img src={hero} alt="Fitness Kurse" />
-        <div class="hero-overlay"></div>
-
-        <div class="hero-content">
-            <h1>Kurse in deiner Nähe</h1>
-            <p>Finde passende Fitnesskurse und starte direkt durch</p>
-        </div>
-    </div>
+		<div class="hero-content">
+			<h1>Kurse in deiner Nähe</h1>
+			<p>Finde passende Fitnesskurse und starte direkt durch</p>
+		</div>
+	</div>
 
 	<div class="tool-card">
 		<div>
@@ -134,15 +135,13 @@
 			{/if}
 		</div>
 
-		<button type="button" onclick={getLocation}>
-			Standort teilen
-		</button>
+		<button type="button" onclick={getLocation}>Standort teilen</button>
 	</div>
 
 	<div class="filter-box">
-		<label>Kursart filtern</label>
+		<label for="course-type">Kursart filtern</label>
 
-		<select bind:value={selectedType}>
+		<select id="course-type" bind:value={selectedType}>
 			{#each courseTypes as type}
 				<option value={type}>{type}</option>
 			{/each}
@@ -178,11 +177,11 @@
 				</div>
 
 				<div class="actions">
-					<a href={course.website} target="_blank">
+					<a href={course.website} target="_blank" rel="noreferrer">
 						Zur Anmeldung
 					</a>
 
-					<a href={getDirectionsUrl(course)} target="_blank" class="secondary">
+					<a href={getDirectionsUrl(course)} target="_blank" rel="noreferrer" class="secondary">
 						Route öffnen
 					</a>
 				</div>
@@ -191,27 +190,11 @@
 	</div>
 </section>
 
-
 <style>
 	.courses-page {
 		max-width: 1100px;
 		margin: 0 auto;
 		padding: 50px 24px;
-	}
-
-	.header {
-		text-align: center;
-		margin-bottom: 30px;
-	}
-
-	.header h1 {
-		color: #b06eb0;
-		font-weight: 700;
-		margin-bottom: 10px;
-	}
-
-	.header p {
-		color: #555;
 	}
 
 	.tool-card,
@@ -378,6 +361,48 @@
 		background: #fff0ff;
 	}
 
+	.hero {
+		position: relative;
+		height: 260px;
+		border-radius: 20px;
+		overflow: hidden;
+		margin-bottom: 30px;
+	}
+
+	.hero img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.5s ease;
+	}
+
+	.hero:hover img {
+		transform: scale(1.05);
+	}
+
+	.hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+	}
+
+	.hero-content {
+		position: absolute;
+		bottom: 20px;
+		left: 20px;
+		color: white;
+	}
+
+	.hero-content h1 {
+		margin: 0;
+		font-size: 2rem;
+	}
+
+	.hero-content p {
+		margin: 4px 0 0;
+		color: #eee;
+	}
+
 	@media (max-width: 700px) {
 		.tool-card {
 			align-items: stretch;
@@ -393,12 +418,10 @@
 		color: #f5eaf5;
 	}
 
-	:global(body.dark-mode) .header h1,
 	:global(body.dark-mode) .card-top h2 {
 		color: #f7d1f8;
 	}
 
-	:global(body.dark-mode) .header p,
 	:global(body.dark-mode) .card-top p,
 	:global(body.dark-mode) .description,
 	:global(body.dark-mode) .tool-card p,
@@ -450,52 +473,7 @@
 		border: 1px solid rgba(247, 209, 248, 0.16);
 	}
 
-    .hero {
-	position: relative;
-	height: 260px;
-	border-radius: 20px;
-	overflow: hidden;
-	margin-bottom: 30px;
-    }
-
-    .hero img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .hero-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
-    }
-
-    .hero-content {
-        position: absolute;
-        bottom: 20px;
-        left: 20px;
-        color: white;
-    }
-
-    .hero-content h1 {
-        margin: 0;
-        font-size: 2rem;
-    }
-
-    .hero-content p {
-        margin: 4px 0 0;
-        color: #eee;
-    }
-
-    .hero img {
-	transition: transform 0.5s ease;
-    }
-
-    .hero:hover img {
-        transform: scale(1.05);
-    }
-
-    :global(body.dark-mode) .hero-overlay {
-	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.85));
-    }
+	:global(body.dark-mode) .hero-overlay {
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.85));
+	}
 </style>
