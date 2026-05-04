@@ -55,6 +55,7 @@
 					<a class="nav-link" href="/plans">Trainingspläne</a>
 					<a class="nav-link" href="/training">Training</a>
 					<a class="nav-link" href="/progress">Fortschritt</a>
+					<a class="nav-link" href="/discover">Kursfinder</a>
 				{/if}
 			</div>
 

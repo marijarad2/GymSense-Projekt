@@ -1,0 +1,413 @@
+<script>
+	import { onMount } from 'svelte';
+
+	let { data } = $props();
+
+	let selectedType = $state('Alle');
+	let userLocation = $state(null);
+	let locationError = $state('');
+	let isLoadingLocation = $state(false);
+
+	const courseTypes = $derived.by(() => {
+		const types = data.courses.map((course) => course.type).filter(Boolean);
+		return ['Alle', ...new Set(types)];
+	});
+
+	function getDistanceKm(lat1, lng1, lat2, lng2) {
+		const earthRadiusKm = 6371;
+
+		const dLat = ((lat2 - lat1) * Math.PI) / 180;
+		const dLng = ((lng2 - lng1) * Math.PI) / 180;
+
+		const a =
+			Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+			Math.cos((lat1 * Math.PI) / 180) *
+				Math.cos((lat2 * Math.PI) / 180) *
+				Math.sin(dLng / 2) *
+				Math.sin(dLng / 2);
+
+		const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+		return earthRadiusKm * c;
+	}
+
+	function getLocation() {
+		locationError = '';
+		isLoadingLocation = true;
+
+		if (!navigator.geolocation) {
+			locationError = 'Dein Browser unterstützt keine Standortfreigabe.';
+			isLoadingLocation = false;
+			return;
+		}
+
+		navigator.geolocation.getCurrentPosition(
+			(position) => {
+				userLocation = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};
+
+				isLoadingLocation = false;
+			},
+			() => {
+				locationError = 'Standort konnte nicht ermittelt werden.';
+				isLoadingLocation = false;
+			}
+		);
+	}
+
+	onMount(() => {
+		getLocation();
+	});
+
+	const filteredCourses = $derived.by(() => {
+		let courses = data.courses.filter((course) => {
+			return selectedType === 'Alle' || course.type === selectedType;
+		});
+
+		courses = courses.map((course) => {
+			const distance =
+				userLocation && course.lat && course.lng
+					? getDistanceKm(userLocation.lat, userLocation.lng, course.lat, course.lng)
+					: null;
+
+			return {
+				...course,
+				distance
+			};
+		});
+
+		return courses.sort((a, b) => {
+			if (a.distance === null && b.distance === null) return 0;
+			if (a.distance === null) return 1;
+			if (b.distance === null) return -1;
+
+			return a.distance - b.distance;
+		});
+	});
+</script>
+
+<section class="courses-page">
+	<div class="header">
+		<h1>Kurse in deiner Nähe</h1>
+		<p>Finde passende Fitnesskurse und öffne direkt die Anmeldung oder Navigation.</p>
+	</div>
+
+	<div class="tool-card">
+		<div>
+			<span>Standort</span>
+
+			{#if userLocation}
+				<strong>Standort erkannt</strong>
+			{:else if isLoadingLocation}
+				<strong>Standort wird geladen...</strong>
+			{:else}
+				<strong>Kein Standort aktiv</strong>
+			{/if}
+
+			{#if locationError}
+				<p>{locationError}</p>
+			{/if}
+		</div>
+
+		<button type="button" onclick={getLocation}>
+			Standort neu laden
+		</button>
+	</div>
+
+	<div class="filter-box">
+		<label for="type">Kursart filtern</label>
+
+		<select id="type" bind:value={selectedType}>
+			{#each courseTypes as type}
+				<option value={type}>{type}</option>
+			{/each}
+		</select>
+	</div>
+
+	<div class="courses-grid">
+		{#each filteredCourses as course}
+			<article class="course-card">
+				<div class="card-top">
+					<div>
+						<h2>{course.name}</h2>
+						<p>{course.studio} · {course.city}</p>
+					</div>
+
+					<span class="badge">{course.type}</span>
+				</div>
+
+				<p class="description">{course.description}</p>
+
+				<div class="meta">
+					<span>{course.level}</span>
+
+					{#if course.distance !== null}
+						<span>{course.distance.toFixed(1)} km entfernt</span>
+					{:else}
+						<span>Entfernung unbekannt</span>
+					{/if}
+				</div>
+
+				<div class="actions">
+					<a href={course.website} target="_blank" rel="noreferrer">
+						Zur Anmeldung
+					</a>
+
+					<a
+						href={`https://www.google.com/maps/search/?api=1&query=${course.lat},${course.lng}`}
+						target="_blank"
+						rel="noreferrer"
+						class="secondary"
+					>
+						In Google Maps öffnen
+					</a>
+				</div>
+			</article>
+		{/each}
+	</div>
+</section>
+
+<style>
+	.courses-page {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 50px 24px;
+	}
+
+	.header {
+		text-align: center;
+		margin-bottom: 30px;
+	}
+
+	.header h1 {
+		color: #b06eb0;
+		font-weight: 700;
+		margin-bottom: 10px;
+	}
+
+	.header p {
+		color: #555;
+	}
+
+	.tool-card,
+	.filter-box,
+	.course-card {
+		background: white;
+		border-radius: 18px;
+		box-shadow: 0 8px 24px rgba(176, 110, 176, 0.16);
+		border: 1px solid rgba(176, 110, 176, 0.12);
+	}
+
+	.tool-card {
+		padding: 22px;
+		margin-bottom: 22px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 18px;
+		flex-wrap: wrap;
+	}
+
+	.tool-card span,
+	.filter-box label {
+		color: #b06eb0;
+		font-weight: 700;
+		display: block;
+		margin-bottom: 6px;
+	}
+
+	.tool-card strong {
+		color: #333;
+		font-size: 1.2rem;
+	}
+
+	.tool-card p {
+		margin: 8px 0 0;
+		color: #777;
+	}
+
+	.tool-card button {
+		border: none;
+		background: #b06eb0;
+		color: white;
+		font-weight: 700;
+		border-radius: 12px;
+		padding: 12px 16px;
+		cursor: pointer;
+	}
+
+	.tool-card button:hover {
+		background: #9a5a9a;
+	}
+
+	.filter-box {
+		padding: 18px;
+		margin-bottom: 26px;
+	}
+
+	.filter-box select {
+		width: 100%;
+		border: 1px solid #f0d6f0;
+		border-radius: 12px;
+		padding: 12px;
+		font-weight: 700;
+		background: white;
+		color: #333;
+	}
+
+	.courses-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 24px;
+	}
+
+	.course-card {
+		padding: 24px;
+	}
+
+	.card-top {
+		display: flex;
+		justify-content: space-between;
+		gap: 12px;
+		align-items: flex-start;
+		margin-bottom: 14px;
+	}
+
+	.card-top h2 {
+		color: #b06eb0;
+		margin: 0 0 6px;
+	}
+
+	.card-top p {
+		margin: 0;
+		color: #666;
+	}
+
+	.badge {
+		background: #b06eb0;
+		color: white;
+		border-radius: 999px;
+		padding: 6px 10px;
+		font-weight: 700;
+		font-size: 0.8rem;
+		white-space: nowrap;
+	}
+
+	.description {
+		color: #444;
+		line-height: 1.5;
+	}
+
+	.meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin: 18px 0;
+	}
+
+	.meta span {
+		background: #f8f0f8;
+		color: #b06eb0;
+		border-radius: 999px;
+		padding: 7px 10px;
+		font-weight: 700;
+		font-size: 0.85rem;
+	}
+
+	.actions {
+		display: flex;
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+
+	.actions a {
+		background: #b06eb0;
+		color: white;
+		text-decoration: none;
+		border-radius: 10px;
+		padding: 10px 12px;
+		font-weight: 700;
+	}
+
+	.actions a:hover {
+		background: #9a5a9a;
+	}
+
+	.actions a.secondary {
+		background: #f8f0f8;
+		color: #b06eb0;
+	}
+
+	.actions a.secondary:hover {
+		background: #fff0ff;
+	}
+
+	@media (max-width: 700px) {
+		.tool-card {
+			align-items: stretch;
+		}
+
+		.tool-card button {
+			width: 100%;
+		}
+	}
+
+	:global(body.dark-mode) {
+		background: linear-gradient(to bottom, #1f1a24, #121015);
+		color: #f5eaf5;
+	}
+
+	:global(body.dark-mode) .header h1,
+	:global(body.dark-mode) .card-top h2 {
+		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) .header p,
+	:global(body.dark-mode) .card-top p,
+	:global(body.dark-mode) .description,
+	:global(body.dark-mode) .tool-card p {
+		color: #ddd;
+	}
+
+	:global(body.dark-mode) .tool-card,
+	:global(body.dark-mode) .filter-box,
+	:global(body.dark-mode) .course-card {
+		background: #2c2432;
+		color: #f5eaf5;
+		border: 1px solid rgba(247, 209, 248, 0.18);
+		box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+	}
+
+	:global(body.dark-mode) .tool-card span,
+	:global(body.dark-mode) .filter-box label,
+	:global(body.dark-mode) .tool-card strong {
+		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) .filter-box select {
+		background: #3a2a42;
+		color: #f5eaf5;
+		border: 1px solid rgba(247, 209, 248, 0.25);
+	}
+
+	:global(body.dark-mode) .badge,
+	:global(body.dark-mode) .tool-card button,
+	:global(body.dark-mode) .actions a {
+		background: #f7d1f8;
+		color: #2c2432;
+	}
+
+	:global(body.dark-mode) .tool-card button:hover,
+	:global(body.dark-mode) .actions a:hover {
+		background: #e8b9ea;
+	}
+
+	:global(body.dark-mode) .meta span,
+	:global(body.dark-mode) .actions a.secondary {
+		background: #3a2a42;
+		color: #f7d1f8;
+		border: 1px solid rgba(247, 209, 248, 0.16);
+	}
+</style>
