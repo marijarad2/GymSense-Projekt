@@ -1,8 +1,12 @@
 <script>
+	import exercisesLight from '$lib/assets/exercises-light.png';
+	import exercisesDark from '$lib/assets/exercises-dark.png';
+
 	let { data, form } = $props();
 
 	let searchTerm = $state('');
 	let selectedMuscle = $state('Alle');
+	let isDarkMode = $state(false);
 
 	const muscleGroups = $derived.by(() => {
 		const muscles = data.exercises.map((exercise) => exercise.muscle).filter(Boolean);
@@ -21,10 +25,34 @@
 			return matchesSearch && matchesMuscle;
 		});
 	});
+
+	$effect(() => {
+		isDarkMode = document.body.classList.contains('dark-mode');
+
+		const observer = new MutationObserver(() => {
+			isDarkMode = document.body.classList.contains('dark-mode');
+		});
+
+		observer.observe(document.body, {
+			attributes: true,
+			attributeFilter: ['class']
+		});
+
+		return () => observer.disconnect();
+	});
 </script>
 
 <section class="exercises-page">
-	<h1>Übungen</h1>
+	<div class="hero">
+		<img src={isDarkMode ? exercisesDark : exercisesLight} alt="Fitness Übungen" />
+
+		<div class="hero-overlay"></div>
+
+		<div class="hero-content">
+			<h1>Übungen</h1>
+			<p>Finde passende Übungen für dein Training</p>
+		</div>
+	</div>
 
 	{#if form?.message}
 		<div class="success-message">{form.message}</div>
@@ -112,11 +140,64 @@
 		padding: 50px 24px;
 	}
 
-	h1 {
-		text-align: center;
-		color: #b06eb0;
-		margin-bottom: 32px;
-		font-weight: 700;
+	.hero {
+		position: relative;
+		height: 390px;
+		border-radius: 26px;
+		overflow: hidden;
+		margin-bottom: 34px;
+		background: transparent;
+	}
+
+	.hero {
+	background: #121015;
+	}
+
+	.hero img {
+		display: block;
+		width: 100%;
+		height: calc(100% + 14px);
+		object-fit: cover;
+		object-position: center;
+		transform: translateY(-7px);
+		transition: transform 0.5s ease;
+	}
+
+	.hero:hover img {
+		transform: translateY(-4px) scale(1.03);
+	}
+
+	.hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0),
+			rgba(0, 0, 0, 0.6)
+		);
+		pointer-events: none;
+	}
+
+	.hero-content {
+		position: absolute;
+		bottom: 28px;
+		left: 32px;
+		z-index: 2;
+		color: white;
+		text-shadow: 0 3px 14px rgba(0, 0, 0, 0.28);
+	}
+
+	.hero-content h1 {
+		margin: 0;
+		font-size: 2.4rem;
+		font-weight: 800;
+	}
+
+	.hero-content p {
+		margin: 6px 0 0;
+		color: #fff;
+		font-weight: 600;
+		font-size: 1rem;
 	}
 
 	.success-message,
@@ -151,10 +232,10 @@
 		border: 1px solid #f0d6f0;
 		background: white;
 		color: #333;
-		padding: 13px 14px;
-		border-radius: 12px;
+		padding: 14px 15px;
+		border-radius: 14px;
 		font-weight: 600;
-		box-shadow: 0 6px 18px rgba(176, 110, 176, 0.12);
+		box-shadow: 0 8px 22px rgba(176, 110, 176, 0.14);
 	}
 
 	.filter-box input:focus,
@@ -186,10 +267,18 @@
 
 	.exercise-card {
 		background: white;
-		border-radius: 18px;
+		border-radius: 20px;
 		padding: 24px;
-		box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+		box-shadow: 0 8px 24px rgba(176, 110, 176, 0.14);
 		border: 1px solid rgba(176, 110, 176, 0.12);
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease;
+	}
+
+	.exercise-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 12px 30px rgba(176, 110, 176, 0.22);
 	}
 
 	.card-header {
@@ -236,13 +325,17 @@
 		background: #b06eb0;
 		color: white;
 		padding: 10px 14px;
-		border-radius: 10px;
+		border-radius: 12px;
 		font-weight: 700;
 		cursor: pointer;
+		transition:
+			background 0.2s ease,
+			transform 0.2s ease;
 	}
 
 	.favorite-btn:hover {
 		background: #9a5a9a;
+		transform: translateY(-2px);
 	}
 
 	ul {
@@ -262,6 +355,23 @@
 	}
 
 	@media (max-width: 700px) {
+		.exercises-page {
+			padding: 32px 16px;
+		}
+
+		.hero {
+			border: none;
+			outline: none;
+		}
+		.hero-content {
+			left: 20px;
+			bottom: 20px;
+		}
+
+		.hero-content h1 {
+			font-size: 2rem;
+		}
+
 		.filter-box {
 			grid-template-columns: 1fr;
 		}
@@ -270,6 +380,23 @@
 	:global(body.dark-mode) {
 		background: linear-gradient(to bottom, #1f1a24, #121015);
 		color: #f5eaf5;
+	}
+
+	:global(body.dark-mode) .hero {
+		background: #121015;
+		border: none;
+		box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+	}
+
+	:global(body.dark-mode) .hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0),
+			rgba(18, 16, 21, 0.45)
+		);
+		pointer-events: none;
 	}
 
 	:global(body.dark-mode) h1,
@@ -284,6 +411,10 @@
 		color: #f5eaf5;
 		border: 1px solid rgba(247, 209, 248, 0.18);
 		box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+	}
+
+	:global(body.dark-mode) .exercise-card:hover {
+		box-shadow: 0 14px 34px rgba(0, 0, 0, 0.38);
 	}
 
 	:global(body.dark-mode) .description,

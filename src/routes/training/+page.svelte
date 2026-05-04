@@ -1,5 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
+	import trainingLight from '$lib/assets/training-light.png';
+	import trainingDark from '$lib/assets/training-dark.png';
 
 	let { data, form } = $props();
 
@@ -8,12 +10,26 @@
 	let activePlan = $state(null);
 	let loadingPlan = $state(false);
 	let planMessage = $state('');
+	let isDarkMode = $state(false);
 
 	onMount(async () => {
+		isDarkMode = document.body.classList.contains('dark-mode');
+
+		const observer = new MutationObserver(() => {
+			isDarkMode = document.body.classList.contains('dark-mode');
+		});
+
+		observer.observe(document.body, {
+			attributes: true,
+			attributeFilter: ['class']
+		});
+
 		const url = new URL(window.location.href);
 		const planId = url.searchParams.get('plan');
 
-		if (!planId) return;
+		if (!planId) {
+			return () => observer.disconnect();
+		}
 
 		loadingPlan = true;
 
@@ -54,6 +70,8 @@
 		} finally {
 			loadingPlan = false;
 		}
+
+		return () => observer.disconnect();
 	});
 
 	function addExercise() {
@@ -115,8 +133,16 @@
 </script>
 
 <section class="training-page">
-	<h1>Training erfassen</h1>
-	<p>Wähle Übungen aus und speichere dein Training.</p>
+	<div class="hero">
+		<img src={isDarkMode ? trainingDark : trainingLight} alt="Training erfassen" />
+
+		<div class="hero-overlay"></div>
+
+		<div class="hero-content">
+			<h1>Training erfassen</h1>
+			<p>Wähle Übungen aus und speichere dein Training</p>
+		</div>
+	</div>
 
 	{#if form?.error}
 		<div class="error-message">{form.error}</div>
@@ -238,15 +264,66 @@
 
 <style>
 	.training-page {
-		max-width: 900px;
+		max-width: 1000px;
 		margin: 0 auto;
 		padding: 40px 24px;
 	}
 
-	h1 {
-		color: #b06eb0;
-		font-weight: 700;
-		margin-bottom: 8px;
+	.hero {
+		position: relative;
+		height: 390px;
+		border-radius: 26px;
+		overflow: hidden;
+		margin-bottom: 34px;
+		background: #fff0ff;
+		box-shadow: 0 12px 32px rgba(176, 110, 176, 0.24);
+	}
+
+	.hero img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		transition: transform 0.5s ease;
+	}
+
+	.hero:hover img {
+		transform: scale(1.03);
+	}
+
+	.hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to bottom,
+			rgba(255, 240, 255, 0),
+			rgba(176, 110, 176, 0.3)
+		);
+		pointer-events: none;
+	}
+
+	.hero-content {
+		position: absolute;
+		bottom: 28px;
+		left: 32px;
+		z-index: 2;
+		color: white;
+		text-shadow: 0 3px 14px rgba(0, 0, 0, 0.45);
+	}
+
+	.hero-content h1 {
+		margin: 0;
+		font-size: 2.4rem;
+		font-weight: 800;
+		color: white;
+	}
+
+	.hero-content p {
+		margin: 6px 0 0;
+		color: white;
+		font-weight: 600;
+		font-size: 1rem;
 	}
 
 	p {
@@ -263,10 +340,11 @@
 	.form-control {
 		width: 100%;
 		border: 1px solid #f0d6f0;
-		border-radius: 10px;
-		padding: 10px 12px;
+		border-radius: 12px;
+		padding: 11px 13px;
 		background: white;
 		color: #333;
+		box-shadow: 0 6px 18px rgba(176, 110, 176, 0.1);
 	}
 
 	.add-btn,
@@ -275,25 +353,37 @@
 		background: #b06eb0;
 		color: white;
 		font-weight: 700;
-		border-radius: 8px;
+		border-radius: 10px;
 		border: none;
 		padding: 10px 14px;
 		cursor: pointer;
+		transition:
+			background 0.2s ease,
+			transform 0.2s ease;
 	}
 
 	.add-btn:hover,
 	.save-btn:hover,
 	.small-btn:hover {
 		background: #9a5a9a;
+		transform: translateY(-2px);
 	}
 
 	.exercise-card {
 		background: white;
 		padding: 24px;
-		border-radius: 18px;
+		border-radius: 20px;
 		margin-bottom: 20px;
 		box-shadow: 0 8px 24px rgba(176, 110, 176, 0.18);
 		border: 1px solid rgba(176, 110, 176, 0.12);
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease;
+	}
+
+	.exercise-card:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 12px 30px rgba(176, 110, 176, 0.24);
 	}
 
 	.card-header {
@@ -348,6 +438,7 @@
 	.save-btn:disabled {
 		opacity: 0.5;
 		cursor: not-allowed;
+		transform: none;
 	}
 
 	.plan-info,
@@ -372,7 +463,7 @@
 	.summary-card {
 		background: white;
 		padding: 22px;
-		border-radius: 18px;
+		border-radius: 20px;
 		box-shadow: 0 8px 24px rgba(176, 110, 176, 0.18);
 		margin: 20px 0;
 		border: 1px solid rgba(176, 110, 176, 0.12);
@@ -412,6 +503,24 @@
 	}
 
 	@media (max-width: 700px) {
+		.training-page {
+			padding: 32px 16px;
+		}
+
+		.hero {
+			height: 260px;
+			border-radius: 20px;
+		}
+
+		.hero-content {
+			left: 20px;
+			bottom: 20px;
+		}
+
+		.hero-content h1 {
+			font-size: 2rem;
+		}
+
 		.add-box,
 		.set-row {
 			grid-template-columns: 1fr;
@@ -428,7 +537,29 @@
 		color: #f5eaf5;
 	}
 
-	:global(body.dark-mode) h1,
+	:global(body.dark-mode) .hero {
+		background: #121015;
+		border: none;
+		box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+	}
+
+	:global(body.dark-mode) .hero img {
+		height: calc(100% + 14px);
+		transform: translateY(-7px);
+	}
+
+	:global(body.dark-mode) .hero:hover img {
+		transform: translateY(-7px) scale(1.03);
+	}
+
+	:global(body.dark-mode) .hero-overlay {
+		background: linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0),
+			rgba(18, 16, 21, 0.55)
+		);
+	}
+
 	:global(body.dark-mode) .active-plan-card h2,
 	:global(body.dark-mode) .summary-card h2 {
 		color: #f7d1f8;
@@ -448,6 +579,10 @@
 		box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
 	}
 
+	:global(body.dark-mode) .exercise-card:hover {
+		box-shadow: 0 14px 34px rgba(0, 0, 0, 0.38);
+	}
+
 	:global(body.dark-mode) .card-header h2,
 	:global(body.dark-mode) .summary-grid strong {
 		color: #f7d1f8;
@@ -458,6 +593,7 @@
 		background: #3a2a42;
 		color: #f5eaf5;
 		border: 1px solid rgba(247, 209, 248, 0.25);
+		box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
 	}
 
 	:global(body.dark-mode) .form-control::placeholder {

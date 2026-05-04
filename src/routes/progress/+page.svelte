@@ -1,7 +1,13 @@
 <script>
+	import progressLight from '$lib/assets/progress-light.png';
+	import progressDark from '$lib/assets/progress-dark.png';
+
 	let { data } = $props();
 
 	const progressItems = data.progressItems ?? [];
+
+	let isDarkMode = $state(false);
+	let showToast = $state(false);
 
 	function formatDifference(diff) {
 		if (diff > 0) return `+${diff} kg seit dem letzten Training`;
@@ -19,7 +25,20 @@
 		return 30 + ((entry.weight - min) / (max - min)) * 70;
 	}
 
-	let showToast = $state(false);
+	$effect(() => {
+		isDarkMode = document.body.classList.contains('dark-mode');
+
+		const observer = new MutationObserver(() => {
+			isDarkMode = document.body.classList.contains('dark-mode');
+		});
+
+		observer.observe(document.body, {
+			attributes: true,
+			attributeFilter: ['class']
+		});
+
+		return () => observer.disconnect();
+	});
 
 	$effect(() => {
 		if (progressItems.some((item) => item.difference > 0)) {
@@ -35,6 +54,17 @@
 </script>
 
 <section class="progress-page">
+	<div class="hero">
+		<img src={isDarkMode ? progressDark : progressLight} alt="Fitness Fortschritt" />
+
+		<div class="hero-overlay"></div>
+
+		<div class="hero-content">
+			<h1>Dein Fortschritt</h1>
+			<p>Sieh, wie du dich von Training zu Training verbesserst</p>
+		</div>
+	</div>
+
 	<div class="header">
 		<h1>Dein Fortschritt</h1>
 		<p>Hier siehst du deine Entwicklung pro Übung.</p>
@@ -105,6 +135,73 @@
 	.progress-page {
 		max-width: 1100px;
 		margin: 0 auto;
+	}
+
+	.hero {
+		position: relative;
+		height: 420px;
+		border-radius: 24px;
+		overflow: hidden;
+		margin-bottom: 36px;
+		background: #fff0ff;
+		box-shadow: 0 10px 28px rgba(176, 110, 176, 0.22);
+	}
+
+	.hero img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		object-position: center;
+		transition: transform 0.5s ease;
+	}
+
+	.hero:hover img {
+		transform: scale(1.03);
+	}
+
+	.hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to bottom,
+			rgba(255, 240, 255, 0),
+			rgba(176, 110, 176, 0.18)
+		);
+		pointer-events: none;
+	}
+
+	.hero-content {
+		position: absolute;
+		bottom: 28px;
+		left: 32px;
+		color: white;
+		z-index: 2;
+		text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+	}
+
+	.hero-content h1 {
+		margin: 0;
+		font-size: 2.2rem;
+	}
+
+	.hero-content p {
+		margin: 6px 0 0;
+		color: #fff;
+		font-weight: 500;
+	}
+
+	:global(body.dark-mode) .hero {
+		background: #121015;
+		box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+		border: 1px solid rgba(247, 209, 248, 0.18);
+	}
+
+	:global(body.dark-mode) .hero-overlay {
+		background: linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0),
+			rgba(18, 16, 21, 0.35)
+		);
 	}
 
 	.header {
@@ -196,6 +293,12 @@
 		overflow: hidden;
 	}
 
+	.hero-content h1 {
+		margin: 0;
+		font-size: 2.4rem;
+		font-weight: 800;
+	}
+
 	.bar-wrapper {
 		display: flex;
 		flex-direction: column;
@@ -247,6 +350,19 @@
 
 	:global(body.dark-mode) .progress-page {
 		color: #f5eaf5;
+	}
+
+	:global(body.dark-mode) .hero {
+		box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+		border: 1px solid rgba(247, 209, 248, 0.18);
+	}
+
+	:global(body.dark-mode) .hero-overlay {
+		background: linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0.15),
+			rgba(18, 16, 21, 0.75)
+		);
 	}
 
 	:global(body.dark-mode) .header h1,

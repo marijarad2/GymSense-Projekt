@@ -1,11 +1,37 @@
 <script>
+	import plansLight from '$lib/assets/plans-light.png';
+	import plansDark from '$lib/assets/plans-dark.png';
+
 	let { data } = $props();
+
+	let isDarkMode = $state(false);
+
+	$effect(() => {
+		isDarkMode = document.body.classList.contains('dark-mode');
+
+		const observer = new MutationObserver(() => {
+			isDarkMode = document.body.classList.contains('dark-mode');
+		});
+
+		observer.observe(document.body, {
+			attributes: true,
+			attributeFilter: ['class']
+		});
+
+		return () => observer.disconnect();
+	});
 </script>
 
 <section class="plans-page">
-	<div class="header">
-		<h1>Trainingspläne</h1>
-		<p>Wähle einen Plan aus und starte direkt dein Training.</p>
+	<div class="hero">
+		<img src={isDarkMode ? plansDark : plansLight} alt="Trainingspläne" />
+
+		<div class="hero-overlay"></div>
+
+		<div class="hero-content">
+			<h1>Trainingspläne</h1>
+			<p>Wähle einen Plan aus und starte direkt dein Training</p>
+		</div>
 	</div>
 
 	<div class="recommendation-card">
@@ -60,18 +86,60 @@
 		padding: 40px 24px;
 	}
 
-	.header {
-		text-align: center;
-		margin-bottom: 32px;
+	.hero {
+		position: relative;
+		height: 390px;
+		border-radius: 26px;
+		overflow: hidden;
+		margin-bottom: 34px;
+		background: #fff0ff;
+		box-shadow: 0 12px 32px rgba(176, 110, 176, 0.24);
 	}
 
-	h1 {
-		color: #b06eb0;
-		font-weight: 700;
+	.hero img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		transition: transform 0.5s ease;
 	}
 
-	.header p {
-		color: #666;
+	.hero:hover img {
+		transform: scale(1.03);
+	}
+
+	.hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to bottom,
+			rgba(255, 240, 255, 0),
+			rgba(176, 110, 176, 0.25)
+		);
+		pointer-events: none;
+	}
+
+	.hero-content {
+		position: absolute;
+		bottom: 28px;
+		left: 32px;
+		z-index: 2;
+		color: white;
+		text-shadow: 0 3px 14px rgba(0, 0, 0, 0.35);
+	}
+
+	.hero-content h1 {
+		margin: 0;
+		font-size: 2.4rem;
+		font-weight: 800;
+	}
+
+	.hero-content p {
+		margin: 6px 0 0;
+		color: #fff;
+		font-weight: 600;
+		font-size: 1rem;
 	}
 
 	.recommendation-card {
@@ -101,10 +169,19 @@
 
 	.plan-card {
 		background: white;
-		border-radius: 18px;
+		border-radius: 20px;
 		padding: 24px;
 		box-shadow: 0 8px 24px rgba(176, 110, 176, 0.16);
 		border: 2px solid transparent;
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease,
+			border-color 0.25s ease;
+	}
+
+	.plan-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 12px 30px rgba(176, 110, 176, 0.24);
 	}
 
 	.plan-card.recommended {
@@ -174,6 +251,10 @@
 		gap: 4px;
 	}
 
+	li strong {
+		color: #222;
+	}
+
 	li span {
 		color: #777;
 		font-size: 0.9rem;
@@ -185,13 +266,65 @@
 		background: #b06eb0;
 		color: white;
 		padding: 12px 16px;
-		border-radius: 10px;
+		border-radius: 12px;
 		text-decoration: none;
 		font-weight: 700;
+		transition:
+			background 0.2s ease,
+			transform 0.2s ease;
 	}
 
 	.start-btn:hover {
 		background: #9a5a9a;
+		transform: translateY(-2px);
+	}
+
+	@media (max-width: 700px) {
+		.plans-page {
+			padding: 32px 16px;
+		}
+
+		.hero {
+			height: 260px;
+			border-radius: 20px;
+		}
+
+		.hero-content {
+			left: 20px;
+			bottom: 20px;
+		}
+
+		.hero-content h1 {
+			font-size: 2rem;
+		}
+	}
+
+	:global(body.dark-mode) {
+		background: linear-gradient(to bottom, #1f1a24, #121015);
+		color: #f5eaf5;
+	}
+
+	:global(body.dark-mode) .hero {
+		background: #121015;
+		border: none;
+		box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+	}
+
+	:global(body.dark-mode) .hero img {
+		height: calc(100% + 14px);
+		transform: translateY(-7px);
+	}
+
+	:global(body.dark-mode) .hero:hover img {
+		transform: translateY(-7px) scale(1.03);
+	}
+
+	:global(body.dark-mode) .hero-overlay {
+		background: linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0),
+			rgba(18, 16, 21, 0.55)
+		);
 	}
 
 	:global(body.dark-mode) .plan-card,
@@ -199,10 +332,27 @@
 		background: #2c2432;
 		color: #f5eaf5;
 		border-color: rgba(247, 209, 248, 0.18);
+		box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+	}
+
+	:global(body.dark-mode) .plan-card:hover {
+		box-shadow: 0 14px 34px rgba(0, 0, 0, 0.38);
+	}
+
+	:global(body.dark-mode) .plan-card.recommended {
+		border-color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) .recommendation-card {
+		background: linear-gradient(135deg, #3a2a42, #2c2432);
 	}
 
 	:global(body.dark-mode) .recommendation-card h2,
 	:global(body.dark-mode) .plan-top h2 {
+		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) .recommendation-card span {
 		color: #f7d1f8;
 	}
 
@@ -212,8 +362,26 @@
 		color: #ddd;
 	}
 
+	:global(body.dark-mode) li {
+		border-bottom: 1px solid rgba(247, 209, 248, 0.18);
+	}
+
+	:global(body.dark-mode) li strong {
+		color: #f5eaf5;
+	}
+
 	:global(body.dark-mode) .meta span {
 		background: #3a2a42;
 		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) .badge,
+	:global(body.dark-mode) .start-btn {
+		background: #f7d1f8;
+		color: #2c2432;
+	}
+
+	:global(body.dark-mode) .start-btn:hover {
+		background: #e8b9ea;
 	}
 </style>
