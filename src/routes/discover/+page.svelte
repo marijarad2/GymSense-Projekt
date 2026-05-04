@@ -1,6 +1,4 @@
 <script>
-	import { onMount } from 'svelte';
-
 	let { data } = $props();
 
 	let selectedType = $state('Alle');
@@ -36,7 +34,7 @@
 		isLoadingLocation = true;
 
 		if (!navigator.geolocation) {
-			locationError = 'Dein Browser unterstützt keine Standortfreigabe.';
+			locationError = 'Dein Browser unterstützt keinen Standort.';
 			isLoadingLocation = false;
 			return;
 		}
@@ -50,16 +48,26 @@
 
 				isLoadingLocation = false;
 			},
-			() => {
-				locationError = 'Standort konnte nicht ermittelt werden.';
+			(error) => {
+				if (error.code === 1) {
+					locationError =
+						'Standortzugriff wurde blockiert. Bitte im Browser erlauben.';
+				} else {
+					locationError = 'Standort konnte nicht ermittelt werden.';
+				}
+
 				isLoadingLocation = false;
 			}
 		);
 	}
 
-	onMount(() => {
-		getLocation();
-	});
+	function getDirectionsUrl(course) {
+		const destination = course.address
+			? course.address
+			: `${course.lat},${course.lng}`;
+
+		return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
+	}
 
 	const filteredCourses = $derived.by(() => {
 		let courses = data.courses.filter((course) => {
@@ -91,7 +99,7 @@
 <section class="courses-page">
 	<div class="header">
 		<h1>Kurse in deiner Nähe</h1>
-		<p>Finde passende Fitnesskurse und öffne direkt die Anmeldung oder Navigation.</p>
+		<p>Finde passende Fitnesskurse und öffne direkt Anmeldung oder Navigation.</p>
 	</div>
 
 	<div class="tool-card">
@@ -106,20 +114,22 @@
 				<strong>Kein Standort aktiv</strong>
 			{/if}
 
+			<p>Dein Standort wird nur für die Distanzberechnung verwendet.</p>
+
 			{#if locationError}
-				<p>{locationError}</p>
+				<p class="location-error">{locationError}</p>
 			{/if}
 		</div>
 
 		<button type="button" onclick={getLocation}>
-			Standort neu laden
+			Standort teilen
 		</button>
 	</div>
 
 	<div class="filter-box">
-		<label for="type">Kursart filtern</label>
+		<label>Kursart filtern</label>
 
-		<select id="type" bind:value={selectedType}>
+		<select bind:value={selectedType}>
 			{#each courseTypes as type}
 				<option value={type}>{type}</option>
 			{/each}
@@ -138,6 +148,10 @@
 					<span class="badge">{course.type}</span>
 				</div>
 
+				{#if course.address}
+					<p class="address">{course.address}</p>
+				{/if}
+
 				<p class="description">{course.description}</p>
 
 				<div class="meta">
@@ -151,17 +165,12 @@
 				</div>
 
 				<div class="actions">
-					<a href={course.website} target="_blank" rel="noreferrer">
+					<a href={course.website} target="_blank">
 						Zur Anmeldung
 					</a>
 
-					<a
-						href={`https://www.google.com/maps/search/?api=1&query=${course.lat},${course.lng}`}
-						target="_blank"
-						rel="noreferrer"
-						class="secondary"
-					>
-						In Google Maps öffnen
+					<a href={getDirectionsUrl(course)} target="_blank" class="secondary">
+						Route öffnen
 					</a>
 				</div>
 			</article>
@@ -226,6 +235,11 @@
 	.tool-card p {
 		margin: 8px 0 0;
 		color: #777;
+	}
+
+	.location-error {
+		color: #b00020 !important;
+		font-weight: 700;
 	}
 
 	.tool-card button {
@@ -293,6 +307,12 @@
 		font-weight: 700;
 		font-size: 0.8rem;
 		white-space: nowrap;
+	}
+
+	.address {
+		color: #777;
+		font-weight: 700;
+		margin-bottom: 10px;
 	}
 
 	.description {
@@ -367,8 +387,13 @@
 	:global(body.dark-mode) .header p,
 	:global(body.dark-mode) .card-top p,
 	:global(body.dark-mode) .description,
-	:global(body.dark-mode) .tool-card p {
+	:global(body.dark-mode) .tool-card p,
+	:global(body.dark-mode) .address {
 		color: #ddd;
+	}
+
+	:global(body.dark-mode) .location-error {
+		color: #ffb3c7 !important;
 	}
 
 	:global(body.dark-mode) .tool-card,
