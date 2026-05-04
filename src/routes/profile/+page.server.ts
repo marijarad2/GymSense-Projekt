@@ -95,16 +95,16 @@ export async function load({ locals }: { locals: App.Locals }) {
 	const weeklyGoal = user?.weeklyGoal ?? 4;
 	const startOfWeek = getStartOfWeek(today);
 
-const workoutDaysThisWeek = new Set(
-	workouts
-		.filter((workout) => {
-			const workoutDate = new Date(workout.date);
-			return workoutDate >= startOfWeek && workoutDate <= today;
-		})
-		.map((workout) => toDateOnly(new Date(workout.date)))
-);
+	const workoutDaysThisWeek = new Set(
+		workouts
+			.filter((workout) => {
+				const workoutDate = new Date(workout.date);
+				return workoutDate >= startOfWeek && workoutDate <= today;
+			})
+			.map((workout) => toDateOnly(new Date(workout.date)))
+	);
 
-const workoutsThisWeek = workoutDaysThisWeek.size;
+	const workoutsThisWeek = workoutDaysThisWeek.size;
 
 	const weeklyProgress = {
 		current: workoutsThisWeek,
@@ -165,14 +165,13 @@ const workoutsThisWeek = workoutDaysThisWeek.size;
 
 	if (totalWorkouts > 0) {
 		if (daysSinceLastTraining !== null && daysSinceLastTraining >= 5) {
-			smartHint = `Du hast seit ${daysSinceLastTraining} Tagen kein Training eingetragen. Ein leichtes Training wäre sinnvoll.`;
+			smartHint = `Du hast seit ${daysSinceLastTraining} Tagen kein Training eingetragen.`;
 		} else if (workoutsThisWeek >= weeklyGoal) {
-			smartHint = 'Du hast dein Wochenziel erreicht. Plane genug Erholung ein.';
+			smartHint = 'Du hast dein Wochenziel erreicht.';
 		} else if (workoutsThisWeek === 0) {
-			smartHint =
-				'Diese Woche wurde noch kein Training eingetragen. Starte mit einer kurzen Einheit.';
+			smartHint = 'Diese Woche noch kein Training.';
 		} else {
-			smartHint = `Du bist gut unterwegs: ${workoutsThisWeek} von ${weeklyGoal} Trainings diese Woche geschafft.`;
+			smartHint = `${workoutsThisWeek} von ${weeklyGoal} Trainings geschafft.`;
 		}
 	}
 
@@ -238,6 +237,30 @@ export const actions = {
 		return { success: true };
 	},
 
+	addCourse: async ({ request, locals }) => {
+		const formData = await request.formData();
+		const date = formData.get('date')?.toString();
+
+		if (!date || !locals.user) return;
+
+		const db = await getDb();
+
+		await db.collection('calendarEntries').updateOne(
+			{ userId: locals.user.id, date },
+			{
+				$set: {
+					userId: locals.user.id,
+					date,
+					type: 'course',
+					note: 'Gebuchter Kurs'
+				}
+			},
+			{ upsert: true }
+		);
+
+		return { success: true };
+	},
+
 	updateWeeklyGoal: async ({ request, locals }) => {
 		const formData = await request.formData();
 		const weeklyGoal = Number(formData.get('weeklyGoal'));
@@ -250,9 +273,7 @@ export const actions = {
 		await db.collection('users').updateOne(
 			{ _id: new ObjectId(locals.user.id) },
 			{
-				$set: {
-					weeklyGoal
-				}
+				$set: { weeklyGoal }
 			}
 		);
 

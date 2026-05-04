@@ -144,10 +144,7 @@
 			</strong>
 
 			<div class="progress-bar">
-				<div
-					class="progress-fill"
-					style={`width: ${weeklyProgress.percentage}%`}
-				></div>
+				<div class="progress-fill" style={`width: ${weeklyProgress.percentage}%`}></div>
 			</div>
 
 			<small>{weeklyProgress.percentage}% erreicht</small>
@@ -225,7 +222,7 @@
 		<div class="calendar-top">
 			<div>
 				<h2>Trainingskalender</h2>
-				<p class="calendar-info">🏋️ Trainingstage · 💤 Rest Days</p>
+				<p class="calendar-info">🏋️ Training · 💤 Rest Day · 🎟️ Kurs</p>
 			</div>
 
 			<div class="calendar-controls">
@@ -270,6 +267,7 @@
 							class="day"
 							class:training={entry?.type === 'training'}
 							class:rest={entry?.type === 'rest'}
+							class:course={entry?.type === 'course'}
 							title={entry?.note ?? ''}
 						>
 							<span>{day}</span>
@@ -278,6 +276,8 @@
 								<small>🏋️</small>
 							{:else if entry?.type === 'rest'}
 								<small>💤</small>
+							{:else if entry?.type === 'course'}
+								<small>🎟️</small>
 							{:else}
 								<small>–</small>
 							{/if}
@@ -285,12 +285,17 @@
 							<div class="day-actions">
 								<form method="POST" action="?/addTraining">
 									<input type="hidden" name="date" value={dateString} />
-									<button type="submit">🏋️</button>
+									<button type="submit" title="Training hinzufügen">🏋️</button>
 								</form>
 
 								<form method="POST" action="?/addRest">
 									<input type="hidden" name="date" value={dateString} />
-									<button type="submit">💤</button>
+									<button type="submit" title="Rest Day hinzufügen">💤</button>
+								</form>
+
+								<form method="POST" action="?/addCourse">
+									<input type="hidden" name="date" value={dateString} />
+									<button type="submit" title="Kurs hinzufügen">🎟️</button>
 								</form>
 							</div>
 						</div>
@@ -320,7 +325,7 @@
 	}
 
 	.profile-header p {
-	color: #8a6b8a;
+		color: #8a6b8a;
 	}
 
 	.avatar i {
@@ -533,11 +538,17 @@
 		border: 2px solid #d990aa;
 	}
 
+	.day.course {
+		background: #e7ddff;
+		border: 2px solid #9b7de3;
+	}
+
 	.day-actions {
 		display: flex;
 		justify-content: center;
 		gap: 6px;
 		margin-top: 8px;
+		flex-wrap: wrap;
 	}
 
 	.day-actions form {
@@ -581,22 +592,22 @@
 	}
 
 	:global(body.dark-mode) .profile-header {
-	background: linear-gradient(135deg, #2c2432, #3a2a42);
-	border: 1px solid rgba(247, 209, 248, 0.18);
-	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
-}
+		background: linear-gradient(135deg, #2c2432, #3a2a42);
+		border: 1px solid rgba(247, 209, 248, 0.18);
+		box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+	}
 
-:global(body.dark-mode) .profile-header p {
-	color: #d8c2dc;
-}
+	:global(body.dark-mode) .profile-header p {
+		color: #d8c2dc;
+	}
 
-:global(body.dark-mode) .avatar i {
-	color: #f7d1f8;
-}
+	:global(body.dark-mode) .avatar i {
+		color: #f7d1f8;
+	}
 
-:global(body.dark-mode) .profile-header h1 {
-	color: #f4bdf5;
-}
+	:global(body.dark-mode) .profile-header h1 {
+		color: #f4bdf5;
+	}
 
 	:global(body.dark-mode) .stat-card,
 	:global(body.dark-mode) .profile-card,
@@ -635,6 +646,11 @@
 	:global(body.dark-mode) .day.rest {
 		background: #4a2634;
 		border-color: #d990aa;
+	}
+
+	:global(body.dark-mode) .day.course {
+		background: #34264a;
+		border-color: #b99cff;
 	}
 
 	:global(body.dark-mode) .weekdays div,

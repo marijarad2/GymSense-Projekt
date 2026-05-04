@@ -1,4 +1,5 @@
 <script>
+    import hero from '$lib/assets/istockphoto-1472027831-612x612.jpg';
 	let { data } = $props();
 
 	let selectedType = $state('Alle');
@@ -103,10 +104,16 @@
 </script>
 
 <section class="courses-page">
-	<div class="header">
-		<h1>Kurse in deiner Nähe</h1>
-		<p>Finde passende Fitnesskurse und öffne direkt Anmeldung oder Navigation.</p>
-	</div>
+
+    <div class="hero">
+        <img src={hero} alt="Fitness Kurse" />
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <h1>Kurse in deiner Nähe</h1>
+            <p>Finde passende Fitnesskurse und starte direkt durch</p>
+        </div>
+    </div>
 
 	<div class="tool-card">
 		<div>
@@ -183,6 +190,7 @@
 		{/each}
 	</div>
 </section>
+
 
 <style>
 	.courses-page {
@@ -441,4 +449,53 @@
 		color: #f7d1f8;
 		border: 1px solid rgba(247, 209, 248, 0.16);
 	}
+
+    .hero {
+	position: relative;
+	height: 260px;
+	border-radius: 20px;
+	overflow: hidden;
+	margin-bottom: 30px;
+    }
+
+    .hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+    }
+
+    .hero-content {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        color: white;
+    }
+
+    .hero-content h1 {
+        margin: 0;
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        margin: 4px 0 0;
+        color: #eee;
+    }
+
+    .hero img {
+	transition: transform 0.5s ease;
+    }
+
+    .hero:hover img {
+        transform: scale(1.05);
+    }
+
+    :global(body.dark-mode) .hero-overlay {
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.85));
+    }
 </style>
