@@ -3,7 +3,11 @@ import { fail, redirect } from '@sveltejs/kit';
 import { getDb } from '$lib/server/db';
 
 export const actions = {
-	default: async ({ request, cookies }: { request: Request; cookies: import('@sveltejs/kit').Cookies }) => {
+	default: async ({ request, cookies, url }: { 
+		request: Request; 
+		cookies: import('@sveltejs/kit').Cookies;
+		url: URL;
+	}) => {
 		const data = await request.formData();
 
 		const email = data.get('email')?.toString().trim().toLowerCase();
@@ -36,6 +40,8 @@ export const actions = {
 			maxAge: 60 * 60 * 24 * 7
 		});
 
-		throw redirect(303, '/');
+		const redirectTo = url.searchParams.get('redirect') ?? '/';
+
+		throw redirect(303, redirectTo);
 	}
 };

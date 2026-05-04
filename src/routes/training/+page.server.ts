@@ -1,7 +1,11 @@
 import { getDb } from '$lib/server/db';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 
 export async function load({ locals }) {
+	if (!locals.user) {
+		throw redirect(303, '/login?redirect=/training');
+	}
+
 	const db = await getDb();
 
 	const exercises = await db.collection('exercises').find().toArray();
@@ -17,6 +21,10 @@ export async function load({ locals }) {
 
 export const actions = {
 	default: async ({ request, locals }) => {
+		if (!locals.user) {
+			throw redirect(303, '/login?redirect=/training');
+		}
+
 		const db = await getDb();
 
 		const formData = await request.formData();
@@ -45,13 +53,13 @@ export const actions = {
 		}
 
 		await db.collection('workouts').insertOne({
-			userId: locals.user?.id ?? null,
+			userId: locals.user.id,
 			date: new Date(),
 			exercises
 		});
 
 		return {
-			message: 'Training erfolgreich gespeichert 💪'
+			message: 'Training erfolgreich gespeichert'
 		};
 	}
 };

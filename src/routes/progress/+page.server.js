@@ -18,23 +18,25 @@ export async function load({ locals }) {
 	for (const workout of workouts) {
 		for (const exercise of workout.exercises ?? []) {
 			const bestSet = [...(exercise.sets ?? [])]
-	.map((set) => ({
-		weight: Number(set.weight),
-		reps: Number(set.reps)
-	}))
-	.filter((set) => !Number.isNaN(set.weight))
-	.sort((a, b) => b.weight - a.weight)[0];
+				.map((set) => ({
+					weight: Number(set.weight),
+					reps: Number(set.reps)
+				}))
+				.filter((set) => !Number.isNaN(set.weight) && set.weight > 0)
+				.sort((a, b) => b.weight - a.weight)[0];
 
 			if (!bestSet) continue;
 
-			if (!exercisesMap.has(exercise.exerciseId)) {
-				exercisesMap.set(exercise.exerciseId, {
+			const exerciseKey = exercise.exerciseId ?? exercise.name;
+
+			if (!exercisesMap.has(exerciseKey)) {
+				exercisesMap.set(exerciseKey, {
 					name: exercise.name,
 					entries: []
 				});
 			}
 
-			exercisesMap.get(exercise.exerciseId).entries.push({
+			exercisesMap.get(exerciseKey).entries.push({
 				weight: bestSet.weight,
 				date: workout.date
 			});
@@ -43,12 +45,9 @@ export async function load({ locals }) {
 
 	const progressItems = [...exercisesMap.values()].map((exercise) => {
 		const entries = exercise.entries;
-
 		const current = entries.at(-1);
 		const previous = entries.at(-2);
-
-		const maxWeight = Math.max(...entries.map((e) => e.weight));
-
+		const maxWeight = Math.max(...entries.map((entry) => entry.weight));
 		const difference = previous ? current.weight - previous.weight : 0;
 
 		return {
