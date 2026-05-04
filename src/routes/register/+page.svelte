@@ -114,8 +114,9 @@
 									type="button"
 									class="btn btn-outline-secondary rounded-end-3"
 									on:click={() => (showPassword = !showPassword)}
+									aria-label="Passwort anzeigen oder ausblenden"
 								>
-									{showPassword ? '🙈' : '👁'}
+									{showPassword ? 'Ausblenden' : 'Anzeigen'}
 								</button>
 							</div>
 						</div>
@@ -149,8 +150,9 @@
 									type="button"
 									class="btn btn-outline-secondary rounded-end-3"
 									on:click={() => (showConfirmPassword = !showConfirmPassword)}
+									aria-label="Passwort-Wiederholung anzeigen oder ausblenden"
 								>
-									{showConfirmPassword ? '🙈' : '👁'}
+									{showConfirmPassword ? 'Ausblenden' : 'Anzeigen'}
 								</button>
 							</div>
 						</div>
@@ -184,10 +186,15 @@
 <style>
 	.auth-card {
 		animation: fadeUp 0.45s ease;
+		transition: transform 0.2s ease;
+	}
+
+	.auth-card:hover {
+		transform: translateY(-4px);
 	}
 
 	.register-btn {
-		background-color: #b06eb0;
+		background: linear-gradient(135deg, #b06eb0, #d18ad1);
 		border: none;
 		color: white;
 		transition:
@@ -196,9 +203,15 @@
 	}
 
 	.register-btn:hover {
-		background-color: #9a5c9a;
+		background: #9a5c9a;
 		color: white;
 		transform: translateY(-1px);
+	}
+
+	.form-control:focus {
+		outline: none;
+		box-shadow: 0 0 0 2px rgba(176, 110, 176, 0.3);
+		border-color: #b06eb0;
 	}
 
 	.password-rules {
@@ -218,7 +231,7 @@
 	}
 
 	.password-rules li::before {
-		content: '✖';
+		content: 'x';
 		position: absolute;
 		left: 0;
 		color: #dc3545;
@@ -231,7 +244,7 @@
 	}
 
 	.password-rules li.valid::before {
-		content: '✔';
+		content: '✓';
 		color: #198754;
 	}
 
@@ -304,5 +317,99 @@
 		50% { transform: translateX(4px); }
 		75% { transform: translateX(-4px); }
 		100% { transform: translateX(0); }
+	}
+
+	:global(body.dark-mode) {
+		background: linear-gradient(to bottom, #1f1a24, #121015);
+		color: #f5eaf5;
+	}
+
+	:global(body.dark-mode) .auth-card {
+		background: #2c2432;
+		color: #f5eaf5;
+		box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+		border: 1px solid rgba(247, 209, 248, 0.18);
+	}
+
+	:global(body.dark-mode) h1 {
+		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) .text-muted {
+		color: #c7b2cc !important;
+	}
+
+	:global(body.dark-mode) .form-label {
+		color: #ddd;
+	}
+
+	:global(body.dark-mode) .form-control {
+		background: #3a2a42;
+		color: #f5eaf5;
+		border: 1px solid rgba(247, 209, 248, 0.25);
+	}
+
+	:global(body.dark-mode) .form-control::placeholder {
+		color: #bda8c2;
+	}
+
+	:global(body.dark-mode) .form-control:focus {
+		border-color: #f7d1f8;
+		box-shadow: 0 0 0 2px rgba(247, 209, 248, 0.25);
+	}
+
+	:global(body.dark-mode) .btn-outline-secondary {
+		background: #3a2a42;
+		color: #f5eaf5;
+		border: 1px solid rgba(247, 209, 248, 0.25);
+	}
+
+	:global(body.dark-mode) .btn-outline-secondary:hover {
+		background: #4a3552;
+		color: #f5eaf5;
+	}
+
+	:global(body.dark-mode) .register-btn {
+		background: #f7d1f8;
+		color: #2c2432;
+	}
+
+	:global(body.dark-mode) .register-btn:hover {
+		background: #e8b9ea;
+		color: #2c2432;
+	}
+
+	:global(body.dark-mode) .alert-danger {
+		background: #4a2634;
+		color: #ffb3c7;
+		border: 1px solid rgba(255, 179, 199, 0.2);
+	}
+
+	:global(body.dark-mode) a {
+		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) a:hover {
+		color: #e8b9ea;
+	}
+
+	:global(body.dark-mode) .password-rules li {
+		color: #c7b2cc;
+	}
+
+	:global(body.dark-mode) .password-rules li.valid {
+		color: #71c783;
+	}
+
+	:global(body.dark-mode) .password-rules li.valid::before {
+		color: #71c783;
+	}
+
+	:global(body.dark-mode) .strength-bar {
+		background: #3a2a42;
+	}
+
+	:global(body.dark-mode) .text-danger {
+		color: #ffb3c7 !important;
 	}
 </style>

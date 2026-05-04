@@ -51,6 +51,7 @@
 									type="button"
 									class="btn btn-outline-secondary rounded-end-3"
 									on:click={() => (showPassword = !showPassword)}
+									aria-label="Passwort anzeigen"
 								>
 									{showPassword ? '🙈' : '👁'}
 								</button>
@@ -75,10 +76,15 @@
 <style>
 	.auth-card {
 		animation: fadeUp 0.45s ease;
+		transition: transform 0.2s;
+	}
+
+	.auth-card:hover {
+		transform: translateY(-4px);
 	}
 
 	.login-btn {
-		background-color: #b06eb0;
+		background: linear-gradient(135deg, #b06eb0, #d18ad1);
 		border: none;
 		color: white;
 		transition:
@@ -87,9 +93,15 @@
 	}
 
 	.login-btn:hover {
-		background-color: #9a5c9a;
+		background: #9a5c9a;
 		color: white;
 		transform: translateY(-1px);
+	}
+
+	.form-control:focus {
+		outline: none;
+		box-shadow: 0 0 0 2px rgba(176, 110, 176, 0.3);
+		border-color: #b06eb0;
 	}
 
 	@keyframes fadeUp {
@@ -101,5 +113,74 @@
 			opacity: 1;
 			transform: translateY(0);
 		}
+	}
+
+	:global(body.dark-mode) {
+		background: linear-gradient(to bottom, #1f1a24, #121015);
+		color: #f5eaf5;
+	}
+
+	:global(body.dark-mode) .auth-card {
+		background: #2c2432;
+		color: #f5eaf5;
+		box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+		border: 1px solid rgba(247, 209, 248, 0.18);
+	}
+
+	:global(body.dark-mode) h1 {
+		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) .text-muted {
+		color: #c7b2cc !important;
+	}
+
+	:global(body.dark-mode) .form-control {
+		background: #3a2a42;
+		color: #f5eaf5;
+		border: 1px solid rgba(247, 209, 248, 0.25);
+	}
+
+	:global(body.dark-mode) .form-control::placeholder {
+		color: #bda8c2;
+	}
+
+	:global(body.dark-mode) .form-control:focus {
+		border-color: #f7d1f8;
+		box-shadow: 0 0 0 2px rgba(247, 209, 248, 0.25);
+	}
+
+	:global(body.dark-mode) .btn-outline-secondary {
+		background: #3a2a42;
+		color: #f5eaf5;
+		border: 1px solid rgba(247, 209, 248, 0.25);
+	}
+
+	:global(body.dark-mode) .btn-outline-secondary:hover {
+		background: #4a3552;
+	}
+
+	:global(body.dark-mode) .login-btn {
+		background: #f7d1f8;
+		color: #2c2432;
+	}
+
+	:global(body.dark-mode) .login-btn:hover {
+		background: #e8b9ea;
+		color: #2c2432;
+	}
+
+	:global(body.dark-mode) .alert-danger {
+		background: #4a2634;
+		color: #ffb3c7;
+		border: 1px solid rgba(255, 179, 199, 0.2);
+	}
+
+	:global(body.dark-mode) a {
+		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) a:hover {
+		color: #e8b9ea;
 	}
 </style>
