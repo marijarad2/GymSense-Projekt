@@ -29,6 +29,86 @@
 			localStorage.setItem('theme', 'light');
 		}
 	}
+
+	let coachOpen = $state(false);
+	let coachInput = $state('');
+	let coachMessages = $state([
+		{
+			from: 'bot',
+			text: 'Hallo, ich bin dein GymSense Coach. Du kannst mich z.B. fragen: Was soll ich heute trainieren? Wie bleibe ich motiviert? Was bedeutet mein Fortschritt?'
+		}
+	]);
+
+	const suggestedQuestions = [
+		'Was soll ich heute trainieren?',
+		'Wie bleibe ich motiviert?',
+		'Was bedeutet mein Fortschritt?',
+		'Wann soll ich Rest Day machen?'
+	];
+
+	function answerCoach(question) {
+		const q = question.toLowerCase();
+
+		const stepsToday = data.user?.healthStepsToday ?? 0;
+		const stepGoal = data.user?.healthStepGoal ?? 8000;
+		const weeklyProgress = data.weeklyProgress;
+		const currentStreak = data.currentStreak ?? 0;
+		const favoriteExercise = data.favoriteExercise;
+
+		if (q.includes('heute') || q.includes('trainieren') || q.includes('empfehlung')) {
+			if (stepsToday < 3000) {
+				return `Du hast heute erst ${stepsToday.toLocaleString('de-CH')} Schritte gemacht. Ich empfehle dir heute ein leichtes Ganzkörpertraining, damit du aktiv bleibst, ohne dich zu überlasten.`;
+			}
+
+			if (stepsToday < stepGoal) {
+				return `Du hast heute ${stepsToday.toLocaleString('de-CH')} von ${stepGoal.toLocaleString('de-CH')} Schritten erreicht. Ein normales Krafttraining oder ein Spaziergang wäre heute passend.`;
+			}
+
+			return `Du hast dein Schrittziel heute erreicht. Ich empfehle dir Mobility, Stretching oder ein leichtes Regenerationstraining.`;
+		}
+
+		if (q.includes('schritte') || q.includes('laufen')) {
+			return `Heute hast du ${stepsToday.toLocaleString('de-CH')} Schritte. Dein Tagesziel liegt bei ${stepGoal.toLocaleString('de-CH')} Schritten.`;
+		}
+
+		if (q.includes('wochenziel')) {
+			return `Dein aktuelles Wochenziel liegt bei ${weeklyProgress?.goal ?? 0} Trainings. Du hast bisher ${weeklyProgress?.current ?? 0} geschafft.`;
+		}
+
+		if (q.includes('streak')) {
+			return `Dein aktueller Trainings-Streak liegt bei ${currentStreak} Tagen. Bleib dran, auch ein kurzes Training zählt.`;
+		}
+
+		if (q.includes('lieblingsübung') || q.includes('favorit')) {
+			if (favoriteExercise) {
+				return `Deine Lieblingsübung ist ${favoriteExercise}. Du könntest sie heute in dein Training einbauen.`;
+			}
+
+			return 'Du hast noch keine Lieblingsübung gewählt. Speichere eine Übung als Favorit, damit ich dir persönlichere Tipps geben kann.';
+		}
+
+		if (q.includes('rest') || q.includes('pause')) {
+			if (currentStreak >= 3 || stepsToday >= stepGoal) {
+				return 'Ein Rest Day wäre heute sinnvoll, weil du bereits aktiv warst oder mehrere Trainingstage hintereinander geschafft hast.';
+			}
+
+			return 'Ein Rest Day ist sinnvoll, wenn du müde bist, Muskelkater hast oder dich nicht gut erholt fühlst.';
+		}
+
+		return 'Ich bin dein GymSense Coach. Du kannst mich z.B. fragen: Was soll ich heute trainieren? Wie viele Schritte habe ich? Wie läuft mein Wochenziel? Brauche ich einen Rest Day?';
+	}
+
+	function sendCoachMessage(message = coachInput) {
+		if (!message.trim()) return;
+
+		coachMessages = [
+			...coachMessages,
+			{ from: 'user', text: message },
+			{ from: 'bot', text: answerCoach(message) }
+		];
+
+		coachInput = '';
+	}
 </script>
 
 <nav class="navbar navbar-expand-lg custom-navbar">
@@ -105,6 +185,56 @@
 <main class="page-content">
 	{@render children()}
 </main>
+
+<div class="coach-widget">
+	{#if coachOpen}
+		<div class="coach-box">
+			<div class="coach-header">
+				<div>
+					<strong>GymSense Coach</strong>
+					<small>Dein smarter Fitness-Assistent</small>
+				</div>
+
+				<button type="button" onclick={() => (coachOpen = false)}>×</button>
+			</div>
+
+			<div class="coach-messages">
+				{#each coachMessages as message}
+					<div class:bot-message={message.from === 'bot'} class:user-message={message.from === 'user'}>
+						{message.text}
+					</div>
+				{/each}
+			</div>
+
+			<div class="coach-suggestions">
+				{#each suggestedQuestions as question}
+					<button type="button" onclick={() => sendCoachMessage(question)}>
+						{question}
+					</button>
+				{/each}
+			</div>
+
+			<div class="coach-input">
+				<input
+					type="text"
+					bind:value={coachInput}
+					placeholder="Frage deinen Coach..."
+					onkeydown={(event) => {
+						if (event.key === 'Enter') sendCoachMessage();
+					}}
+				/>
+
+				<button type="button" onclick={() => sendCoachMessage()}>
+					Senden
+				</button>
+			</div>
+		</div>
+	{/if}
+
+	<button type="button" class="coach-toggle" onclick={() => (coachOpen = !coachOpen)}>
+		<i class="bi bi-chat-dots-fill"></i>
+	</button>
+</div>
 
 <footer class="footer">
 	<div class="footer-content">
@@ -317,4 +447,166 @@
 	:global(body.dark-mode) .day.rest {
 		background: #4a2634;
 	}
+	.coach-widget {
+	position: fixed;
+	right: 22px;
+	bottom: 22px;
+	z-index: 9999;
+}
+
+.coach-toggle {
+	width: 58px;
+	height: 58px;
+	border-radius: 50%;
+	border: none;
+	background: #b06eb0;
+	color: white;
+	font-size: 1.4rem;
+	box-shadow: 0 10px 28px rgba(176, 110, 176, 0.35);
+	cursor: pointer;
+}
+
+.coach-box {
+	width: 340px;
+	max-width: calc(100vw - 32px);
+	background: white;
+	border-radius: 22px;
+	box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+	overflow: hidden;
+	margin-bottom: 14px;
+	border: 1px solid rgba(176, 110, 176, 0.16);
+}
+
+.coach-header {
+	background: #b06eb0;
+	color: white;
+	padding: 16px;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.coach-header small {
+	display: block;
+	font-size: 0.8rem;
+	opacity: 0.9;
+}
+
+.coach-header button {
+	background: transparent;
+	border: none;
+	color: white;
+	font-size: 1.6rem;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.coach-messages {
+	padding: 14px;
+	max-height: 260px;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.bot-message,
+.user-message {
+	padding: 10px 12px;
+	border-radius: 14px;
+	font-size: 0.9rem;
+	line-height: 1.4;
+}
+
+.bot-message {
+	background: #f8f0f8;
+	color: #333;
+	align-self: flex-start;
+}
+
+.user-message {
+	background: #b06eb0;
+	color: white;
+	align-self: flex-end;
+}
+
+.coach-suggestions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	padding: 0 14px 14px;
+}
+
+.coach-suggestions button {
+	border: none;
+	background: #fff0ff;
+	color: #b06eb0;
+	border-radius: 999px;
+	padding: 7px 10px;
+	font-size: 0.8rem;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.coach-input {
+	display: flex;
+	gap: 8px;
+	padding: 14px;
+	border-top: 1px solid #f3dff3;
+}
+
+.coach-input input {
+	flex: 1;
+	border: 1px solid #f0d6f0;
+	border-radius: 12px;
+	padding: 10px;
+}
+
+.coach-input button {
+	border: none;
+	background: #b06eb0;
+	color: white;
+	border-radius: 12px;
+	padding: 10px 12px;
+	font-weight: 700;
+}
+
+:global(body.dark-mode) .coach-box {
+	background: #2c2432;
+	border: 1px solid rgba(247, 209, 248, 0.18);
+}
+
+:global(body.dark-mode) .coach-header {
+	background: #3a2a42;
+	color: #f7d1f8;
+}
+
+:global(body.dark-mode) .bot-message {
+	background: #3a2a42;
+	color: #f5eaf5;
+}
+
+:global(body.dark-mode) .user-message {
+	background: #f7d1f8;
+	color: #2c2432;
+}
+
+:global(body.dark-mode) .coach-suggestions button {
+	background: #3a2a42;
+	color: #f7d1f8;
+}
+
+:global(body.dark-mode) .coach-input {
+	border-top: 1px solid rgba(247, 209, 248, 0.18);
+}
+
+:global(body.dark-mode) .coach-input input {
+	background: #3a2a42;
+	color: #f5eaf5;
+	border: 1px solid rgba(247, 209, 248, 0.2);
+}
+
+:global(body.dark-mode) .coach-input input::placeholder {
+	color: #c7b2cc;
+}
 </style>

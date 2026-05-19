@@ -1,4 +1,4 @@
-import { redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
 import { getDb } from '$lib/server/db';
 
@@ -11,7 +11,16 @@ export async function load({ locals }: { locals: App.Locals }) {
 
 	const user = await db.collection('users').findOne(
 		{ _id: new ObjectId(locals.user.id) },
-		{ projection: { favoriteExercise: 1, weeklyGoal: 1 } }
+		{
+			projection: {
+				favoriteExercise: 1,
+				weeklyGoal: 1,
+				healthStepsToday: 1,
+				healthStepGoal: 1,
+				weeklyStepGoal: 1,
+				healthConnected: 1
+			}
+		}
 	);
 
 	const workouts = await db
@@ -61,12 +70,8 @@ export async function load({ locals }: { locals: App.Locals }) {
 	}
 
 	const stats = [...exerciseStats.values()];
-
-	const mostUsedExercise =
-		[...stats].sort((a, b) => b.count - a.count)[0] ?? null;
-
-	const favoriteExercise =
-		user?.favoriteExercise ?? mostUsedExercise?.name ?? null;
+	const mostUsedExercise = [...stats].sort((a, b) => b.count - a.count)[0] ?? null;
+	const favoriteExercise = user?.favoriteExercise ?? mostUsedExercise?.name ?? null;
 
 	const personalRecords = [...stats]
 		.filter((item) => item.maxWeight > 0)
@@ -74,7 +79,6 @@ export async function load({ locals }: { locals: App.Locals }) {
 		.slice(0, 5);
 
 	const highestWeight = personalRecords[0] ?? null;
-
 	const today = new Date();
 
 	function toDateOnly(date: Date) {
@@ -95,28 +99,43 @@ export async function load({ locals }: { locals: App.Locals }) {
 	const weeklyGoal = user?.weeklyGoal ?? 4;
 	const startOfWeek = getStartOfWeek(today);
 
-	const workoutDaysThisWeek = new Set(
-		workouts
-			.filter((workout) => {
-				const workoutDate = new Date(workout.date);
-				return workoutDate >= startOfWeek && workoutDate <= today;
-			})
-			.map((workout) => toDateOnly(new Date(workout.date)))
-	);
+	const workoutDaysFromWorkouts = workouts
+		.filter((workout) => {
+			const workoutDate = new Date(workout.date);
+			return workoutDate >= startOfWeek && workoutDate <= today;
+		})
+		.map((workout) => toDateOnly(new Date(workout.date)));
+
+	const workoutDaysFromCalendar = calendarEntries
+		.filter((entry) => {
+			const entryDate = new Date(entry.date);
+			return entry.type === 'training' && entryDate >= startOfWeek && entryDate <= today;
+		})
+		.map((entry) => entry.date);
+
+	const workoutDaysThisWeek = new Set([
+		...workoutDaysFromWorkouts,
+		...workoutDaysFromCalendar
+	]);
 
 	const workoutsThisWeek = workoutDaysThisWeek.size;
 
 	const weeklyProgress = {
 		current: workoutsThisWeek,
 		goal: weeklyGoal,
-		percentage: Math.min(
-			Math.round((workoutsThisWeek / weeklyGoal) * 100),
-			100
-		)
+		percentage: Math.min(Math.round((workoutsThisWeek / weeklyGoal) * 100), 100)
 	};
 
+	const workoutDates = workouts.map((workout) =>
+		toDateOnly(new Date(workout.date))
+	);
+
+	const calendarTrainingDates = calendarEntries
+		.filter((entry) => entry.type === 'training')
+		.map((entry) => entry.date);
+
 	const trainingDates = [
-		...new Set(workouts.map((workout) => toDateOnly(new Date(workout.date))))
+		...new Set([...workoutDates, ...calendarTrainingDates])
 	].sort((a, b) => b.localeCompare(a));
 
 	let currentStreak = 0;
@@ -140,11 +159,7 @@ export async function load({ locals }: { locals: App.Locals }) {
 			const diffDays =
 				(previous.getTime() - current.getTime()) / (1000 * 60 * 60 * 24);
 
-			if (diffDays === 1) {
-				tempStreak++;
-			} else {
-				tempStreak = 1;
-			}
+			tempStreak = diffDays === 1 ? tempStreak + 1 : 1;
 		}
 
 		longestStreak = Math.max(longestStreak, tempStreak);
@@ -186,7 +201,12 @@ export async function load({ locals }: { locals: App.Locals }) {
 		weeklyProgress,
 		currentStreak,
 		longestStreak,
-		smartHint
+		smartHint,
+
+		healthStepsToday: user?.healthStepsToday ?? 4200,
+		healthStepGoal: user?.healthStepGoal ?? 8000,
+		weeklyStepGoal: user?.weeklyStepGoal ?? 56000,
+		healthConnected: user?.healthConnected ?? false
 	};
 }
 
@@ -278,5 +298,67 @@ export const actions = {
 		);
 
 		return { success: true };
+	},
+
+	updateHealth: async ({ request, locals }) => {
+		if (!locals.user) return;
+
+		const formData = await request.formData();
+
+		const stepsToday = Number(formData.get('stepsToday'));
+		const stepGoal = Number(formData.get('stepGoal'));
+		const weeklyStepGoal = Number(formData.get('weeklyStepGoal'));
+
+		if (
+			Number.isNaN(stepsToday) ||
+			Number.isNaN(stepGoal) ||
+			Number.isNaN(weeklyStepGoal) ||
+			stepsToday < 0 ||
+			stepGoal < 1000 ||
+			weeklyStepGoal < 5000
+		) {
+			return fail(400, {
+				error: 'Bitte gültige Schrittwerte eingeben.'
+			});
+		}
+
+		const db = await getDb();
+
+		await db.collection('users').updateOne(
+			{ _id: new ObjectId(locals.user.id) },
+			{
+				$set: {
+					healthStepsToday: stepsToday,
+					healthStepGoal: stepGoal,
+					weeklyStepGoal
+				}
+			}
+		);
+
+		return {
+			success: true,
+			message: 'Schritte und Ziele wurden gespeichert.'
+		};
+	},
+
+	connectHealth: async ({ locals }) => {
+		if (!locals.user) return;
+
+		const db = await getDb();
+
+		await db.collection('users').updateOne(
+			{ _id: new ObjectId(locals.user.id) },
+			{
+				$set: {
+					healthConnected: true,
+					healthStepsToday: 9374
+				}
+			}
+		);
+
+		return {
+			success: true,
+			message: 'Apple Health wurde im Prototyp verbunden.'
+		};
 	}
 };

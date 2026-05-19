@@ -97,6 +97,37 @@
 			year: 'numeric'
 		});
 	}
+
+let stepsToday = $state(data.healthStepsToday ?? 4200);
+let stepGoal = $state(data.healthStepGoal ?? 8000);
+let weeklyStepGoal = $state(data.weeklyStepGoal ?? 56000);
+let healthConnected = $state(data.healthConnected ?? false);
+
+const stepPercentage = $derived(
+	Math.min(Math.round((stepsToday / stepGoal) * 100), 100)
+);
+
+const activityLevel = $derived.by(() => {
+	if (stepsToday < 3000) return 'Niedrig';
+	if (stepsToday < 8000) return 'Mittel';
+	return 'Hoch';
+});
+
+const activityRecommendation = $derived.by(() => {
+	if (stepsToday < 3000) {
+		return 'Heute leichtes Training empfohlen, z.B. Mobility oder ein kurzer Spaziergang.';
+	}
+
+	if (stepsToday < 8000) {
+		return 'Guter Aktivitätstag: Ein normales Krafttraining passt gut.';
+	}
+
+	return 'Aktiver Tag: Mobility, Stretching oder Regeneration empfohlen.';
+});
+
+function connectHealth() {
+	healthConnected = true;
+}
 </script>
 
 <section class="profile-page">
@@ -164,6 +195,65 @@
 
 				<button type="submit">Speichern</button>
 			</form>
+		</div>
+
+		<div class="dashboard-card health-card">
+			<span>Apple Health</span>
+
+			<form method="POST" action="?/updateHealth" class="health-form">
+				<label for="stepsToday">Schritte heute</label>
+				<input
+					id="stepsToday"
+					name="stepsToday"
+					type="number"
+					min="0"
+					step="100"
+					bind:value={stepsToday}
+					class="health-input"
+				/>
+
+				<label for="stepGoal">Tagesziel Schritte</label>
+				<input
+					id="stepGoal"
+					name="stepGoal"
+					type="number"
+					min="1000"
+					step="500"
+					bind:value={stepGoal}
+					class="health-input"
+				/>
+
+				<label for="weeklyStepGoal">Wochenziel Schritte</label>
+				<input
+					id="weeklyStepGoal"
+					name="weeklyStepGoal"
+					type="number"
+					min="5000"
+					step="1000"
+					bind:value={weeklyStepGoal}
+					class="health-input"
+				/>
+
+				<div class="progress-bar">
+					<div class="progress-fill" style={`width: ${stepPercentage}%`}></div>
+				</div>
+
+				<small>{stepPercentage}% des Tagesziels erreicht</small>
+
+				<button type="submit" class="health-btn">Schritte speichern</button>
+			</form>
+
+			<form method="POST" action="?/connectHealth">
+				<button type="submit" class="health-btn secondary-health-btn">
+					{healthConnected ? 'Apple Health verbunden (Prototyp)' : 'Mit Apple Health verbinden'}
+				</button>
+			</form>
+
+			<div class="activity-box">
+				<span>Aktivitätslevel</span>
+				<strong>{activityLevel}</strong>
+				<p>{activityRecommendation}</p>
+			</div>
 		</div>
 
 		<div class="dashboard-card">
@@ -680,4 +770,194 @@
 	:global(body.dark-mode) .progress-fill {
 		background: #f7d1f8;
 	}
+	.health-card {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.health-top {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.health-status span {
+	display: inline-block;
+	background: #f8f0f8;
+	color: #8e4f8e;
+	border-radius: 999px;
+	padding: 7px 10px;
+	font-size: 0.85rem;
+	font-weight: 700;
+}
+
+.health-status span.connected {
+	background: #e9f8ef;
+	color: #2f8f55;
+}
+
+.health-btn {
+	border: none;
+	background: #b06eb0;
+	color: white;
+	border-radius: 12px;
+	padding: 10px 14px;
+	font-weight: 700;
+	cursor: pointer;
+	transition:
+		background 0.2s ease,
+		transform 0.2s ease;
+}
+
+.health-btn:hover {
+	background: #9a5a9a;
+	transform: translateY(-2px);
+}
+
+.activity-box {
+	background: #fff4ff;
+	border-radius: 14px;
+	padding: 14px;
+	border: 1px solid #f3dff3;
+}
+
+.activity-box span {
+	display: block;
+	color: #b06eb0;
+	font-weight: 700;
+	margin-bottom: 4px;
+}
+
+.activity-box strong {
+	display: block;
+	color: #333;
+	margin-bottom: 6px;
+}
+
+.activity-box p {
+	color: #555;
+	line-height: 1.45;
+}
+
+:global(body.dark-mode) .health-status span {
+	background: #3a2a42;
+	color: #f7d1f8;
+}
+
+:global(body.dark-mode) .health-status span.connected {
+	background: rgba(80, 160, 110, 0.22);
+	color: #9be3b2;
+}
+
+:global(body.dark-mode) .health-btn {
+	background: #f7d1f8;
+	color: #2c2432;
+}
+
+:global(body.dark-mode) .health-btn:hover {
+	background: #e8b9ea;
+}
+
+:global(body.dark-mode) .activity-box {
+	background: #3a2a42;
+	border: 1px solid rgba(247, 209, 248, 0.18);
+}
+
+:global(body.dark-mode) .activity-box span {
+	color: #f7d1f8;
+}
+
+:global(body.dark-mode) .activity-box strong,
+:global(body.dark-mode) .activity-box p {
+	color: #f5eaf5;
+}
+
+.health-input {
+	width: 100%;
+	border: 1px solid #f0d6f0;
+	border-radius: 12px;
+	padding: 10px 12px;
+	font-weight: 700;
+	background: white;
+	color: #333;
+}
+
+.health-input:focus {
+	outline: none;
+	border-color: #b06eb0;
+	box-shadow: 0 0 0 2px rgba(176, 110, 176, 0.2);
+}.health-input {
+	width: 100%;
+	border: 1px solid #f0d6f0;
+	border-radius: 12px;
+	padding: 10px 12px;
+	font-weight: 700;
+	background: white;
+	color: #333;
+}
+
+.health-input:focus {
+	outline: none;
+	border-color: #b06eb0;
+	box-shadow: 0 0 0 2px rgba(176, 110, 176, 0.2);
+}
+
+:global(body.dark-mode) .health-input {
+	background: #3a2a42;
+	color: #f5eaf5;
+	border: 1px solid rgba(247, 209, 248, 0.2);
+}
+
+:global(body.dark-mode) .health-input:focus {
+	border-color: #f7d1f8;
+	box-shadow: 0 0 0 2px rgba(247, 209, 248, 0.2);
+}
+
+.health-form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.health-form label {
+	color: #b06eb0;
+	font-weight: 700;
+}
+
+.health-input {
+	width: 100%;
+	border: 1px solid #f0d6f0;
+	border-radius: 12px;
+	padding: 10px 12px;
+	font-weight: 700;
+	background: white;
+	color: #333;
+}
+
+.secondary-health-btn {
+	background: #f8f0f8;
+	color: #b06eb0;
+}
+
+.secondary-health-btn:hover {
+	background: #fff0ff;
+	color: #b06eb0;
+}
+
+:global(body.dark-mode) .health-input {
+	background: #3a2a42;
+	color: #f5eaf5;
+	border: 1px solid rgba(247, 209, 248, 0.2);
+}
+
+:global(body.dark-mode) .health-form label {
+	color: #f7d1f8;
+}
+
+:global(body.dark-mode) .secondary-health-btn {
+	background: #3a2a42;
+	color: #f7d1f8;
+}
+
 </style>
