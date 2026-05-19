@@ -130,12 +130,14 @@
 			<div class="navbar-nav me-auto">
 				<a class="nav-link" href="/">Startseite</a>
 				<a class="nav-link" href="/exercises">Übungen</a>
+				<a class="nav-link" href="/recipes">Rezepte</a>
 
 				{#if data.user}
 					<a class="nav-link" href="/plans">Trainingspläne</a>
 					<a class="nav-link" href="/training">Training</a>
 					<a class="nav-link" href="/progress">Fortschritt</a>
 					<a class="nav-link" href="/discover">Kursfinder</a>
+					
 				{/if}
 			</div>
 

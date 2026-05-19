@@ -1,13 +1,21 @@
 import { ObjectId } from 'mongodb';
 import { getDb } from '$lib/server/db';
+import type { Cookies } from '@sveltejs/kit';
 
-export async function load({ locals }: { locals: App.Locals }) {
+export async function load({
+	locals,
+	cookies
+}: {
+	locals: App.Locals;
+	cookies: Cookies;
+}) {
 	if (!locals.user) {
 		return {
 			user: null
 		};
 	}
 
+	const justRegistered = cookies.get('justRegistered') === 'true';
 	const db = await getDb();
 
 	const user = await db.collection('users').findOne(
@@ -19,7 +27,8 @@ export async function load({ locals }: { locals: App.Locals }) {
 				healthStepsToday: 1,
 				healthStepGoal: 1,
 				weeklyStepGoal: 1,
-				healthConnected: 1
+				healthConnected: 1,
+				createdAt: 1
 			}
 		}
 	);
@@ -32,7 +41,9 @@ export async function load({ locals }: { locals: App.Locals }) {
 			healthStepsToday: user?.healthStepsToday ?? 0,
 			healthStepGoal: user?.healthStepGoal ?? 8000,
 			weeklyStepGoal: user?.weeklyStepGoal ?? 56000,
-			healthConnected: user?.healthConnected ?? false
+			healthConnected: user?.healthConnected ?? false,
+			createdAt: user?.createdAt ?? null,
+			isNewUser: justRegistered
 		}
 	};
 }

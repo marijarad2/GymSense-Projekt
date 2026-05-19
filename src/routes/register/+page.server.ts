@@ -55,7 +55,13 @@ export const actions = {
 			secure: false,
 			maxAge: 60 * 60 * 24 * 7
 		});
-
-		throw redirect(303, '/');
+		cookies.set('justRegistered', 'true', {
+			path: '/',
+			httpOnly: false,
+			sameSite: 'lax',
+			secure: false,
+			maxAge: 60 * 10
+		});
+		throw redirect(303, '/?registered=true');
 	}
 };

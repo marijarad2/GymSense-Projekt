@@ -40,6 +40,14 @@ export const actions = {
 			maxAge: 60 * 60 * 24 * 7
 		});
 
+		cookies.set('justRegistered', 'true', {
+			path: '/',
+			httpOnly: true,
+			sameSite: 'lax',
+			secure: false,
+			maxAge: 60 * 10
+		});
+
 		const redirectTo = url.searchParams.get('redirect') ?? '/';
 
 		throw redirect(303, redirectTo);
