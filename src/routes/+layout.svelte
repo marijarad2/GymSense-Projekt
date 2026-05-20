@@ -354,6 +354,14 @@
 		</div>
 	</div>
 
+	<div class="legal-links">
+		<a href="/impressum">Impressum</a>
+		<span>·</span>
+		<a href="/datenschutz">Datenschutz</a>
+		<span>·</span>
+		<a href="/agb">AGB</a>
+	</div>
+
 	<div class="footer-bottom">© 2026 GymSense – All rights reserved</div>
 </footer>
 
@@ -748,5 +756,28 @@
 
 :global(body.dark-mode) .dropdown-divider {
 	border-color: rgba(247, 209, 248, 0.15);
+}
+
+.legal-links {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	margin-top: 24px;
+	font-size: 0.8rem;
+	opacity: 0.85;
+}
+
+.legal-links a {
+	color: white;
+	text-decoration: none;
+}
+
+.legal-links a:hover {
+	text-decoration: underline;
+}
+
+.legal-links span {
+	color: white;
 }
 </style>

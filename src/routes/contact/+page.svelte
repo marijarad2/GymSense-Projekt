@@ -21,10 +21,11 @@
 	{/if}
 
 	<div class="contact-hero">
-		<span>Kontakt</span>
-		<h1>Kontaktiere GymSense</h1>
+		<span>Coaching Anfrage</span>
+		<h1>Starte deine persönliche GymSense Coaching-Anfrage</h1>
 		<p>
-			Hast du Fragen, Feedback oder Verbesserungsvorschläge? Dann schreibe uns direkt.
+			Erzähle uns kurz von deinem Trainingsziel, deinem aktuellen Fitnesslevel und wobei du
+			Unterstützung möchtest.
 		</p>
 	</div>
 
@@ -36,38 +37,66 @@
 			<label for="email">E-Mail</label>
 			<input id="email" name="email" type="email" placeholder="deine.email@example.com" required />
 
-			<label for="topic">Thema</label>
-			<select id="topic" name="topic" required>
-				<option value="">Thema auswählen</option>
-				<option value="support">Support</option>
-				<option value="feedback">Feedback</option>
-				<option value="bug">Fehler melden</option>
-				<option value="idea">Verbesserungsvorschlag</option>
+			<label for="goal">Was ist dein Hauptziel?</label>
+			<select id="goal" name="goal" required>
+				<option value="">Ziel auswählen</option>
+				<option value="muscle">Muskelaufbau</option>
+				<option value="strength">Kraft steigern</option>
+				<option value="fatloss">Fettabbau / Definition</option>
+				<option value="health">Gesünder und aktiver werden</option>
+				<option value="routine">Trainingsroutine aufbauen</option>
 			</select>
 
-			<label for="message">Nachricht</label>
+			<label for="level">Wie würdest du dein Fitnesslevel einschätzen?</label>
+			<select id="level" name="level" required>
+				<option value="">Level auswählen</option>
+				<option value="beginner">Einsteiger:in</option>
+				<option value="intermediate">Leicht fortgeschritten</option>
+				<option value="advanced">Fortgeschritten</option>
+			</select>
+
+			<label for="frequency">Wie oft trainierst du aktuell pro Woche?</label>
+			<select id="frequency" name="frequency" required>
+				<option value="">Häufigkeit auswählen</option>
+				<option value="0">Noch gar nicht</option>
+				<option value="1-2">1–2 Mal pro Woche</option>
+				<option value="3-4">3–4 Mal pro Woche</option>
+				<option value="5plus">5+ Mal pro Woche</option>
+			</select>
+
+			<label for="support">Wobei brauchst du Unterstützung?</label>
+			<select id="support" name="support" required>
+				<option value="">Unterstützung auswählen</option>
+				<option value="plan">Trainingsplan erstellen</option>
+				<option value="motivation">Motivation & Dranbleiben</option>
+				<option value="technique">Übungsausführung verbessern</option>
+				<option value="progress">Fortschritt besser messen</option>
+				<option value="nutrition">Ernährung / Rezepte</option>
+			</select>
+
+			<label for="message">Weitere Informationen</label>
 			<textarea
 				id="message"
 				name="message"
 				rows="6"
-				placeholder="Schreibe deine Nachricht..."
+				placeholder="Beschreibe kurz deine Situation, Ziele oder Fragen..."
 				required
 			></textarea>
 
 			<button type="submit" class:sending={flying}>
-				{flying ? 'Wird gesendet...' : 'Nachricht senden'}
+				{flying ? 'Anfrage wird gesendet...' : 'Coaching-Anfrage senden'}
 			</button>
 
 			{#if submitted}
 				<div class="success-message">
 					<i class="bi bi-check-circle-fill"></i>
-					Danke! Deine Nachricht wurde erfolgreich erfasst.
+					Danke! Deine Coaching-Anfrage wurde erfolgreich erfasst.
 				</div>
 			{/if}
 		</form>
 
 		<div class="contact-info">
-			<h2>Direkter Kontakt</h2>
+			<h2>Coaching Kontakt</h2>
 
 			<div class="info-item">
 				<i class="bi bi-envelope-fill"></i>
@@ -82,6 +111,17 @@
 				<div>
 					<strong>Telefon</strong>
 					<p>+41 79 123 45 67</p>
+				</div>
+			</div>
+
+			<div class="info-item">
+				<i class="bi bi-lightning-charge-fill"></i>
+				<div>
+					<strong>Was passiert danach?</strong>
+					<p>
+						Wir prüfen deine Angaben und melden uns mit einer passenden Empfehlung oder einem
+						individuellen Coaching-Vorschlag.
+					</p>
 				</div>
 			</div>
 
