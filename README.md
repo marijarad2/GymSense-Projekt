@@ -266,6 +266,27 @@ Für die Evaluation wird eine Testperson eingesetzt, die GymSense aus Sicht eine
 | T-20 | Kursfinder | Maps funktioniert |
 | T-18 | Dark Mode | UI bleibt lesbar |
 
+| Test ID | Aktivität | Test erfüllt |
+|---|---|---|
+| T-01 | Registrierung eines neuen Users | ☐ |
+| T-02 | Passwortvalidierung prüfen | ☐ |
+| T-03 | Login bestehender User | ☐ |
+| T-04 | Logout | ☐ |
+| T-05 | Übungen suchen und filtern | ☐ |
+| T-06 | Lieblingsübung speichern | ☐ |
+| T-07 | Trainingsplan starten | ☐ |
+| T-08 | Training speichern | ☐ |
+| T-09 | Fortschritt anzeigen | ☐ |
+| T-10 | Persönlichen Rekord erkennen | ☐ |
+| T-11 | Wochenziel ändern | ☐ |
+| T-12 | Trainingskalender verwenden | ☐ |
+| T-13 | Apple Health Prototype testen | ☐ |
+| T-14 | GymSense Coach verwenden | ☐ |
+| T-15 | Rezepte anzeigen | ☐ |
+| T-16 | Rezeptdetails öffnen | ☐ |
+| T-17 | Rezeptfilter verwenden | ☐ |
+| T-18 | Dark Mode prüfen | ☐ |
+
 ---
 
 # 4. Erweiterungen [Optional]
