@@ -1,13 +1,25 @@
 <script>
 	let submitted = $state(false);
+	let flying = $state(false);
 
 	function submitContact(event) {
 		event.preventDefault();
-		submitted = true;
+
+		flying = true;
+
+		setTimeout(() => {
+			submitted = true;
+			flying = false;
+			event.target.reset();
+		}, 900);
 	}
 </script>
 
 <section class="contact-page">
+	{#if flying}
+		<div class="flying-message">📩</div>
+	{/if}
+
 	<div class="contact-hero">
 		<span>Kontakt</span>
 		<h1>Kontaktiere GymSense</h1>
@@ -42,7 +54,9 @@
 				required
 			></textarea>
 
-			<button type="submit">Nachricht senden</button>
+			<button type="submit" class:sending={flying}>
+				{flying ? 'Wird gesendet...' : 'Nachricht senden'}
+			</button>
 
 			{#if submitted}
 				<div class="success-message">
@@ -86,6 +100,35 @@
 	.contact-page {
 		max-width: 1050px;
 		margin: 0 auto;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.flying-message {
+		position: fixed;
+		left: 50%;
+		bottom: 80px;
+		font-size: 3.2rem;
+		z-index: 9999;
+		pointer-events: none;
+		animation: flyAway 0.9s ease-in-out forwards;
+	}
+
+	@keyframes flyAway {
+		0% {
+			transform: translate(-50%, 0) scale(1) rotate(0deg);
+			opacity: 1;
+		}
+
+		35% {
+			transform: translate(-20%, -120px) scale(1.25) rotate(-12deg);
+			opacity: 1;
+		}
+
+		100% {
+			transform: translate(180px, -420px) scale(0.4) rotate(25deg);
+			opacity: 0;
+		}
 	}
 
 	.contact-hero {
@@ -164,10 +207,20 @@
 		font-weight: 800;
 		cursor: pointer;
 		margin-top: 8px;
+		transition:
+			transform 0.2s ease,
+			background 0.2s ease,
+			opacity 0.2s ease;
 	}
 
 	.contact-form button:hover {
 		background: #9a5a9a;
+		transform: translateY(-2px);
+	}
+
+	.contact-form button.sending {
+		opacity: 0.75;
+		cursor: wait;
 	}
 
 	.success-message {
@@ -179,6 +232,19 @@
 		display: flex;
 		gap: 8px;
 		align-items: center;
+		animation: successPop 0.35s ease-out;
+	}
+
+	@keyframes successPop {
+		0% {
+			transform: scale(0.95);
+			opacity: 0;
+		}
+
+		100% {
+			transform: scale(1);
+			opacity: 1;
+		}
 	}
 
 	.contact-info h2 {
