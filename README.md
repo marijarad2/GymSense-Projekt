@@ -315,7 +315,7 @@ Moderierter Usability-Test on-site. Die Testperson erhält schriftliche Aufgaben
 | Rolle | Student, gelegentlicher Gym-Nutzer |
 | Fitnesslevel | Leicht fortgeschritten |
 | Gerät | Laptop (Chrome) |
-| Testregistrierung | test.user@gymsense.ch / GymSense2026! |
+| Testregistrierung | Test / User / test.user@gymsense.ch / GymSense2026! |
 
 #### Aufgaben / Szenarien
 
@@ -381,8 +381,9 @@ Als mögliche Verbesserungen wurden folgende Punkte genannt:
 - Im Trainingsplan sollen hinzugefügte Sätze auch wieder gelöscht werden können.
 - Ergänzung eines Kontaktformulars in der Navigation.
 - Erweiterung des Help-Bereichs durch eine FAQ-Seite.
-- Möglichkeit zur Bewertung der App integrieren.
 - Ergänzung von Impressum, Datenschutz und AGB.
+
+Diese Verbesserungsvorschläge wurden ebenfalls umgesetzt. 
 
 
 ---

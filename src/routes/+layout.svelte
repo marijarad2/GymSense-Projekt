@@ -3,7 +3,11 @@
 	import logo from '$lib/assets/Logo.png';
 	import 'bootstrap-icons/font/bootstrap-icons.css';
 	import { browser } from '$app/environment';
-	import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+	import { onMount } from 'svelte';
+
+	onMount(async () => {
+	await import('bootstrap/dist/js/bootstrap.bundle.min.js');
+	});
 
 	let { data, children } = $props();
 
@@ -18,6 +22,8 @@
 			document.body.classList.add('dark-mode');
 		}
 	});
+
+	
 
 	function toggleDarkMode() {
 		isDarkMode = !isDarkMode;
