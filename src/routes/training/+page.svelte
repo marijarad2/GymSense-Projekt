@@ -113,6 +113,7 @@
 			0
 		);
 
+
 		const totalVolume = workoutExercises.reduce((total, exercise) => {
 			const exerciseVolume = exercise.sets.reduce((sum, set) => {
 				const weight = Number(set.weight) || 0;
@@ -130,6 +131,26 @@
 			totalVolume
 		};
 	});
+
+	const workoutExercisesJson = $derived(JSON.stringify(workoutExercises));
+
+	function updateSet(exerciseIndex, setIndex, field, value) {
+	workoutExercises = workoutExercises.map((exercise, i) => {
+		if (i !== exerciseIndex) return exercise;
+
+		return {
+			...exercise,
+			sets: exercise.sets.map((set, j) => {
+				if (j !== setIndex) return set;
+
+				return {
+					...set,
+					[field]: value
+				};
+			})
+		};
+	});
+}
 </script>
 
 <section class="training-page">
@@ -183,7 +204,7 @@
 	</div>
 
 	<form method="POST">
-		<input type="hidden" name="exercises" value={JSON.stringify(workoutExercises)} />
+		<input type="hidden" name="exercises" value={workoutExercisesJson} />
 
 		{#each workoutExercises as exercise, exerciseIndex}
 			<div class="exercise-card">
@@ -195,7 +216,7 @@
 					</button>
 				</div>
 
-				{#each exercise.sets as set}
+				{#each exercise.sets as set, setIndex}
 					<div class="set-row">
 						<label>
 							Gewicht kg
@@ -203,7 +224,10 @@
 								type="number"
 								min="0"
 								step="0.5"
-								bind:value={set.weight}
+								value={set.weight}
+								oninput={(event) =>
+									updateSet(exerciseIndex, setIndex, 'weight', event.currentTarget.value)
+								}
 								class="form-control"
 							/>
 						</label>
@@ -213,7 +237,10 @@
 							<input
 								type="number"
 								min="1"
-								bind:value={set.reps}
+								value={set.reps}
+								oninput={(event) =>
+									updateSet(exerciseIndex, setIndex, 'reps', event.currentTarget.value)
+								}
 								class="form-control"
 							/>
 						</label>

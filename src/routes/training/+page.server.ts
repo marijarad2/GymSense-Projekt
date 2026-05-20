@@ -26,7 +26,6 @@ export const actions = {
 		}
 
 		const db = await getDb();
-
 		const formData = await request.formData();
 		const exercisesRaw = formData.get('exercises');
 
@@ -40,26 +39,36 @@ export const actions = {
 
 		try {
 			exercises = JSON.parse(exercisesRaw.toString());
-		} catch (error) {
+		} catch {
 			return fail(400, {
 				error: 'Übungen konnten nicht gelesen werden.'
 			});
 		}
 
-		if (!Array.isArray(exercises) || exercises.length === 0) {
+		const cleanedExercises = exercises
+			.map((exercise) => ({
+				...exercise,
+				sets: (exercise.sets ?? [])
+					.map((set) => ({
+						weight: Number(set.weight),
+						reps: Number(set.reps)
+					}))
+					.filter((set) => set.weight >= 0 && set.reps > 0)
+			}))
+			.filter((exercise) => exercise.sets.length > 0);
+
+		if (cleanedExercises.length === 0) {
 			return fail(400, {
-				error: 'Bitte füge mindestens eine Übung hinzu.'
+				error: 'Bitte Gewicht und Wiederholungen eingeben.'
 			});
 		}
 
 		await db.collection('workouts').insertOne({
 			userId: locals.user.id,
 			date: new Date(),
-			exercises
+			exercises: cleanedExercises
 		});
 
-		return {
-			message: 'Training erfolgreich gespeichert'
-		};
+		throw redirect(303, '/progress');
 	}
 };
