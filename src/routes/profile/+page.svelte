@@ -103,6 +103,18 @@ let stepGoal = $state(data.healthStepGoal ?? 8000);
 let weeklyStepGoal = $state(data.weeklyStepGoal ?? 56000);
 let healthConnected = $state(data.healthConnected ?? false);
 
+const today = new Date().toISOString().split('T')[0];
+
+if (browser) {
+	const lastHealthReset = localStorage.getItem('lastHealthReset');
+
+	if (lastHealthReset !== today) {
+		stepsToday = 0;
+
+		localStorage.setItem('lastHealthReset', today);
+	}
+}
+
 const stepPercentage = $derived(
 	Math.min(Math.round((stepsToday / stepGoal) * 100), 100)
 );
