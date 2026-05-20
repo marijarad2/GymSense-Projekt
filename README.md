@@ -349,29 +349,31 @@ Moderierter Usability-Test on-site. Die Testperson erhält schriftliche Aufgaben
 
 ## Testfälle
 
+## Testfälle
+
 | Test ID | Aktivität | Erwartetes Resultat | Test erfüllt | Bemerkung |
 |---|---|---|---|---|
-| T-01 | Registrierung | User wird erfolgreich registriert | ☐ | |
-| T-02 | Passwortvalidierung | Fehlermeldung bei schwachem Passwort | ☐ | |
-| T-03 | Login | Login funktioniert korrekt | ☐ | |
-| T-04 | Logout | User wird ausgeloggt | ☐ | |
-| T-05 | Übungen filtern | Filter zeigt passende Übungen | ☐ | |
-| T-06 | Lieblingsübung speichern | Lieblingsübung erscheint im Profil | ☐ | |
-| T-07 | Trainingsplan starten | Training wird geladen | ☐ | |
-| T-08 | Training speichern | Training wird gespeichert | ☐ | |
-| T-09 | Fortschritt anzeigen | Fortschritt wird visualisiert | ☐ | |
-| T-10 | PR erkennen | Persönlicher Rekord wird erkannt | ☐ | |
-| T-11 | Wochenziel ändern | Neues Ziel wird gespeichert | ☐ | |
-| T-12 | Kalender verwenden | Tage werden markiert | ☐ | |
-| T-13 | Schritttracking | Schritte werden gespeichert | ☐ | |
-| T-14 | GymSense Coach | Coach antwortet korrekt | ☐ | |
-| T-15 | Rezepte anzeigen | Rezepte werden geladen | ☐ | |
-| T-16 | Rezeptdetails | Anleitung wird angezeigt | ☐ | |
-| T-17 | Rezeptfilter | Kategorien funktionieren | ☐ | |
-| T-18 | Kursfinder | Kurse können gesucht werden | ☐ | |
-| T-19 | Standort teilen | Standort kann geteilt werden | ☐ | |
-| T-20 | Maps Integration | Maps funktioniert korrekt | ☐ | |
-| T-21 | Dark Mode | UI bleibt lesbar | ☐ | |
+| T-01 | Registrierung | User wird erfolgreich registriert | ☑ | Registrierung funktionierte ohne Probleme |
+| T-02 | Passwortvalidierung | Fehlermeldung bei schwachem Passwort | ☑ | Live-Validierung reagierte korrekt |
+| T-03 | Login | Login funktioniert korrekt | ☑ | Anmeldung erfolgreich durchgeführt |
+| T-04 | Logout | User wird ausgeloggt | ☑ | Logout über Dropdown-Menü funktionierte |
+| T-05 | Übungen filtern | Filter zeigt passende Übungen | ☑ | Übungen wurden korrekt gefiltert |
+| T-06 | Lieblingsübung speichern | Lieblingsübung erscheint im Profil | ☑ | Favorit wurde erfolgreich gespeichert |
+| T-07 | Trainingsplan starten | Training wird geladen | ☑ | Trainingsplan wurde korrekt übernommen |
+| T-08 | Training speichern | Training wird gespeichert | ☑ | Trainingsdaten wurden korrekt gespeichert |
+| T-09 | Fortschritt anzeigen | Fortschritt wird visualisiert | ☑ | Diagramme und Fortschritte wurden angezeigt |
+| T-10 | PR erkennen | Persönlicher Rekord wird erkannt | ☑ | PR-Badge erschien korrekt |
+| T-11 | Wochenziel ändern | Neues Ziel wird gespeichert | ☑ | Ziel wurde erfolgreich aktualisiert |
+| T-12 | Kalender verwenden | Tage werden markiert | ☑ | Kalender funktionierte korrekt |
+| T-13 | Schritttracking | Schritte werden gespeichert | ☑ | Schrittedaten wurden korrekt übernommen |
+| T-14 | GymSense Coach | Coach antwortet korrekt | ☑ | Antworten waren passend und verständlich |
+| T-15 | Rezepte anzeigen | Rezepte werden geladen | ☑ | Rezepte wurden korrekt dargestellt |
+| T-16 | Rezeptdetails | Anleitung wird angezeigt | ☑ | Rezeptdetails öffneten korrekt |
+| T-17 | Rezeptfilter | Kategorien funktionieren | ☑ | Filter funktionierten wie erwartet |
+| T-18 | Kursfinder | Kurse können gesucht werden | ☑ | Kursliste wurde korrekt gefiltert |
+| T-19 | Standort teilen | Standort kann geteilt werden | ☑ | Standortfreigabe funktionierte |
+| T-20 | Maps Integration | Maps funktioniert korrekt | ☑ | Google Maps Route öffnete korrekt |
+| T-21 | Dark Mode | UI bleibt lesbar | ☑ | Dark Mode funktionierte auf allen Seiten |
 
 #### Zusammenfassung der Resultate
 
@@ -495,6 +497,26 @@ Diese Verbesserungsvorschläge wurden ebenfalls umgesetzt.
 - **Wo umgesetzt:** Verteilt über `+page.svelte`, `register/+page.svelte`, `progress/+page.svelte`, `profile/+page.svelte` und globale CSS-Styles.
 - **Referenz:** Kap. 3.4.1 (User Interface Design)
 - **Aus Evaluation abgeleitet?** Nein – als UX-Verbesserung umgesetzt und in der Evaluation positiv wahrgenommen.
+
+---
+
+### 4.13 FAQ- & Help-System
+
+- FAQ-Seite mit häufigen Fragen und Antworten
+- Kontakt-/Help-Bereich direkt über das User-Dropdown erreichbar
+- Verbesserte Benutzerunterstützung und Orientierung für neue Nutzer:innen
+
+### 4.14 Coaching Anfrageformular
+
+- Modernes Kontaktformular für Coaching-Anfragen
+- Enthält Fitnessziele, Trainingslevel und Unterstützungsbereiche
+- Inklusive animierter „Nachricht wird gesendet“-Interaktion
+
+### 4.15 Rechtliche Seiten & Footer-Erweiterung
+
+- Impressum, Datenschutz und AGB integriert
+- Rechtliche Links horizontal im Footer ergänzt
+- Verbessert Professionalität und Vollständigkeit der Plattform
 
 ---
 
