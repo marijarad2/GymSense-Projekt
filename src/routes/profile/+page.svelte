@@ -1,5 +1,6 @@
 <script>
 	let { data } = $props();
+	import { browser } from '$app/environment';
 
 	const weeklyProgress = data.weeklyProgress ?? {
 		current: 0,
