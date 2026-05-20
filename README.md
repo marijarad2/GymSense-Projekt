@@ -264,28 +264,32 @@ Für die Evaluation wird eine Testperson eingesetzt, die GymSense aus Sicht eine
 | T-18 | Kursfinder | Kurse können gesucht werden |
 | T-19 | Kursfinder | Standort kann geteilt werden |
 | T-20 | Kursfinder | Maps funktioniert |
-| T-18 | Dark Mode | UI bleibt lesbar |
+| T-21 | Dark Mode | UI bleibt lesbar |
+
 
 | Test ID | Aktivität | Test erfüllt |
 |---|---|---|
-| T-01 | Registrierung eines neuen Users | ☐ |
-| T-02 | Passwortvalidierung prüfen | ☐ |
-| T-03 | Login bestehender User | ☐ |
+| T-01 | Registrierung | ☐ |
+| T-02 | Passwortvalidierung | ☐ |
+| T-03 | Login | ☐ |
 | T-04 | Logout | ☐ |
-| T-05 | Übungen suchen und filtern | ☐ |
+| T-05 | Übungen filtern | ☐ |
 | T-06 | Lieblingsübung speichern | ☐ |
 | T-07 | Trainingsplan starten | ☐ |
 | T-08 | Training speichern | ☐ |
 | T-09 | Fortschritt anzeigen | ☐ |
-| T-10 | Persönlichen Rekord erkennen | ☐ |
+| T-10 | PR erkennen | ☐ |
 | T-11 | Wochenziel ändern | ☐ |
-| T-12 | Trainingskalender verwenden | ☐ |
-| T-13 | Apple Health Prototype testen | ☐ |
-| T-14 | GymSense Coach verwenden | ☐ |
+| T-12 | Kalender verwenden | ☐ |
+| T-13 | Schritttracking | ☐ |
+| T-14 | GymSense Coach | ☐ |
 | T-15 | Rezepte anzeigen | ☐ |
-| T-16 | Rezeptdetails öffnen | ☐ |
-| T-17 | Rezeptfilter verwenden | ☐ |
-| T-18 | Dark Mode prüfen | ☐ |
+| T-16 | Rezeptdetails | ☐ |
+| T-17 | Rezeptfilter | ☐ |
+| T-18 | Kursfinder | ☐ |
+| T-19 | Standort teilen | ☐ |
+| T-20 | Maps Integration | ☐ |
+| T-21 | Dark Mode | ☐ |
 
 ---
 
