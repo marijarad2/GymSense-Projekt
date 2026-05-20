@@ -3,6 +3,7 @@
 	import logo from '$lib/assets/Logo.png';
 	import 'bootstrap-icons/font/bootstrap-icons.css';
 	import { browser } from '$app/environment';
+	import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 	let { data, children } = $props();
 
