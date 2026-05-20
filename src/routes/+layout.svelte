@@ -195,11 +195,46 @@
 
 			<div class="d-flex align-items-center gap-2">
 				{#if data.user}
-					<div class="profile-menu">
-						<a href="/profile" class="profile-link" title="Profil">
+					<div class="dropdown profile-dropdown">
+						<button
+							class="profile-dropdown-btn dropdown-toggle"
+							type="button"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"
+						>
 							<i class="bi bi-person-circle"></i>
 							<span>{data.user.name}</span>
-						</a>
+						</button>
+
+						<ul class="dropdown-menu dropdown-menu-end custom-dropdown">
+							<li>
+								<a class="dropdown-item" href="/profile">
+									<i class="bi bi-person me-2"></i> Profil
+								</a>
+							</li>
+
+							<li>
+								<a class="dropdown-item" href="/help">
+									<i class="bi bi-question-circle me-2"></i> FAQ / Help
+								</a>
+							</li>
+
+							<li>
+								<a class="dropdown-item" href="/contact">
+									<i class="bi bi-envelope me-2"></i> Kontakt
+								</a>
+							</li>
+
+							<li><hr class="dropdown-divider" /></li>
+
+							<li>
+								<form method="POST" action="/logout">
+									<button class="dropdown-item logout-item" type="submit">
+										<i class="bi bi-box-arrow-right me-2"></i> Abmelden
+									</button>
+								</form>
+							</li>
+						</ul>
 					</div>
 
 					<button class="btn theme-btn" type="button" onclick={toggleDarkMode}>
@@ -209,12 +244,6 @@
 							<i class="bi bi-moon-stars-fill me-1"></i> Dark
 						{/if}
 					</button>
-
-					<form method="POST" action="/logout">
-						<button class="btn auth-btn" type="submit">
-							<i class="bi bi-box-arrow-right me-1"></i> Abmelden
-						</button>
-					</form>
 				{:else}
 					<button class="btn theme-btn" type="button" onclick={toggleDarkMode}>
 						{#if isDarkMode}
@@ -376,28 +405,6 @@
 	.theme-btn:hover {
 		background: white;
 		color: #b06eb0;
-	}
-
-	.profile-link {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		color: white;
-		text-decoration: none;
-		font-weight: 700;
-	}
-
-	.profile-link i {
-		font-size: 1.8rem;
-	}
-
-	.profile-link:hover {
-		color: #b06eb0;
-	}
-
-	.profile-menu {
-		display: flex;
-		align-items: center;
 	}
 
 	.page-content {
@@ -668,5 +675,71 @@
 
 :global(body.dark-mode) .coach-input input::placeholder {
 	color: #c7b2cc;
+}
+
+.profile-dropdown-btn {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	border: none;
+	background: transparent;
+	color: white;
+	font-weight: 700;
+}
+
+.profile-dropdown-btn i {
+	font-size: 1.8rem;
+}
+
+.profile-dropdown-btn:hover {
+	color: #b06eb0;
+}
+
+.custom-dropdown {
+	border: none;
+	border-radius: 16px;
+	padding: 10px;
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+	min-width: 220px;
+}
+
+.custom-dropdown .dropdown-item {
+	border-radius: 10px;
+	padding: 10px 12px;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+}
+
+.custom-dropdown .dropdown-item:hover {
+	background: #fff0ff;
+	color: #b06eb0;
+}
+
+.logout-item {
+	color: #d14b4b;
+}
+
+.logout-item:hover {
+	background: #ffeaea !important;
+	color: #d14b4b !important;
+}
+
+:global(body.dark-mode) .custom-dropdown {
+	background: #2c2432;
+	border: 1px solid rgba(247, 209, 248, 0.18);
+}
+
+:global(body.dark-mode) .custom-dropdown .dropdown-item {
+	color: #f5eaf5;
+}
+
+:global(body.dark-mode) .custom-dropdown .dropdown-item:hover {
+	background: #3a2a42;
+	color: #f7d1f8;
+}
+
+:global(body.dark-mode) .dropdown-divider {
+	border-color: rgba(247, 209, 248, 0.15);
 }
 </style>
