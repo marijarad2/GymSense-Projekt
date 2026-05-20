@@ -375,7 +375,14 @@ Moderierter Usability-Test on-site. Die Testperson erhält schriftliche Aufgaben
 
 #### Zusammenfassung der Resultate
 
-GymSense wurde von der Testperson durchgehend als übersichtlich und intuitiv bedienbar bewertet. Die zentralen Workflows (Training erfassen, Fortschritt ansehen, Profil verwalten) waren ohne Einführung verständlich. Besonders positiv hervorgehoben wurden die Live-Trainings-Zusammenfassung, der PR-Badge und die Swipe-Navigation im Kalender. Der GymSense Coach wurde als hilfreiche Ergänzung wahrgenommen, wobei die vorgeschlagenen Fragen den Einstieg erleichterten.
+GymSense wurde von der Testperson durchgehend als übersichtlich und intuitiv bedienbar bewertet. Die zentralen Workflows (Training erfassen, Fortschritt ansehen, Profil verwalten) waren ohne Einführung verständlich und alle definierten Testfälle konnten erfolgreich durchgeführt werden. Besonders positiv hervorgehoben wurden die Live-Trainings-Zusammenfassung, der PR-Badge, die Swipe-Navigation im Kalender sowie der integrierte Dark Mode. Der GymSense Coach wurde als hilfreiche Ergänzung wahrgenommen, wobei die vorgeschlagenen Fragen den Einstieg erleichterten. Zusätzlich wurde erwähnt, dass die App modern wirkt und grundsätzlich auch privat im Gym verwendet werden würde.
+
+Als mögliche Verbesserungen wurden folgende Punkte genannt:
+- Im Trainingsplan sollen hinzugefügte Sätze auch wieder gelöscht werden können.
+- Ergänzung eines Kontaktformulars in der Navigation.
+- Erweiterung des Help-Bereichs durch eine FAQ-Seite.
+- Möglichkeit zur Bewertung der App integrieren.
+- Ergänzung von Impressum, Datenschutz und AGB.
 
 
 ---
