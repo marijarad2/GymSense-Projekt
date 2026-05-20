@@ -35,19 +35,71 @@
 	let coachMessages = $state([
 		{
 			from: 'bot',
-			text: 'Hallo, ich bin dein GymSense Coach. Du kannst mich z.B. fragen: Was soll ich heute trainieren? Wie bleibe ich motiviert? Was bedeutet mein Fortschritt?'
+			text: data.user
+				? 'Hallo, ich bin dein GymSense Coach. Du kannst mich z.B. fragen: Was soll ich heute trainieren? Wie bleibe ich motiviert? Was bedeutet mein Fortschritt?'
+				: 'Hallo, ich bin dein GymSense Coach. Du kannst mich z.B. fragen: Wie werde ich Teil von GymSense? Was sind die Vorteile? Wen kann ich kontaktieren?'
 		}
 	]);
 
-	const suggestedQuestions = [
-		'Was soll ich heute trainieren?',
-		'Wie bleibe ich motiviert?',
-		'Was bedeutet mein Fortschritt?',
-		'Wann soll ich Rest Day machen?'
-	];
+	const suggestedQuestions = $derived(
+		data.user
+			? [
+					'Was soll ich heute trainieren?',
+					'Wie bleibe ich motiviert?',
+					'Was bedeutet mein Fortschritt?',
+					'Wann soll ich Rest Day machen?'
+				]
+			: [
+					'Wie werde ich Teil von GymSense?',
+					'Was sind die Vorteile?',
+					'Warum sollte ich GymSense verwenden?',
+					'Wen kann ich kontaktieren?'
+				]
+	);
 
 	function answerCoach(question) {
 		const q = question.toLowerCase();
+		if (!data.user) {
+		if (
+			q.includes('kontakt') ||
+			q.includes('kontaktieren') ||
+			q.includes('email') ||
+			q.includes('telefon') ||
+			q.includes('hilfe')
+		) {
+			return 'Du kannst GymSense per E-Mail unter info@gymsense.ch oder telefonisch unter +41 79 123 45 67 kontaktieren.';
+		}
+
+		if (
+			q.includes('teil') ||
+			q.includes('mitglied') ||
+			q.includes('anmelden') ||
+			q.includes('registrieren') ||
+			q.includes('starten')
+		) {
+			return 'Du kannst Teil von GymSense werden, indem du dich anmeldest oder kostenlos registrierst. Klicke oben rechts auf „Anmelden“ oder „Registrieren“, um zu starten.';
+		}
+
+		if (
+			q.includes('vorteil') ||
+			q.includes('vorteile') ||
+			q.includes('warum') ||
+			q.includes('verwenden') ||
+			q.includes('nutzen')
+		) {
+			return 'GymSense hilft dir, dein Training strukturierter zu planen, Fortschritte sichtbar zu machen, Übungen besser zu finden und motiviert dranzubleiben.';
+		}
+
+		if (
+			q.includes('was ist') ||
+			q.includes('gymsense') ||
+			q.includes('funktion')
+		) {
+			return 'GymSense ist eine Fitness-Webapp für Trainingsdokumentation, Fortschrittsanzeige, Übungen, Rezepte, Kursfinder und smarte Coaching-Unterstützung.';
+		}
+
+		return 'Du bist aktuell nicht eingeloggt. Ich kann dir erklären, was GymSense ist, welche Vorteile die App bietet, wie du dich registrierst oder wie du Kontakt aufnehmen kannst.';
+	}
 
 		const stepsToday = data.user?.healthStepsToday ?? 0;
 		const stepGoal = data.user?.healthStepGoal ?? 8000;
@@ -253,10 +305,16 @@
 
 		<div class="footer-section">
 			<h4>Navigation</h4>
+
 			<a href="/">Startseite</a>
-			<a href="/training">Training</a>
-			<a href="/progress">Fortschritt</a>
 			<a href="/exercises">Übungen</a>
+			<a href="/recipes">Rezepte</a>
+
+			{#if data.user}
+				<a href="/training">Training</a>
+				<a href="/progress">Fortschritt</a>
+				<a href="/plans">Trainingspläne</a>
+			{/if}
 		</div>
 	</div>
 
