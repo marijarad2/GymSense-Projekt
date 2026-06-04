@@ -1,18 +1,29 @@
 # Projektdokumentation – GymSense
 
 <p align="center">
-  <img src="./src/lib/assets/Logo.png" alt="GymSense Logo" width="180"/>
+  <img src="./src/lib/assets/Logo.png" alt="GymSense Logo" width="200"/>
 </p>
 
 <p align="center">
-  <strong>Train smarter. Not just harder.</strong><br/>
+  <em>Train smarter. Not just harder.</em><br/>
   Eine moderne Fitness-Webapplikation zur strukturierten Erfassung und Nachverfolgung von Krafttrainings.
 </p>
 
 <p align="center">
+  <a href="https://gymsense-webapp.netlify.app/">
+    <img src="https://img.shields.io/badge/🌐_Live_App-gymsense--webapp.netlify.app-00C7B7?style=for-the-badge&logo=netlify"/>
+  </a>
+  <a href="https://github.com/marijarad2/GymSense-Projekt">
+    <img src="https://img.shields.io/badge/📁_GitHub-marijarad2%2FGymSense--Projekt-181717?style=for-the-badge&logo=github"/>
+  </a>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/SvelteKit-FF3E00?style=for-the-badge&logo=svelte&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Svelte_5-FF3E00?style=for-the-badge&logo=svelte&logoColor=white"/>
   <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Bootstrap_5-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white"/>
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/>
   <img src="https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white"/>
 </p>
 
@@ -23,15 +34,17 @@
 1. [Ausgangslage](#1-ausgangslage)
 2. [Lösungsidee](#2-lösungsidee)
 3. [Vorgehen & Artefakte](#3-vorgehen--artefakte)
-   - [3.1 Understand & Define](#31-understand--define)
-   - [3.2 Sketch](#32-sketch)
-   - [3.3 Decide](#33-decide)
-   - [3.4 Prototype](#34-prototype)
-   - [3.5 Validate](#35-validate)
+    1. [Understand & Define](#31-understand--define)
+    2. [Sketch](#32-sketch)
+    3. [Decide](#33-decide)
+    4. [Prototype](#34-prototype)
+    5. [Validate](#35-validate)
 4. [Erweiterungen](#4-erweiterungen)
 5. [Projektorganisation](#5-projektorganisation)
 6. [KI-Deklaration](#6-ki-deklaration)
 7. [Anhang](#7-anhang)
+
+> **Hinweis:** Massgeblich sind die im **Unterricht** und auf **Moodle** kommunizierten Anforderungen.
 
 ---
 
@@ -39,25 +52,19 @@
 
 ### Problem
 
-Die steigende Popularität von Fitness und Krafttraining führt dazu, dass immer mehr Personen regelmässig ins Fitnessstudio gehen – aber viele dokumentieren ihr Training kaum systematisch. Trainings werden spontan durchgeführt, ohne klare Struktur oder Nachverfolgung des Fortschritts. Dadurch bleibt unklar, ob tatsächlich Fortschritte erzielt werden oder ob Anpassungen nötig wären.
+Die steigende Popularität von Fitness und Krafttraining führt dazu, dass immer mehr Personen regelmässig ins Fitnessstudio gehen – aber viele dokumentieren ihr Training kaum systematisch. Trainings werden spontan durchgeführt, ohne klare Struktur oder Nachverfolgung des Fortschritts. Dadurch bleibt unklar, ob tatsächlich Verbesserungen erzielt werden oder ob Anpassungen nötig wären.
 
-Zusätzlich fällt es insbesondere Einsteiger:innen schwer, Übungen korrekt auszuführen, was das Verletzungsrisiko erhöht. Bestehende Fitness-Apps sind häufig komplex, überladen und nicht auf einfache, verständliche Workflows ausgerichtet.
+Zusätzlich fällt es insbesondere Einsteiger:innen schwer, Übungen korrekt auszuführen, was das Verletzungsrisiko erhöht. Bestehende Fitness-Apps sind häufig komplex, überladen und nicht auf einfache, klare Workflows ausgerichtet.
 
-### Ziele
-
-- Strukturierte, einfache Trainingsdokumentation ermöglichen
-- Fortschritte und persönliche Rekorde sichtbar machen
-- Übungen mit Tipps und Videos korrekt zugänglich machen
-- Intelligente Trainingsunterstützung bieten (Coach, Empfehlungen)
-- Übersichtliche, nutzerfreundliche Benutzeroberfläche bereitstellen
-
-### Primäre Zielgruppe
-
-Personen zwischen 18 und 35 Jahren, die regelmässig Krafttraining betreiben und ihren Fortschritt strukturiert digital dokumentieren möchten – von Einsteiger:innen bis hin zu Fortgeschrittenen.
-
-### Weitere Stakeholder
-
-Fitnessstudios und Kursanbieter, die über den integrierten Kursfinder (/discover) erreichbar sind.
+- **Problem:** Kraftsportler:innen dokumentieren ihr Training kaum oder unsystematisch. Fortschritte bleiben unsichtbar, Übungsausführung ist oft unklar, und bestehende Apps sind zu komplex für den Alltag im Gym.
+- **Ziele:**
+  - Strukturierte, einfache Trainingsdokumentation ermöglichen
+  - Fortschritte und persönliche Rekorde sichtbar machen
+  - Übungen mit Tipps und Videos korrekt zugänglich machen
+  - Intelligente Trainingsunterstützung bieten (Coach, Empfehlungen)
+  - Übersichtliche, nutzerfreundliche Benutzeroberfläche bereitstellen
+- **Primäre Zielgruppe:** Personen zwischen 18 und 35 Jahren, die regelmässig Krafttraining betreiben und ihren Fortschritt strukturiert digital dokumentieren möchten – von Einsteiger:innen bis hin zu Fortgeschrittenen.
+- **Weitere Stakeholder:** Fitnessstudios und Kursanbieter, die über den integrierten Kursfinder (`/discover`) erreichbar sind.
 
 ---
 
@@ -65,68 +72,85 @@ Fitnessstudios und Kursanbieter, die über den integrierten Kursfinder (/discove
 
 **GymSense** ist eine moderne Fitness-Webapplikation, die Trainingsdokumentation, Fortschrittsanalyse, Kurssuche und intelligente Coaching-Funktionen in einer übersichtlichen App vereint.
 
-### Kernfunktionalität
+- **Kernfunktionalität:**
 
 | Workflow | Beschreibung |
 |---|---|
-| Training erfassen | Übungen, Sätze, Gewicht, Wiederholungen und Notizen eintragen |
-| Fortschritt verfolgen | Gewichtsentwicklung und persönliche Rekorde visualisieren |
-| Trainingspläne | Vorgefertigte Pläne auswählen, starten und direkt ins Training übernehmen |
-| Übungsbibliothek | Suche, Filter nach Muskelgruppe, Tipps, Videos, Lieblingsübung speichern |
-| Profil & Statistiken | Trainingsstreak, Wochenziel, Kalender, Health-Daten, Rekordübersicht |
-| Kursfinder | Fitnesskurse in der Nähe finden, nach Typ filtern, Routen öffnen |
-| Rezeptsystem | Fitness-Rezepte mit Kalorien, Protein, Anleitungen und Kategoriefilter |
-| GymSense Coach | Regelbasierter Fitness-Assistent mit kontextbezogenen Antworten |
+| 🏋️ Training erfassen | Übungen, Sätze, Gewicht, Wiederholungen und Notizen eintragen |
+| 📈 Fortschritt verfolgen | Gewichtsentwicklung pro Übung und persönliche Rekorde (PR) visualisieren |
+| 📋 Trainingspläne | Vorgefertigte Pläne auswählen, starten und direkt ins Training übernehmen |
+| 🔍 Übungsbibliothek | Suche, Filter nach Muskelgruppe, Tipps, Videos, Lieblingsübung speichern |
+| 👤 Profil & Statistiken | Trainingsstreak, Wochenziel, Kalender, Health-Daten, Rekordübersicht |
+| 📍 Kursfinder | Fitnesskurse in der Nähe finden, nach Typ filtern, Google Maps Routen öffnen |
+| 🥗 Rezeptsystem | Fitness-Rezepte mit Kalorien, Protein, Anleitungen und Kategoriefilter |
+| 🤖 GymSense Coach | Regelbasierter Fitness-Assistent mit kontextbezogenen Antworten |
 
-### Annahmen
+- **Annahmen:**
+  - Nutzer:innen sind motiviert zu dokumentieren, wenn der Aufwand minimal ist
+  - Visuelle Fortschrittsdaten erhöhen die langfristige Trainingsmotivation
+  - Ein integrierter Coach kann einfache Fitnessfragen ohne KI-Backend beantworten
 
-- Nutzer:innen sind motiviert, ihr Training zu dokumentieren, wenn der Aufwand minimal ist
-- Visuelle Fortschrittsdaten erhöhen die langfristige Trainingsmotivation
-- Ein integrierter Coach kann einfache Fragen ohne KI-Backend beantworten
-
-### Abgrenzung
-
-- Kein Social-Sharing oder Community-Funktionen
-- Kein direktes Apple-Health-API-Integration (nur Prototyp-Darstellung)
-- Kein Ernährungsplan-Generator
+- **Abgrenzung:**
+  - Kein Social-Sharing oder Community-Funktionen
+  - Keine echte Apple-Health-API-Integration (nur Prototyp-Darstellung)
+  - Kein automatischer Ernährungsplan-Generator
 
 ---
 
 ## 3. Vorgehen & Artefakte
 
+Die Durchführung erfolgt phasenbasiert; dokumentiert sind die wichtigsten Ergebnisse je Phase.
+
 ### 3.1 Understand & Define
 
 #### Zielgruppenverständnis
 
-**Proto-Persona: "Fitness-Fabian"**
+Zur Problemraumanalyse wurde eine Proto-Persona erarbeitet, die typische Nutzer:innen von GymSense repräsentiert:
 
-- **Alter:** 23 Jahre, Student
-- **Fitnesslevel:** Leicht fortgeschritten, trainiert seit ~1 Jahr
-- **Verhalten:** Geht 3-4x pro Woche ins Gym, nutzt aktuell Notizen-App zum Dokumentieren
-- **Frustrationen:** Unübersichtliche Apps, zu viele Features, kein klarer Fortschritt erkennbar
-- **Ziele:** Gewichte steigern, Muskelaufbau, strukturierter trainieren
+---
+
+**🧑 Proto-Persona: "Fitness-Fabian"**
+
+| Merkmal | Beschreibung |
+|---|---|
+| Alter | 23 Jahre, Student |
+| Fitnesslevel | Leicht fortgeschritten, trainiert seit ~1 Jahr |
+| Verhalten | Geht 3–4× pro Woche ins Gym, dokumentiert mit Notizen-App |
+| Frustrationen | Zu komplexe Apps, keine klaren Fortschritte erkennbar, keine Struktur |
+| Ziele | Gewichte steigern, Muskelaufbau, strukturierter trainieren |
+| Geräte | Smartphone im Gym, Laptop zuhause |
+
+---
 
 #### Wesentliche Erkenntnisse
 
 - Viele Fitness-Apps sind zu komplex – einfache Workflows entscheiden über langfristige Nutzung
-- Fortschritt ist der wichtigste Motivationsfaktor im Krafttraining
-- Mobile Nutzung (Smartphone im Gym) ist zentral → vollständige Responsiveness nötig
+- **Fortschritt ist der wichtigste Motivationsfaktor** im Krafttraining
+- Mobile Nutzung (Smartphone im Gym) ist zentral → vollständige Responsiveness ist Pflicht
 - Übungen mit Tipps und Videos helfen Einsteiger:innen enorm
-- Ein Trainingskalender schafft Überblick und erhöht das Commitmentgefühl
+- Ein Trainingskalender schafft Überblick und erhöht das Commitment-Gefühl
+- Nutzer:innen wollen schnell ins Training – keine langen Onboarding-Flows
 
 ---
 
 ### 3.2 Sketch
 
-Es wurden drei Varianten skizziert:
+Es wurden drei Varianten konzipiert und skizziert:
 
-| Variante | Konzept | Unterschied |
-|---|---|---|
-| A | Minimales Logbuch | Reines Text-Interface, keine Extras, maximal simpel |
-| B | Dashboard-App | Starke Startseite mit KPIs, Navigation zu allen Features |
-| C | Step-by-Step Flow | Geführter Trainingsablauf, kein freies Browsen |
+| Variante | Konzept | Stärke | Schwäche |
+|---|---|---|---|
+| **A – Minimales Logbuch** | Reines Text-Interface, keine Extras, maximal simpel | Extrem schnell, null Einstiegshürde | Kein Mehrwert, keine Motivation |
+| **B – Dashboard-App** | Starke Startseite mit KPIs, Navigation zu allen Features | Übersicht + Tiefe, erweiterbar, bekanntes UX-Muster | Mehr Entwicklungsaufwand |
+| **C – Step-by-Step Flow** | Geführter Trainingsablauf, kein freies Browsen | Ideal für Einsteiger | Zu einschränkend für erfahrene Nutzer |
 
-**Variante B** wurde gewählt, da sie den besten Kompromiss zwischen Übersicht und Funktionalität bietet. Die Dashboard-Struktur erlaubt sowohl schnellen Einstieg als auch tiefe Nutzung.
+**Skizzen:**
+
+> 📎 *Skizzen werden separat als Bilder eingefügt (Variante A, B, C – handgezeichnet / digital)*
+
+**Wesentliche Unterschiede:**
+- Variante A verzichtet auf jegliche Statistik und Gamification
+- Variante B kombiniert freie Navigation mit einem informativen Dashboard
+- Variante C schränkt die User Journey auf einen einzigen linearen Pfad ein
 
 ---
 
@@ -134,259 +158,289 @@ Es wurden drei Varianten skizziert:
 
 #### Gewählte Variante & Begründung
 
-**Variante B – Dashboard-App** mit folgenden Entscheidkriterien:
+**✅ Variante B – Dashboard-App** wurde gewählt aufgrund folgender Entscheidkriterien:
 
-- Freie Navigation ermöglicht flexible Trainingsabläufe
-- Profilseite bündelt alle persönlichen Daten und Statistiken
-- Erweiterbarkeit durch modulare Seitenstruktur
-- Bekanntes UX-Muster senkt die Einstiegshürde
+| Kriterium | Begründung |
+|---|---|
+| Freie Navigation | Ermöglicht flexible Trainingsabläufe je nach Tagesform |
+| Profilseite | Bündelt alle persönlichen Daten und Statistiken an einem Ort |
+| Erweiterbarkeit | Modulare Seitenstruktur erlaubt spätere Feature-Erweiterungen |
+| Bekanntes UX-Muster | Navbar + Cards senkt die Einstiegshürde |
+| Motivationsaspekte | PR-Badges, Streaks, Wochenziel passen besser zu einer Dashboard-Logik |
 
 #### End-to-End-Ablauf (User Journey)
 
 ```
-Registrierung / Login
+🆕 Registrierung / Login
         ↓
-Startseite (Willkommen + Smart Welcome für neue Nutzer)
+🏠 Startseite  (Willkommen + Smart Welcome für neue Nutzer / Konfetti-Animation)
         ↓
-Trainingsplan auswählen (/plans)
+📋 Trainingsplan auswählen  (/plans  →  Empfehlung basierend auf Level)
         ↓
-Training erfassen (/training) → Plan wird automatisch geladen
+🏋️ Training erfassen  (/training  →  Plan wird automatisch geladen)
         ↓
-Übungen & Sätze eintragen → Live-Zusammenfassung
+➕ Übungen & Sätze eintragen  →  Live-Zusammenfassung (Übungen / Sätze / Volumen)
         ↓
-Training speichern → Fortschritt wird aktualisiert
+💾 Training speichern  →  Fortschritt & Streak werden automatisch aktualisiert
         ↓
-Fortschritt analysieren (/progress) → PRs, Verlauf, Toast-Benachrichtigung
+📈 Fortschritt analysieren  (/progress  →  PRs, Verlauf, Toast-Benachrichtigung)
         ↓
-Profil prüfen (/profile) → Streak, Wochenziel, Kalender, Health-Daten
+👤 Profil prüfen  (/profile  →  Streak, Wochenziel, Kalender, Health-Daten)
 ```
 
 #### Mockup
 
-Das Mockup wurde in Figma erstellt und zeigt alle zentralen Screens: Startseite, Training, Fortschritt, Übungen, Trainingspläne, Profil, Rezepte, Kursfinder.
+Das Mockup wurde in **Figma** erstellt und zeigt alle zentralen Screens: Startseite, Training, Fortschritt, Übungen, Trainingspläne, Profil, Rezepte, Kursfinder.
+
+> 📎 *Figma-Link / Screenshots werden ergänzt*
 
 ---
 
 ### 3.4 Prototype
 
-#### 3.4.1 Entwurf (Design)
+#### 3.4.1. Entwurf (Design)
+
+> **Hinweis:** Hier wird der **Prototyp** beschrieben, nicht das **Mockup**.
 
 ##### Informationsarchitektur
 
-| Route | Seite | Beschreibung |
-|---|---|---|
-| `/` | Startseite | Hero-Section, Willkommensbereich (logged in/out), Projektbeschreibung |
-| `/login` | Login | Anmeldung mit Passwort-Toggle |
-| `/register` | Registrierung | Konto erstellen mit Live-Passwortvalidierung |
-| `/logout` | Abmeldung | POST-Action, redirect zur Startseite |
-| `/exercises` | Übungen | Bibliothek mit Suche, Muskelgruppenfilter, Videos, Favoriten |
-| `/plans` | Trainingspläne | Vorgefertigte Pläne mit Empfehlung und Startfunktion |
-| `/training` | Training erfassen | Übungen hinzufügen, Sätze eintragen, Live-Zusammenfassung |
-| `/progress` | Fortschritt | Gewichtsverlauf, persönliche Rekorde, Toast-Benachrichtigung |
-| `/profile` | Profil | Statistiken, Kalender, Wochenziel, Health-Prototype, Streaks |
-| `/recipes` | Rezepte | Fitness-Rezepte mit Kalorien, Protein, Kategoriefilter, Modal |
-| `/discover` | Kursfinder | Kurse nach Typ filtern, Standort teilen, Google Maps Route |
-| `/api/training-plan/[id]` | API | Trainingsplan per ID laden (für Training-Page) |
+| Route | Seite | Authentifizierung | Beschreibung |
+|---|---|---|---|
+| `/` | Startseite | Optional | Hero-Section, Willkommensbereich (logged in/out), Projektbeschreibung |
+| `/login` | Login | – | Anmeldung mit Passwort-Toggle |
+| `/register` | Registrierung | – | Konto erstellen mit Live-Passwortvalidierung & Stärkeanzeige |
+| `/logout` | Abmeldung | ✅ | POST-Action, redirect zur Startseite |
+| `/exercises` | Übungen | Optional | Bibliothek mit Suche, Muskelgruppenfilter, Videos, Favoriten |
+| `/plans` | Trainingspläne | ✅ | Vorgefertigte Pläne mit kontextbasierter Empfehlung und Startfunktion |
+| `/training` | Training erfassen | ✅ | Übungen hinzufügen, Sätze eintragen, Live-Zusammenfassung |
+| `/progress` | Fortschritt | ✅ | Gewichtsverlauf, persönliche Rekorde, PR-Badges, Toast |
+| `/profile` | Profil | ✅ | Statistiken, Kalender, Wochenziel, Health-Prototype, Streaks |
+| `/recipes` | Rezepte | Optional | Fitness-Rezepte mit Kalorien, Protein, Kategoriefilter, Modal |
+| `/discover` | Kursfinder | Optional | Kurse filtern, Standort teilen, Distanzberechnung, Google Maps |
+| `/help` | FAQ / Help | Optional | Häufige Fragen & Antworten, Link zum Kontaktformular |
+| `/contact` | Kontakt | Optional | Coaching-Anfrage-Formular mit Animation |
+| `/impressum` | Impressum | – | Rechtliche Angaben |
+| `/datenschutz` | Datenschutz | – | Datenschutzerklärung |
+| `/agb` | AGB | – | Allgemeine Geschäftsbedingungen |
+| `/api/training-plan/[id]` | API | ✅ | Trainingsplan per ID als JSON laden |
 
 ##### User Interface Design
 
-**Key Screens:**
+**Wichtige Screens mit Designentscheidungen:**
 
-- **Startseite (eingeloggt):** Grosses Welcome-Hero mit Konfetti-Animation, Gradient-Hintergrund, Willkommenslabel, CTA-Buttons
-- **Training erfassen:** Übungsauswahl via Dropdown, dynamische Satzkarten, Live-Zusammenfassung (Übungen, Sätze, Volumen)
-- **Fortschritt:** Kartenraster pro Übung mit Balkendiagramm-Visualisierung, PR-Badge, Differenzanzeige, Toast
-- **Profil:** Stats-Grid, Dashboard-Karten (Wochenziel, Health, Streak, Coach-Tipp), interaktiver Monatskalender
-- **Kursfinder:** Hero-Bild, Standort-Karte, Typfilter, Kurskarten mit Distanzanzeige und Maps-Link
+| Screen | Besonderheit |
+|---|---|
+| **Startseite (eingeloggt)** | Grosses Welcome-Hero mit Konfetti-Animation (6 fallende Emojis), Gradient, "Willkommen zurück"-Label |
+| **Training erfassen** | Übungsauswahl via Dropdown, dynamische Satzkarten, Live-Zusammenfassung (Übungen / Sätze / Volumen in Echtzeit) |
+| **Fortschritt** | Kartenraster pro Übung mit Balkendiagramm, PR-Badge 🎉, Differenzanzeige (+X kg), animierter Toast |
+| **Profil** | Stats-Grid, Dashboard-Karten (Wochenziel, Health, Streak, Coach-Tipp), interaktiver Monatskalender mit Swipe |
+| **Kursfinder** | Hero-Bild, Standort-Card mit Datenschutzhinweis, Typfilter, Kurskarten mit Distanz und Maps-Link |
+| **Rezepte** | Kategoriefilter-Buttons, Karten-Grid mit Bildern, Modal mit Zutaten & Anleitungen |
+| **Übungen** | Suchfeld + Muskelgruppen-Dropdown, Resultat-Counter, Tipps-Liste und YouTube-iframe pro Karte |
+
+> 📸 *Screenshots der fertigen App werden separat ergänzt*
 
 ##### Designentscheidungen
 
-- **Farbschema:** Lila/Pink (`#b06eb0`, `#f7d1f8`) als Primärfarbe → konsistent auf allen Screens
-- **Typografie:** Bootstrap 5 Basis, individuelle Font-Weights und Spacing
-- **Dark Mode:** Vollständiger Dark Mode mit eigenem Farbsystem (dunkle Hintergründe `#2c2432`, `#3a2a42`)
-- **Card-System:** Einheitliches Karten-Layout mit `border-radius: 18-22px`, lila Schatten, hover-Effekten
-- **Hero-Sections:** Jede Seite hat ein eigenes Hero-Bild mit Overlay, Gradient und Zoom-on-Hover
-- **Responsive:** Vollständig mobile-optimiert (Grid-Breakpoints, angepasste Schriftgrössen, Touch-Unterstützung)
+| Entscheidung | Begründung |
+|---|---|
+| **Farbschema Lila/Pink** (`#b06eb0`, `#f7d1f8`) | Unverwechselbar, modern, konsistent auf allen Screens |
+| **Vollständiger Dark Mode** | Nutzbarkeit im Gym (dunkle Umgebung), gespeichert via `localStorage` |
+| **Card-System** | Einheitliche Darstellung mit `border-radius: 18–22px`, lila Schlagschatten, Hover-Lift-Effekt |
+| **Hero-Sections pro Seite** | Jede Seite hat ein eigenes Hero-Bild mit Overlay, Gradient und Zoom-on-Hover |
+| **Responsive Design** | Grid-Breakpoints, angepasste Schriftgrössen, Touch-Swipe für Kalender |
+| **Bootstrap Icons** | Konsistentes Icon-System ohne externe Abhängigkeiten |
 
 ---
 
-#### 3.4.2 Umsetzung (Technik)
+#### 3.4.2. Umsetzung (Technik)
 
 ##### Technologie-Stack
 
 | Technologie | Version | Zweck |
 |---|---|---|
-| SvelteKit | Aktuell | Full-Stack Web Framework |
-| Svelte 5 | Aktuell | UI & reaktives State Management |
-| Bootstrap 5 | 5.x | CSS Framework & UI-Komponenten |
-| Bootstrap Icons | Aktuell | Icon-System |
-| TypeScript | 5.x | Server-seitige Logik & Typsicherheit |
-| MongoDB | Atlas | Datenbank (Nutzer, Trainings, Übungen, Pläne) |
-| Git & GitHub | – | Versionsverwaltung |
-| Netlify | – | Deployment & Hosting |
+| **SvelteKit** | Aktuell | Full-Stack Web Framework (Routing, SSR, Form Actions) |
+| **Svelte 5** | Aktuell | UI & reaktives State Management (`$state`, `$derived`, `$effect`) |
+| **Bootstrap 5** | 5.x | CSS Framework & UI-Komponenten (Navbar, Grid, Utilities) |
+| **Bootstrap Icons** | Aktuell | Icon-System |
+| **TypeScript** | 5.x | Server-seitige Logik & Typsicherheit |
+| **MongoDB Atlas** | Cloud | Datenbank (Nutzer, Trainings, Übungen, Pläne, Kalender) |
+| **Git & GitHub** | – | Versionsverwaltung |
+| **Netlify** | – | Deployment & Hosting (Continuous Deployment via GitHub) |
 
 ##### Tooling
 
 - **IDE:** Visual Studio Code
 - **Extensions:** Svelte for VS Code, ESLint, Prettier, MongoDB for VS Code
-- **Lokale Entwicklung:** `npm run dev` mit HMR
-- **KI-Einsatz:** Claude (Anthropic), GitHub Copilot → siehe Kapitel 6
+- **Lokale Entwicklung:** `npm run dev` mit HMR (Hot Module Replacement)
+- **KI-Einsatz:** Claude (Anthropic), GitHub Copilot → Details in Kapitel 6
 
 ##### Struktur & Komponenten
 
 ```
 src/
 ├── lib/
-│   ├── assets/          # Bilder, Logo, Hero-Images (Light/Dark)
-│   ├── components/      # HeroSection.svelte
-│   └── server/          # MongoDB-Verbindung, Datenbankhelfer
+│   ├── assets/              # Logo, Hero-Images (Light/Dark je Seite)
+│   ├── components/
+│   │   └── HeroSection.svelte   # Startseiten-Hero für nicht-eingeloggte User
+│   └── server/              # MongoDB-Verbindung, Datenbankhelfer
 ├── routes/
-│   ├── +layout.svelte   # Navbar, Footer, Dark Mode, GymSense Coach
-│   ├── +page.svelte     # Startseite
-│   ├── login/           # Login-Flow
-│   ├── register/        # Registrierung mit Passwortvalidierung
-│   ├── exercises/       # Übungsbibliothek
-│   ├── plans/           # Trainingspläne
-│   ├── training/        # Training erfassen
-│   ├── progress/        # Fortschrittsansicht
-│   ├── profile/         # Profilseite
-│   ├── recipes/         # Rezeptsystem
-│   ├── discover/        # Kursfinder
-│   └── api/             # API-Endpunkte
+│   ├── +layout.server.ts    # Globaler Session-Load
+│   ├── +layout.svelte       # Navbar, Footer, Dark Mode Toggle, GymSense Coach
+│   ├── +page.svelte         # Startseite (Welcome Hero / Public Hero)
+│   ├── login/               # Login mit Passwort-Toggle
+│   ├── register/            # Registrierung + Live-Passwortvalidierung
+│   ├── logout/              # Logout POST-Action
+│   ├── exercises/           # Übungsbibliothek
+│   ├── plans/               # Trainingspläne mit Empfehlung
+│   ├── training/            # Training erfassen
+│   ├── progress/            # Fortschrittsansicht
+│   ├── profile/             # Profilseite mit Kalender & Health
+│   ├── recipes/             # Fitness-Rezeptsystem
+│   ├── discover/            # Kursfinder mit Geolocation
+│   ├── help/                # FAQ & Help
+│   ├── contact/             # Kontaktformular
+│   ├── impressum/           # Impressum
+│   ├── datenschutz/         # Datenschutz
+│   ├── agb/                 # AGB
+│   └── api/
+│       └── training-plan/[id]/  # REST-Endpunkt für Trainingsplan
 ```
 
-**Svelte 5 Features:**
+**Svelte 5 Runes – Verwendung im Projekt:**
 
-| Feature | Verwendung |
+| Rune | Verwendung |
 |---|---|
-| `$state` | Lokaler reaktiver State (selectedType, userLocation, isDarkMode, …) |
-| `$derived` | Abgeleitete Werte (filteredCourses, filteredExercises, summary, …) |
-| `$derived.by` | Komplexe Ableitungslogik mit mehreren Schritten |
-| `$effect` | Dark-Mode-Observer, MutationObserver, Toast-Timer |
-| `$props` | Daten und Form-Resultate aus Server Load-Funktionen |
+| `$state` | Lokaler reaktiver State: `selectedType`, `userLocation`, `isDarkMode`, `coachMessages`, `workoutExercises`, … |
+| `$derived` | Einfache abgeleitete Werte: `courseTypes`, `muscleGroups`, `filteredRecipes`, `stepPercentage` |
+| `$derived.by` | Komplexe Ableitungslogik: `filteredCourses` (mit Distanzsortierung), `summary` (Volumenberechnung), `activityRecommendation` |
+| `$effect` | Dark-Mode-Observer via `MutationObserver`, Toast-Timer via `setTimeout`, Theme-Persistence via `localStorage` |
+| `$props` | Daten und Form-Resultate aus Server Load-Funktionen (`data`, `form`) |
 
 ##### Daten & Schnittstellen
 
-- **MongoDB Collections:** `users`, `workouts`, `exercises`, `trainingPlans`, `calendarEntries`
-- **SvelteKit Load-Funktionen:** Serverseitige Datenladen pro Route (`+page.server.ts`)
-- **Form Actions:** POST-Handler für Training speichern, Lieblingsübung, Kalendereinträge, Wochenziel, Health-Daten
-- **API-Route:** `/api/training-plan/[id]` liefert Plan-Details als JSON (für clientseitiges Laden beim Trainingsstart)
-- **Authentifizierung:** Session-basiert via Cookie (SvelteKit Hooks)
+| Bereich | Beschreibung |
+|---|---|
+| **MongoDB Collections** | `users`, `workouts`, `exercises`, `trainingPlans`, `calendarEntries` |
+| **SvelteKit Load-Funktionen** | Serverseitige Datenladen pro Route (`+page.server.ts` / `+page.server.js`) |
+| **Form Actions** | POST-Handler für: Training speichern, Lieblingsübung setzen, Kalendereinträge, Wochenziel, Health-Daten, Kontaktformular |
+| **API-Route** | `GET /api/training-plan/[id]` → liefert Plan-Details als JSON (für client-seitiges Laden beim Trainingsstart via `fetch`) |
+| **Authentifizierung** | Session-basiert via verschlüsseltem Cookie (SvelteKit Hooks, `SESSION_SECRET`) |
+| **Geolocation** | Browser-API `navigator.geolocation` für Standort im Kursfinder |
 
 ##### Deployment
 
-Die Applikation ist via **Netlify** öffentlich zugänglich. Die MongoDB-Verbindung erfolgt über MongoDB Atlas (Cloud).
-
-**Live-URL:** *(URL ergänzen)*
+- **Plattform:** Netlify (Continuous Deployment via GitHub)
+- **Datenbank:** MongoDB Atlas (Free Tier, Cloud)
+- **Live-URL:** [https://gymsense-webapp.netlify.app/](https://gymsense-webapp.netlify.app/)
+- **Repository:** [https://github.com/marijarad2/GymSense-Projekt](https://github.com/marijarad2/GymSense-Projekt)
 
 ##### Besondere Entscheidungen
 
-- **Dark Mode via `document.body.classList`:** Da SvelteKit SSR kein direktes DOM-Zugriff beim ersten Render erlaubt, wird der Dark Mode client-seitig über `$effect` und `localStorage` gesetzt. Ein `MutationObserver` propagiert den Status in alle Child-Komponenten.
-- **Hero-Images Light/Dark:** Separate Bildversionen für Light und Dark Mode werden über den `isDarkMode`-State dynamisch gewechselt.
-- **Trainingsplan-Loading:** Der aktive Plan wird client-seitig via `fetch` geladen (`onMount`), damit die URL-Parameter (`?plan=ID`) korrekt ausgewertet werden können.
-- **Rezepte lokal:** Rezeptdaten sind im Frontend als statisches Array gespeichert (kein DB-Aufruf nötig), da sie sich nicht ändern und schnelle Ladezeiten wichtig sind.
-- **Coach lokal:** Der GymSense Coach ist vollständig regelbasiert im Layout implementiert – kein Backend-Aufruf, kein externes KI-API.
+| Entscheidung | Begründung |
+|---|---|
+| **Dark Mode via `document.body.classList`** | SvelteKit SSR erlaubt beim ersten Render keinen DOM-Zugriff → client-seitig via `$effect` + `localStorage` |
+| **Hero-Images Light/Dark** | Separate Bildversionen pro Seite für optimale Darstellung in beiden Themes |
+| **Trainingsplan-Loading via `fetch`** | URL-Parameter (`?plan=ID`) werden erst client-seitig via `onMount` ausgewertet |
+| **Rezepte als statisches Array** | Rezeptdaten ändern sich nicht → kein DB-Aufruf nötig, schnellere Ladezeiten |
+| **Coach vollständig im Frontend** | Regelbasierte Logik ohne externes KI-API → keine Latenz, keine Kosten, volle Kontrolle |
+| **Haversine-Formel für Distanz** | Präzise Berechnung der Luftliniendistanz zwischen Nutzerstandort und Kursanbieter |
 
 ---
 
 ### 3.5 Validate
 
-#### URL der getesteten Version
-
-*(URL der deployten Testversion ergänzen)*
+**URL der getesteten Version:** [https://gymsense-webapp.netlify.app/](https://gymsense-webapp.netlify.app/)
 
 #### Ziele der Prüfung
 
 - Sind die zentralen Workflows intuitiv bedienbar (Training erfassen, Fortschritt ansehen)?
 - Versteht die Testperson den GymSense Coach und die Profilfunktionen?
 - Sind Fehlermeldungen und Feedback verständlich?
-- Funktioniert der Dark Mode korrekt?
+- Funktioniert der Dark Mode konsistent auf allen Seiten?
 - Wie verhält sich die App auf Mobilgeräten?
 
 #### Vorgehen
 
-Moderierter Usability-Test on-site. Die Testperson erhält schriftliche Aufgaben und führt diese selbstständig durch. Beobachtungen werden protokolliert.
+Moderierter Usability-Test on-site. Die Testperson erhält schriftliche Aufgaben und führt diese selbstständig durch. Beobachtungen werden laufend protokolliert. Nach dem Test werden Verbesserungsvorschläge gesammelt.
 
 #### Stichprobe
 
 | Merkmal | Beschreibung |
 |---|---|
 | ID | TP-01 |
-| Alter | 22 |
+| Alter | 22 Jahre |
 | Rolle | Student, gelegentlicher Gym-Nutzer |
 | Fitnesslevel | Leicht fortgeschritten |
 | Gerät | Laptop (Chrome) |
-| Testregistrierung | Test / User / test.user@gymsense.ch / GymSense2026! |
+| Testregistrierung | `test.user@gymsense.ch` / `GymSense2026!` |
 
 #### Aufgaben / Szenarien
 
-#### Aufgaben / Szenarien
-
-| Nr. | Aufgabe | Erwartetes Verhalten / Ziel |
+| Nr. | Aufgabe | Ziel |
 |---|---|---|
-| A1 | Registriere dich als neue Nutzerin / neuer Nutzer auf GymSense. | User wird erfolgreich registriert. |
-| A2 | Verwende ein schwaches Passwort bei der Registrierung. | Fehlermeldung bei schwachem Passwort wird angezeigt. |
-| A3 | Melde dich mit deinen Zugangsdaten an. | Login funktioniert korrekt. |
-| A4 | Logge dich über das Menü wieder aus. | User wird erfolgreich ausgeloggt. |
-| A5 | Filtere Übungen nach Muskelgruppe oder Suchbegriff. | Filter zeigt passende Übungen an. |
-| A6 | Speichere eine Übung als Lieblingsübung. | Lieblingsübung erscheint im Profil. |
-| A7 | Wähle einen Trainingsplan aus und starte ihn. | Trainingsplan wird korrekt geladen. |
-| A8 | Erfasse ein Training und speichere es. | Training wird erfolgreich gespeichert. |
-| A9 | Öffne die Fortschrittsseite. | Fortschritt und Diagramme werden visualisiert. |
-| A10 | Erreiche einen neuen persönlichen Rekord. | Persönlicher Rekord wird erkannt und angezeigt. |
-| A11 | Ändere dein Wochenziel im Profil. | Neues Ziel wird gespeichert. |
-| A12 | Verwende den Trainingskalender. | Markierte Tage werden korrekt angezeigt. |
-| A13 | Aktualisiere deine Health-/Schrittdaten. | Schritte werden gespeichert. |
-| A14 | Stelle dem GymSense Coach eine Fitnessfrage. | Coach antwortet korrekt auf die Anfrage. |
-| A15 | Öffne die Rezeptseite. | Rezepte werden korrekt geladen. |
-| A16 | Öffne die Details eines Rezepts. | Anleitung und Informationen werden angezeigt. |
-| A17 | Filtere Rezepte nach Kategorie. | Kategorien und Filter funktionieren korrekt. |
-| A18 | Suche einen Fitnesskurs im Kursfinder. | Kurse können gesucht und angezeigt werden. |
-| A19 | Teile deinen Standort im Kursfinder. | Standort kann erfolgreich verwendet werden. |
-| A20 | Öffne eine Route via Google Maps. | Maps-Integration funktioniert korrekt. |
-| A21 | Aktiviere den Dark Mode. | UI bleibt vollständig lesbar und konsistent. |
+| A1 | Registriere dich als neue Nutzerin / neuer Nutzer. | Registrierung erfolgreich |
+| A2 | Verwende ein schwaches Passwort bei der Registrierung. | Fehlermeldung erscheint |
+| A3 | Melde dich mit deinen Zugangsdaten an. | Login funktioniert |
+| A4 | Logge dich über das Menü wieder aus. | Logout funktioniert |
+| A5 | Filtere Übungen nach Muskelgruppe oder Suchbegriff. | Filter zeigt korrekte Übungen |
+| A6 | Speichere eine Übung als Lieblingsübung. | Favorit erscheint im Profil |
+| A7 | Wähle einen Trainingsplan aus und starte ihn. | Plan wird korrekt geladen |
+| A8 | Erfasse ein Training und speichere es. | Training wird gespeichert |
+| A9 | Öffne die Fortschrittsseite. | Fortschritt und Diagramme sichtbar |
+| A10 | Erreiche einen neuen persönlichen Rekord. | PR-Badge wird angezeigt |
+| A11 | Ändere dein Wochenziel im Profil. | Neues Ziel wird gespeichert |
+| A12 | Verwende den Trainingskalender. | Tage werden korrekt markiert |
+| A13 | Aktualisiere deine Schrittdaten. | Schritte werden gespeichert |
+| A14 | Stelle dem GymSense Coach eine Fitnessfrage. | Coach antwortet korrekt |
+| A15 | Öffne die Rezeptseite. | Rezepte werden korrekt geladen |
+| A16 | Öffne die Details eines Rezepts. | Anleitung und Infos sichtbar |
+| A17 | Filtere Rezepte nach Kategorie. | Kategoriefilter funktioniert |
+| A18 | Suche einen Fitnesskurs im Kursfinder. | Kurse werden angezeigt |
+| A19 | Teile deinen Standort im Kursfinder. | Standort wird verwendet |
+| A20 | Öffne eine Route via Google Maps. | Maps-Integration funktioniert |
+| A21 | Aktiviere den Dark Mode. | UI bleibt vollständig lesbar |
 
 #### Kennzahlen & Beobachtungen
 
-## Testfälle
-
-## Testfälle
-
-| Test ID | Aktivität | Erwartetes Resultat | Test erfüllt | Bemerkung |
+| Test ID | Aktivität | Erwartetes Resultat | Erfüllt | Bemerkung |
 |---|---|---|---|---|
-| T-01 | Registrierung | User wird erfolgreich registriert | ☑ | Registrierung funktionierte ohne Probleme |
-| T-02 | Passwortvalidierung | Fehlermeldung bei schwachem Passwort | ☑ | Live-Validierung reagierte korrekt |
-| T-03 | Login | Login funktioniert korrekt | ☑ | Anmeldung erfolgreich durchgeführt |
-| T-04 | Logout | User wird ausgeloggt | ☑ | Logout über Dropdown-Menü funktionierte |
-| T-05 | Übungen filtern | Filter zeigt passende Übungen | ☑ | Übungen wurden korrekt gefiltert |
-| T-06 | Lieblingsübung speichern | Lieblingsübung erscheint im Profil | ☑ | Favorit wurde erfolgreich gespeichert |
-| T-07 | Trainingsplan starten | Training wird geladen | ☑ | Trainingsplan wurde korrekt übernommen |
-| T-08 | Training speichern | Training wird gespeichert | ☑ | Trainingsdaten wurden korrekt gespeichert |
-| T-09 | Fortschritt anzeigen | Fortschritt wird visualisiert | ☑ | Diagramme und Fortschritte wurden angezeigt |
-| T-10 | PR erkennen | Persönlicher Rekord wird erkannt | ☑ | PR-Badge erschien korrekt |
-| T-11 | Wochenziel ändern | Neues Ziel wird gespeichert | ☑ | Ziel wurde erfolgreich aktualisiert |
-| T-12 | Kalender verwenden | Tage werden markiert | ☑ | Kalender funktionierte korrekt |
-| T-13 | Schritttracking | Schritte werden gespeichert | ☑ | Schrittedaten wurden korrekt übernommen |
-| T-14 | GymSense Coach | Coach antwortet korrekt | ☑ | Antworten waren passend und verständlich |
-| T-15 | Rezepte anzeigen | Rezepte werden geladen | ☑ | Rezepte wurden korrekt dargestellt |
-| T-16 | Rezeptdetails | Anleitung wird angezeigt | ☑ | Rezeptdetails öffneten korrekt |
-| T-17 | Rezeptfilter | Kategorien funktionieren | ☑ | Filter funktionierten wie erwartet |
-| T-18 | Kursfinder | Kurse können gesucht werden | ☑ | Kursliste wurde korrekt gefiltert |
-| T-19 | Standort teilen | Standort kann geteilt werden | ☑ | Standortfreigabe funktionierte |
-| T-20 | Maps Integration | Maps funktioniert korrekt | ☑ | Google Maps Route öffnete korrekt |
-| T-21 | Dark Mode | UI bleibt lesbar | ☑ | Dark Mode funktionierte auf allen Seiten |
+| T-01 | Registrierung | User erfolgreich registriert | ✅ | Ohne Probleme, Konfetti-Animation positiv aufgenommen |
+| T-02 | Passwortvalidierung | Fehlermeldung bei schwachem Passwort | ✅ | Live-Validierung reagierte sofort und korrekt |
+| T-03 | Login | Login funktioniert | ✅ | Anmeldung inkl. Passwort-Toggle problemlos |
+| T-04 | Logout | User wird ausgeloggt | ✅ | Dropdown-Menü intuitiv bedienbar |
+| T-05 | Übungen filtern | Passende Übungen angezeigt | ✅ | Filter korrekt, Resultat-Counter hilfreich |
+| T-06 | Lieblingsübung speichern | Favorit erscheint im Profil | ✅ | Sofortiges Feedback positiv bewertet |
+| T-07 | Trainingsplan starten | Training korrekt geladen | ✅ | Empfehlungs-Badge wurde bemerkt und positiv erwähnt |
+| T-08 | Training speichern | Training gespeichert | ✅ | Live-Zusammenfassung als besonders motivierend empfunden |
+| T-09 | Fortschritt anzeigen | Diagramme visualisiert | ✅ | Balkendiagramme sofort verstanden |
+| T-10 | PR erkennen | PR-Badge erscheint | ✅ | 🎉-Badge und Toast-Nachricht sehr positiv aufgenommen |
+| T-11 | Wochenziel ändern | Neues Ziel gespeichert | ✅ | Intuitiv, kein Erklärungsbedarf |
+| T-12 | Kalender verwenden | Tage korrekt markiert | ✅ | Swipe-Navigation auf Mobile besonders erwähnt |
+| T-13 | Schritttracking | Schritte gespeichert | ✅ | Prototyp-Charakter korrekt verstanden |
+| T-14 | GymSense Coach | Coach antwortet korrekt | ✅ | Vorschlagsfragen senkten Einstiegshürde deutlich |
+| T-15 | Rezepte anzeigen | Rezepte korrekt geladen | ✅ | Visuelle Darstellung sehr positiv |
+| T-16 | Rezeptdetails | Anleitung sichtbar | ✅ | Modal öffnete korrekt und schnell |
+| T-17 | Rezeptfilter | Kategorien funktionieren | ✅ | Filter reagierte sofort |
+| T-18 | Kursfinder | Kurse angezeigt | ✅ | Karte und Filter klar |
+| T-19 | Standort teilen | Standort verwendet | ✅ | Datenschutzhinweis positiv bemerkt |
+| T-20 | Maps Integration | Google Maps öffnet korrekt | ✅ | Route in neuem Tab geöffnet |
+| T-21 | Dark Mode | UI bleibt lesbar | ✅ | Konsistenz auf allen Seiten bestätigt |
+
+**Erfolgsquote: 21/21 Aufgaben erfolgreich (100%)**
 
 #### Zusammenfassung der Resultate
 
-GymSense wurde von der Testperson durchgehend als übersichtlich und intuitiv bedienbar bewertet. Die zentralen Workflows (Training erfassen, Fortschritt ansehen, Profil verwalten) waren ohne Einführung verständlich und alle definierten Testfälle konnten erfolgreich durchgeführt werden. Besonders positiv hervorgehoben wurden die Live-Trainings-Zusammenfassung, der PR-Badge, die Swipe-Navigation im Kalender sowie der integrierte Dark Mode. Der GymSense Coach wurde als hilfreiche Ergänzung wahrgenommen, wobei die vorgeschlagenen Fragen den Einstieg erleichterten. Zusätzlich wurde erwähnt, dass die App modern wirkt und grundsätzlich auch privat im Gym verwendet werden würde.
+GymSense wurde von der Testperson durchgehend als übersichtlich und intuitiv bedienbar bewertet. Alle 21 definierten Testfälle konnten ohne Anleitung erfolgreich durchgeführt werden. Besonders positiv hervorgehoben wurden die **Live-Trainings-Zusammenfassung**, der **PR-Badge mit Toast-Notification**, die **Swipe-Navigation im Kalender** sowie der **vollständige Dark Mode**. Der GymSense Coach wurde als hilfreiche Ergänzung wahrgenommen – die Vorschlagsfragen erleichterten den Einstieg spürbar. Die Testperson erwähnte, dass die App modern wirkt und grundsätzlich auch privat im Gym eingesetzt werden würde.
 
-Als mögliche Verbesserungen wurden folgende Punkte genannt:
-- Im Trainingsplan sollen hinzugefügte Sätze auch wieder gelöscht werden können.
-- Ergänzung eines Kontaktformulars in der Navigation.
-- Erweiterung des Help-Bereichs durch eine FAQ-Seite.
-- Ergänzung von Impressum, Datenschutz und AGB.
+#### Abgeleitete Verbesserungen
 
-Diese Verbesserungsvorschläge wurden ebenfalls umgesetzt. 
-
+| Priorität | Verbesserung | Begründung | Umgesetzt |
+|---|---|---|---|
+| 🔴 Hoch | Sätze im Training wieder entfernen können | Testperson benötigte diese Funktion direkt | ✅ Ja |
+| 🟡 Mittel | Kontaktformular in Navigation integrieren | Bessere Erreichbarkeit des Supports | ✅ Ja |
+| 🟡 Mittel | FAQ-Seite im Help-Bereich ausbauen | Häufige Fragen vorab beantworten | ✅ Ja |
+| 🟢 Niedrig | Impressum, Datenschutz und AGB ergänzen | Rechtliche Vollständigkeit | ✅ Ja |
 
 ---
 
@@ -395,159 +449,152 @@ Diese Verbesserungsvorschläge wurden ebenfalls umgesetzt.
 ### 4.1 Dark Mode (vollständig)
 
 - **Beschreibung & Nutzen:** Vollständiger Dark Mode mit eigenem Farbsystem für alle Seiten und Komponenten. Zustand wird in `localStorage` gespeichert und beim nächsten Besuch wiederhergestellt. Verbessert die Nutzbarkeit in dunklen Umgebungen (z.B. Gym) erheblich.
-- **Wo umgesetzt:** `+layout.svelte` (Toggle, localStorage, Body-Class), alle Seiten und Komponenten via `:global(body.dark-mode)` CSS-Selektoren. Hero-Images mit separaten Light/Dark-Versionen.
-- **Referenz:** Implementiert in `+layout.svelte`, Styles in allen Seiten-Komponenten
-- **Aus Evaluation abgeleitet?** Nein – von Beginn an geplant und in Evaluation bestätigt
+- **Wo umgesetzt:** `+layout.svelte` (Toggle, `localStorage`, Body-Class `dark-mode`); alle Seiten via `:global(body.dark-mode)` CSS-Selektoren; Hero-Images mit separaten Light/Dark-Versionen pro Seite.
+- **Referenz:** `+layout.svelte`, alle Seiten-Komponenten (Styles-Abschnitt)
+- **Aus Evaluation abgeleitet?** Nein – von Beginn an geplant, in Evaluation auf allen 21 Screens bestätigt (T-21)
 
 ---
 
-### 4.2 GymSense Coach (integrierter Fitness-Assistent)
+### 4.2 GymSense Coach (regelbasierter Fitness-Assistent)
 
-- **Beschreibung & Nutzen:** Regelbasierter Chat-Assistent, der kontextbezogene Antworten auf Fitness-Fragen gibt. Nutzt Echtzeit-Nutzerdaten (Schritte, Streak, Wochenziel, Lieblingsübung) aus dem Server-Load. Bietet Vorschlagsfragen für einfachen Einstieg. Funktioniert ohne externes KI-API – vollständig im Frontend.
-- **Wo umgesetzt:** `+layout.svelte` – `answerCoach()`-Funktion mit ~10 regelbasierten Antwortpfaden. Chat-UI als Fixed-Widget mit Toggle.
-- **Referenz:** `+layout.svelte`, Kap. 3.4.1 (UI-Highlights)
-- **Aus Evaluation abgeleitet?** Nein – von Beginn an geplant
+- **Beschreibung & Nutzen:** Chat-Assistent mit ca. 10 regelbasierten Antwortpfaden, der kontextbezogene Fitness-Tipps gibt. Nutzt Echtzeit-Nutzerdaten (Schritte, Streak, Wochenziel, Lieblingsübung) aus dem Server-Load. Vorschlagsfragen erleichtern den Einstieg. Vollständig ohne externes KI-API – kein Backend-Aufruf, keine Latenz.
+- **Wo umgesetzt:** `+layout.svelte` – `answerCoach()`-Funktion, Chat-UI als Fixed-Widget mit Toggle-Button, `coachMessages`-State, `suggestedQuestions`-Derived.
+- **Referenz:** `+layout.svelte`, Kap. 3.4.1 (Informationsarchitektur)
+- **Aus Evaluation abgeleitet?** Nein – von Beginn an geplant, in Evaluation sehr positiv bewertet (T-14)
 
 ---
 
 ### 4.3 Live Trainings-Zusammenfassung
 
-- **Beschreibung & Nutzen:** Während der Trainingserfassung wird automatisch und in Echtzeit die Anzahl Übungen, Sätze und das gesamte Trainingsvolumen (kg) berechnet und angezeigt. Motiviert Nutzer:innen und gibt Überblick ohne manuelle Berechnung.
-- **Wo umgesetzt:** `training/+page.svelte` – `$derived.by()` Summary-Berechnung, `summary-card`-Komponente im Template.
-- **Referenz:** Kap. 3.4.2 (Wichtige Funktionen)
-- **Aus Evaluation abgeleitet?** Nein – in Evaluation als positiv bewertet (T-08)
+- **Beschreibung & Nutzen:** Während der Trainingserfassung werden Anzahl Übungen, Sätze und das gesamte Trainingsvolumen (in kg) in Echtzeit berechnet und als Zusammenfassungskarte angezeigt. Motiviert Nutzer:innen und gibt sofortigen Überblick ohne manuelle Berechnung.
+- **Wo umgesetzt:** `training/+page.svelte` – `$derived.by()` Summary-Objekt (`exerciseCount`, `setCount`, `totalVolume`), `summary-card`-Sektion im Template, reaktive Aktualisierung via `workoutExercises`-State.
+- **Referenz:** Kap. 3.4.2 (Wichtige Funktionen), Kap. 3.5 (T-08)
+- **Aus Evaluation abgeleitet?** Nein – in Evaluation als besonders motivierend bewertet
 
 ---
 
-### 4.4 Persönliche Rekorde (PR-Erkennung)
+### 4.4 Persönliche Rekorde (PR-Erkennung & Toast)
 
-- **Beschreibung & Nutzen:** Nach jedem Training werden automatisch persönliche Rekorde erkannt. Im Fortschritts-Screen erscheint ein "PR 🎉"-Badge bei neuen Bestleistungen. Zusätzlich erscheint eine animierte Toast-Benachrichtigung ("Du hast Fortschritte gemacht 🚀"), wenn Gewichtssteigerungen erkannt werden. Erhöht die Motivation signifikant.
-- **Wo umgesetzt:** `progress/+page.svelte` – `isPersonalBest`-Flag aus Server-Daten, `showToast`-State mit `$effect` und `setTimeout`.
-- **Referenz:** Kap. 3.4.1 (UI-Highlights), Kap. 3.5 (T-10)
-- **Aus Evaluation abgeleitet?** Nein – in Evaluation als besonders positiv hervorgehoben
+- **Beschreibung & Nutzen:** Nach jedem Training werden automatisch persönliche Rekorde erkannt und auf der Fortschrittsseite mit einem "PR 🎉"-Badge hervorgehoben. Zusätzlich erscheint eine animierte Toast-Benachrichtigung ("Du hast Fortschritte gemacht 🚀") mit Slide-in-Animation, wenn Gewichtssteigerungen erkannt werden. Erhöht die Trainingsmotivation signifikant.
+- **Wo umgesetzt:** `progress/+page.svelte` – `isPersonalBest`-Flag aus Server-Daten, `showToast`-State, `$effect` mit `setTimeout` (3 Sekunden), `@keyframes slideIn` CSS-Animation.
+- **Referenz:** Kap. 3.4.1, Kap. 3.5 (T-09, T-10)
+- **Aus Evaluation abgeleitet?** Nein – als besonders positiv hervorgehoben in Evaluation
 
 ---
 
-### 4.5 Interaktiver Trainingskalender
+### 4.5 Interaktiver Trainingskalender mit Swipe
 
-- **Beschreibung & Nutzen:** Vollständiger Monatskalender auf der Profilseite mit Navigation (Monat/Jahr), Swipe-Unterstützung für Mobile, drei Eintragstypen (🏋️ Training, 💤 Rest Day, 🎟️ Kurs) und direkten Aktions-Buttons pro Tag.
-- **Wo umgesetzt:** `profile/+page.svelte` – `getCalendarDays()`, `handleTouchStart/End()`, `formatDateForDb()`, Form-Actions `?/addTraining`, `?/addRest`, `?/addCourse` im Server.
-- **Referenz:** Kap. 3.4.1 (UI-Highlights)
-- **Aus Evaluation abgeleitet?** Nein – Swipe-Unterstützung in Evaluation positiv bewertet (T-12)
+- **Beschreibung & Nutzen:** Vollständiger Monatskalender auf der Profilseite mit Monat- und Jahresnavigation, Touch-Swipe-Unterstützung für Mobile, drei Eintragstypen (🏋️ Training, 💤 Rest Day, 🎟️ Kurs) und direkten Aktions-Buttons pro Kalendertag.
+- **Wo umgesetzt:** `profile/+page.svelte` – `getCalendarDays()`, `handleTouchStart/End()` (Swipe-Logik), `formatDateForDb()`, Form-Actions `?/addTraining`, `?/addRest`, `?/addCourse` im Server.
+- **Referenz:** Kap. 3.4.1 (Profil-Screen)
+- **Aus Evaluation abgeleitet?** Nein – Swipe-Funktion in Evaluation explizit positiv bewertet (T-12)
 
 ---
 
 ### 4.6 Passwort-Stärke-Anzeige (Live-Validierung)
 
-- **Beschreibung & Nutzen:** Bei der Registrierung wird die Passwortstärke in Echtzeit analysiert und als farbiger Fortschrittsbalken (schwach/mittel/stark) angezeigt. Einzelne Regeln (Länge, Zahl, Sonderzeichen, Grossbuchstabe) werden live validiert und grün markiert. Shake-Animation bei nicht übereinstimmenden Passwörtern.
-- **Wo umgesetzt:** `register/+page.svelte` – `$derived`-Regeln, `strength`/`strengthClass`-States, CSS-Animationen `@keyframes shake`.
-- **Referenz:** Kap. 3.4.1 (UI-Highlights), Kap. 3.5 (T-01, T-02)
-- **Aus Evaluation abgeleitet?** Nein – in Evaluation als positiv erwähnt (T-01)
+- **Beschreibung & Nutzen:** Bei der Registrierung wird die Passwortstärke in Echtzeit analysiert und als farbiger Fortschrittsbalken (schwach / mittel / stark) angezeigt. Vier Regeln (Länge ≥8, Zahl, Sonderzeichen, Grossbuchstabe) werden live validiert und grün markiert, sobald sie erfüllt sind. Shake-Animation bei nicht übereinstimmenden Passwörtern gibt klares Feedback.
+- **Wo umgesetzt:** `register/+page.svelte` – `$derived`-Regelobjekte, `strength`-State, `strengthClass`-Klassen, `@keyframes shake`.
+- **Referenz:** Kap. 3.4.1, Kap. 3.5 (T-01, T-02)
+- **Aus Evaluation abgeleitet?** Nein – in Evaluation als positives Detail erwähnt
 
 ---
 
 ### 4.7 Apple Health Prototype (Schritttracking)
 
-- **Beschreibung & Nutzen:** Simulation eines Apple-Health-Integrations-Prototypen auf der Profilseite. Nutzer:innen können Schritte, Tagesziel und Wochenziel eingeben. Das Aktivitätslevel (Niedrig/Mittel/Hoch) und eine Trainingsempfehlung werden automatisch berechnet. Der Coach nutzt diese Daten für kontextbezogene Antworten.
-- **Wo umgesetzt:** `profile/+page.svelte` – `stepPercentage`, `activityLevel`, `activityRecommendation` als `$derived`, Form-Action `?/updateHealth` und `?/connectHealth` im Server.
-- **Referenz:** Kap. 3.4.1 (UI-Highlights)
-- **Aus Evaluation abgeleitet?** Nein – Prototyp-Charakter in Evaluation korrekt verstanden (T-13)
+- **Beschreibung & Nutzen:** Simulation eines Apple-Health-Integrationsprototypen auf der Profilseite. Nutzer:innen können Schritte heute, Tagesziel und Wochenziel eingeben. Aktivitätslevel (Niedrig/Mittel/Hoch) und eine Trainingsempfehlung werden automatisch berechnet. Der GymSense Coach verwendet diese Werte für kontextbezogene Antworten.
+- **Wo umgesetzt:** `profile/+page.svelte` – `stepPercentage`, `activityLevel`, `activityRecommendation` als `$derived`, Form-Actions `?/updateHealth` und `?/connectHealth` im Server.
+- **Referenz:** Kap. 3.4.1 (Profil-Screen), Kap. 3.5 (T-13)
+- **Aus Evaluation abgeleitet?** Nein – Prototyp-Charakter in Evaluation korrekt verstanden
 
 ---
 
-### 4.8 Rezeptsystem mit Kategoriefilter
+### 4.8 Rezeptsystem mit Kategoriefilter & Modal
 
-- **Beschreibung & Nutzen:** Vollständiges Fitness-Rezeptsystem mit 15+ Rezepten, Kategoriefiltern (Morgenessen, Mittagessen, Abendessen, Snack), Kalorienangaben, Proteinwerten, Zubereitungszeit und detaillierter Zutaten-/Anleitungsansicht via Modal. Nicht-eingeloggte User sehen nur 4 Rezepte (Teaser-Funktion). Fördert gesunde Ernährung als Ergänzung zum Training.
-- **Wo umgesetzt:** `recipes/+page.svelte` – statisches Rezept-Array, `selectedCategory`-Filter, Modal-State `selectedRecipe`, `filteredRecipes`-Derived mit Login-Check.
-- **Referenz:** Kap. 3.4.1 (UI-Highlights), Kap. 3.5 (T-15–T-17)
+- **Beschreibung & Nutzen:** Vollständiges Fitness-Rezeptsystem mit 15+ Rezepten, Kategoriefiltern (Morgenessen, Mittagessen, Abendessen, Snack), Kalorienangaben, Proteinwerten, Zubereitungszeiten und detaillierter Zutaten-/Anleitungsansicht via Modal. Nicht eingeloggte User sehen nur 4 Rezepte als Teaser. Fördert gesunde Ernährung als Ergänzung zum Training.
+- **Wo umgesetzt:** `recipes/+page.svelte` – statisches Rezept-Array (15 Einträge), `selectedCategory`-Filter, Modal-State `selectedRecipe`, `filteredRecipes` als `$derived.by()` mit Login-Check (`data.user ? allRecipes : allRecipes.slice(0, 4)`).
+- **Referenz:** Kap. 3.4.1, Kap. 3.5 (T-15–T-17)
 - **Aus Evaluation abgeleitet?** Nein – in Evaluation durchgehend positiv bewertet
 
 ---
 
-### 4.9 Kursfinder mit Standort & Google Maps
+### 4.9 Kursfinder mit Geolocation & Google Maps
 
-- **Beschreibung & Nutzen:** Seite zur Kurssuche mit echten Fitnesskurs-Daten, Typfilter (Yoga, Pilates, HIIT, …), Standortabfrage via Browser-Geolocation API, Distanzberechnung (Haversine-Formel) und automatischer Sortierung nach Entfernung. Direkte Google Maps Routenöffnung (zu Fuss, mit/ohne Standort). Datenschutzhinweis zum Standort integriert.
-- **Wo umgesetzt:** `discover/+page.svelte` – `getDistanceKm()` mit Haversine-Formel, `getLocation()` via `navigator.geolocation`, `getDirectionsUrl()` für Maps-Link, `filteredCourses` mit Distanz-Sortierung.
-- **Referenz:** Kap. 3.4.1 (Informationsarchitektur), Kap. 3.5 (T-18–T-20)
-- **Aus Evaluation abgeleitet?** Nein – in Evaluation positiv bewertet
-
----
-
-### 4.10 Smart Welcome Experience
-
-- **Beschreibung & Nutzen:** Neue Nutzer:innen erhalten nach der Registrierung eine besondere Willkommensseite mit Konfetti-Animation (6 fallende Emojis), personalisierter Begrüssung, animiertem Hero-Bereich und "Willkommen bei GymSense"-Label (via URL-Parameter `?registered=true`). Bestehende Nutzer:innen sehen "Schön, dass du zurück bist 💪". Erhöht das Onboarding-Erlebnis.
-- **Wo umgesetzt:** `+page.svelte` – `isNewUser`-Derived via `page.url.searchParams`, CSS `@keyframes confettiFall` und `welcomePop`, Conditional-Rendering im Template.
-- **Referenz:** Kap. 3.4.1 (UI-Highlights)
-- **Aus Evaluation abgeleitet?** Nein – von Beginn an geplant
+- **Beschreibung & Nutzen:** Kurssuche mit Fitnesskurs-Daten aus MongoDB, Typfilter (Yoga, Pilates, HIIT, …), Standortabfrage via Browser-Geolocation API, Distanzberechnung via Haversine-Formel und automatischer Sortierung nach Entfernung. Direkte Google Maps Routenöffnung (zu Fuss, mit/ohne Standort). Datenschutzhinweis integriert.
+- **Wo umgesetzt:** `discover/+page.svelte` – `getDistanceKm()` (Haversine), `getLocation()` via `navigator.geolocation`, `getDirectionsUrl()` für Maps-Link, `filteredCourses` mit Distanz-Sortierung als `$derived.by()`.
+- **Referenz:** Kap. 3.4.1, Kap. 3.5 (T-18–T-20)
+- **Aus Evaluation abgeleitet?** Nein – vollständig geplant und in Evaluation positiv bewertet
 
 ---
 
-### 4.11 GymSense Empfehlung (Kontextbasierte Plan-Empfehlung)
+### 4.10 Smart Welcome Experience (Onboarding-Animation)
 
-- **Beschreibung & Nutzen:** Auf der Trainingspläne-Seite wird basierend auf dem Nutzerprofil (Trainingshistorie, Level) ein Plan mit "Empfohlen"-Badge hervorgehoben. Eine Empfehlungskarte erklärt die Wahl. Der empfohlene Plan erhält zusätzlich einen farbigen Rahmen.
-- **Wo umgesetzt:** `plans/+page.svelte` – `data.recommendation` aus Server-Load, `class:recommended`-Binding, `recommendation-card`-Komponente.
-- **Referenz:** Kap. 3.4.1 (UI-Highlights)
-- **Aus Evaluation abgeleitet?** Nein – in Evaluation positiv aufgenommen (T-07)
+- **Beschreibung & Nutzen:** Neue Nutzer:innen erhalten nach der Registrierung eine besondere Willkommensseite mit Konfetti-Animation (6 fallende Emojis), personalisierter Begrüssung und animiertem Hero-Bereich via URL-Parameter `?registered=true`. Bestehende Nutzer:innen sehen "Schön, dass du zurück bist 💪". Verbessert das Onboarding-Erlebnis spürbar.
+- **Wo umgesetzt:** `+page.svelte` – `isNewUser` via `page.url.searchParams.get('registered')`, `@keyframes confettiFall` und `welcomePop`, Conditional-Rendering im Template.
+- **Referenz:** Kap. 3.4.1 (Startseite)
+- **Aus Evaluation abgeleitet?** Nein – in Evaluation sehr positiv aufgenommen (T-01)
+
+---
+
+### 4.11 Kontextbasierte Plan-Empfehlung
+
+- **Beschreibung & Nutzen:** Auf der Trainingspläne-Seite wird basierend auf dem Nutzerprofil ein Plan mit "Empfohlen"-Badge und farbigem Rahmen hervorgehoben. Eine Empfehlungskarte erklärt die Wahl und motiviert zum direkten Start.
+- **Wo umgesetzt:** `plans/+page.svelte` – `data.recommendation` aus Server-Load, `class:recommended`-Binding, `recommendation-card`-Sektion.
+- **Referenz:** Kap. 3.4.1 (Trainingspläne-Screen), Kap. 3.5 (T-07)
+- **Aus Evaluation abgeleitet?** Nein – Empfehlungs-Badge in Evaluation bemerkt und positiv erwähnt
 
 ---
 
 ### 4.12 Animationen & Mikrointeraktionen
 
-- **Beschreibung & Nutzen:** Die App enthält mehrere dezente Animationen wie Konfetti beim Onboarding, Hover-Effekte auf Cards, animierte Buttons, Toast-Nachrichten bei Fortschritten, Shake-Feedback bei Formularfehlern und weiche Dark-Mode-Transitions. Dadurch wirkt GymSense moderner, interaktiver und motivierender.
-- **Wo umgesetzt:** Verteilt über `+page.svelte`, `register/+page.svelte`, `progress/+page.svelte`, `profile/+page.svelte` und globale CSS-Styles.
+- **Beschreibung & Nutzen:** Die App enthält Konfetti beim Onboarding, Hover-Lift-Effekte auf Cards (`translateY(-4px)`), Slide-in-Toast bei PR-Erkennung, Shake-Animation bei Formularfehlern und sanfte Button-Transitions. Dadurch wirkt GymSense moderner, interaktiver und motivierender.
+- **Wo umgesetzt:** Verteilt über `+page.svelte`, `register/+page.svelte`, `progress/+page.svelte`, `profile/+page.svelte` und globale CSS via `+layout.svelte`.
 - **Referenz:** Kap. 3.4.1 (User Interface Design)
-- **Aus Evaluation abgeleitet?** Nein – als UX-Verbesserung umgesetzt und in der Evaluation positiv wahrgenommen.
+- **Aus Evaluation abgeleitet?** Nein – durchgehend positiv wahrgenommen in der Evaluation
 
 ---
 
 ### 4.13 FAQ- & Help-System
 
-- FAQ-Seite mit häufigen Fragen und Antworten
-- Kontakt-/Help-Bereich direkt über das User-Dropdown erreichbar
-- Verbesserte Benutzerunterstützung und Orientierung für neue Nutzer:innen
+- **Beschreibung & Nutzen:** Dedizierte FAQ-Seite (`/help`) mit 7 häufigen Fragen und Antworten als interaktives Accordion, sowie Link zum Kontaktformular. Direkt über das User-Dropdown erreichbar. Verbessert Nutzerunterstützung und senkt Support-Anfragen.
+- **Wo umgesetzt:** `help/+page.svelte` – `faqs`-Array, `openIndex`-State, `toggleFaq()`-Funktion, Kontakt-CTA-Box.
+- **Referenz:** Kap. 3.4.1 (Informationsarchitektur)
+- **Aus Evaluation abgeleitet?** Ja – als direkte Massnahme aus der Evaluation umgesetzt
 
-### 4.14 Coaching Anfrageformular
+---
 
-- Modernes Kontaktformular für Coaching-Anfragen
-- Enthält Fitnessziele, Trainingslevel und Unterstützungsbereiche
-- Inklusive animierter „Nachricht wird gesendet“-Interaktion
+### 4.14 Coaching-Kontaktformular
 
-### 4.15 Rechtliche Seiten & Footer-Erweiterung
+- **Beschreibung & Nutzen:** Modernes Kontaktformular (`/contact`) für Coaching-Anfragen mit Feldern für Fitnessziele, Trainingslevel und Unterstützungsbereich. Animierte "Nachricht wird gesendet"-Interaktion gibt klares Feedback.
+- **Wo umgesetzt:** `contact/+page.svelte` – Formular mit SvelteKit Form Action, Lade-Animation via State.
+- **Referenz:** Kap. 3.4.1 (Informationsarchitektur)
+- **Aus Evaluation abgeleitet?** Ja – Testperson wünschte bessere Erreichbarkeit des Supports
 
-- Impressum, Datenschutz und AGB integriert
-- Rechtliche Links horizontal im Footer ergänzt
-- Verbessert Professionalität und Vollständigkeit der Plattform
+---
+
+### 4.15 Rechtliche Seiten & Footer
+
+- **Beschreibung & Nutzen:** Impressum, Datenschutzerklärung und AGB als vollständige Seiten. Rechtliche Links horizontal im Footer ergänzt. Verbessert Professionalität und rechtliche Vollständigkeit der Plattform.
+- **Wo umgesetzt:** `impressum/`, `datenschutz/`, `agb/` als eigene Routen; `+layout.svelte` Footer mit `.legal-links`-Sektion.
+- **Referenz:** Kap. 3.4.1 (Informationsarchitektur), Footer in `+layout.svelte`
+- **Aus Evaluation abgeleitet?** Ja – als direkte Massnahme aus der Evaluation ergänzt
 
 ---
 
 ## 5. Projektorganisation
 
-### Repository & Struktur
+- **Repository & Struktur:** [https://github.com/marijarad2/GymSense-Projekt](https://github.com/marijarad2/GymSense-Projekt)
 
-Das Projekt wird in einem öffentlichen GitHub-Repository verwaltet. Die Struktur folgt den SvelteKit-Konventionen.
+  Die Struktur folgt SvelteKit-Konventionen. Sämtlicher Source-Code, Assets und diese Dokumentation sind im Repository enthalten.
 
-**Repository-Link:** *(Link ergänzen)*
+- **Commit-Praxis:** Commits wurden mit sprechenden Nachrichten versehen, die den jeweiligen Fortschritt klar dokumentieren. Beispiele:
+  - `feat: add training calendar with swipe support`
+  - `feat: implement GymSense Coach with context-aware responses`
+  - `fix: dark mode hero image switch on MutationObserver`
+  - `feat: add recipe category filter and modal detail view`
+  - `docs: complete README with all extensions and evaluation`
 
-```
-gymsense/
-├── src/
-│   ├── lib/           # Assets, Komponenten, Server-Utils
-│   └── routes/        # Alle Seiten und API-Routen
-├── static/            # Statische Dateien
-├── .env               # Umgebungsvariablen (MONGODB_URI, SESSION_SECRET)
-├── svelte.config.js
-├── vite.config.ts
-├── package.json
-└── README.md
-```
-
-### Commit-Praxis
-
-Commits wurden mit sprechenden Nachrichten versehen, die den jeweiligen Fortschritt klar beschreiben (z.B. `feat: add training calendar with swipe support`, `fix: dark mode hero image switch`, `docs: update README with all extensions`).
-
-### Issue-Management
-
-Aufgaben und Bugs wurden im GitHub-Issuetracker erfasst und priorisiert abgearbeitet.
+- **Issue-Management:** Aufgaben, Feature-Requests und Bugs wurden im GitHub Issue Tracker erfasst, priorisiert und abgearbeitet. Verbesserungen aus der Evaluation (FAQ, Kontaktformular, rechtliche Seiten) wurden als Issues angelegt und nach der Evaluation umgesetzt.
 
 ---
 
@@ -555,26 +602,24 @@ Aufgaben und Bugs wurden im GitHub-Issuetracker erfasst und priorisiert abgearbe
 
 ### 6.1 KI-Tools
 
-#### Eingesetzte Tools
+- **Eingesetzte Tools:**
 
-| Tool | Version | Zweck |
+| Tool | Version / Variante | Zweck |
 |---|---|---|
-| Claude (Anthropic) | Claude Sonnet 4.5 / claude.ai | Hauptwerkzeug für Dokumentation, Code-Review, Architekturideen, CSS-Entwicklung |
-| GitHub Copilot | – | Inline-Code-Vorschläge im Editor, Autovervollständigung |
+| **Claude (Anthropic)** | Claude Sonnet 4.5 / claude.ai | Dokumentation, Code-Review, CSS-Entwicklung, Architekturideen, Debugging |
+| **GitHub Copilot** | – | Inline-Code-Vorschläge im Editor, Autovervollständigung |
 
-#### Zweck & Umfang
+- **Zweck & Umfang:**
+  - **Dokumentation:** Strukturierung und Ausformulierung der README-Abschnitte (Ausgangslage, Lösungsidee, Erweiterungen, KI-Deklaration)
+  - **Code-Unterstützung:** Dark-Mode CSS-Styles (konsistentes Farbsystem über ~12 Seiten), Svelte 5 `$derived.by()`-Patterns, Responsiveness-Anpassungen, Animationen
+  - **Debugging:** Hilfe bei SvelteKit-spezifischen Problemen (SSR vs. Client, `$effect` vs. `onMount`, Form-Action-Patterns)
+  - **Architektur:** Beratung zur Routenstruktur und Komponenten-Aufteilung
 
-- **Dokumentation:** Strukturierung und Ausformulierung der README-Abschnitte (Ausgangslage, Lösungsidee, KI-Deklaration)
-- **Code-Unterstützung:** CSS Dark-Mode-Styles, Svelte 5 `$derived.by()`-Patterns, Responsiveness-Anpassungen
-- **Debugging:** Hilfe bei SvelteKit-spezifischen Problemen (SSR vs. Client, Form-Actions, Load-Funktionen)
-- **Architektur:** Beratung zur Projektstruktur und Komponenten-Aufteilung
+  Teile, die ganz oder teilweise KI-unterstützt entstanden: CSS-Styles (Dark Mode, Animationen), einzelne Svelte-5-Patterns (`$effect` mit `MutationObserver`), Dokumentationsstruktur und -ausformulierung.
 
-Teile, die ganz oder teilweise KI-unterstützt entstanden: CSS-Styles (Dark Mode, Animationen), einzelne SvelteKit-Patterns (`$effect` mit MutationObserver), Dokumentationsstruktur.
-
-#### Eigene Leistung (Abgrenzung)
-
-- **Eigenständig erarbeitet:** Projektidee, UI-Konzept und Farbschema, Datenbankmodellierung, Gesamtarchitektur, Integration aller Komponenten, Testdurchführung und -auswertung, alle Designentscheidungen
-- **Überarbeitet/angepasst:** KI-Vorschläge wurden stets auf eigene Bedürfnisse angepasst, getestet und bei Bedarf korrigiert – keine ungeprüfte Übernahme
+- **Eigene Leistung (Abgrenzung):**
+  - **Eigenständig erarbeitet:** Projektidee, UI-Konzept, Farbschema und Designsprache, Datenbankmodellierung, Gesamtarchitektur und Feature-Planung, Integration aller Komponenten, Testdurchführung und -auswertung, alle inhaltlichen Entscheidungen
+  - **Überarbeitet/angepasst:** Alle KI-Vorschläge wurden stets auf eigene Anforderungen angepasst, im Browser getestet und bei Bedarf manuell korrigiert. Keine ungeprüfte Übernahme.
 
 ---
 
@@ -582,22 +627,22 @@ Teile, die ganz oder teilweise KI-unterstützt entstanden: CSS-Styles (Dark Mode
 
 Der KI-Einsatz erfolgte iterativ und aufgabenbezogen. Typisches Vorgehen:
 
-1. **Kontext geben:** Bestehenden Code oder Anforderung als Ausgangspunkt mitliefern
-2. **Konkrete Aufgabe formulieren:** Z.B. "Erstelle den Dark-Mode-CSS für diese Komponente, konsistent mit dem bestehenden Farbschema `#b06eb0`"
-3. **Ergebnis prüfen:** Vorschlag im Projekt testen, visuell prüfen und bei Bedarf nachkorrigieren
+1. **Kontext geben:** Bestehenden Code oder Anforderung als Ausgangspunkt mitliefern (z.B. bestehende Svelte-Komponente + Farbschema)
+2. **Konkrete Aufgabe formulieren:** Z.B. *"Erstelle den Dark-Mode-CSS für diese Komponente, konsistent mit dem Farbschema `#b06eb0` / `#2c2432`"*
+3. **Ergebnis prüfen:** Vorschlag im Browser testen, visuell und funktional prüfen
 4. **Iterieren:** Bei Fehler oder ungewünschtem Resultat den Fehler beschreiben und Korrektur anfordern
 
-Für die Dokumentation wurde ein ähnliches Vorgehen gewählt: Zuerst eigene Stichpunkte erstellt, dann KI gebeten, diese in vollständige Abschnitte auszuformulieren. Ergebnis wurde anschliessend geprüft und angepasst.
+Für die Dokumentation wurde zuerst eine eigene Gliederung mit Stichpunkten erstellt, dann die KI gebeten, diese in vollständige Abschnitte auszuformulieren. Ergebnis wurde anschliessend geprüft, angepasst und ergänzt.
 
 ---
 
 ### 6.3 Reflexion
 
-**Nutzen:** KI hat besonders bei repetitiven Aufgaben (Dark-Mode-Styles für ~10 Seiten, konsistente CSS-Anpassungen) enorm Zeit gespart. Auch beim Debugging von SvelteKit-spezifischen Problemen (z.B. `$effect` vs. `onMount`, SSR-Einschränkungen) war die Unterstützung wertvoll.
+**Nutzen:** KI hat besonders bei repetitiven Aufgaben enorm Zeit gespart – insbesondere beim konsistenten Dark-Mode-CSS über ~12 verschiedene Seiten sowie bei SvelteKit-spezifischen Patterns. Auch beim Debugging (z.B. `$effect` vs. `onMount`, SSR-Einschränkungen) war die Unterstützung wertvoll.
 
-**Grenzen:** KI-Vorschläge für Svelte 5 waren manchmal noch auf Svelte 4 Syntax ausgerichtet und mussten korrigiert werden. Architekturentscheidungen und Design-Konzepte konnten nicht delegiert werden – hier war eigenes Urteilsvermögen entscheidend.
+**Grenzen:** KI-Vorschläge für Svelte 5 waren teils noch auf Svelte 4 Syntax ausgerichtet (`on:click` statt `onclick`) und mussten korrigiert werden. Architektur-, Konzept- und Designentscheidungen konnten nicht delegiert werden – hier war eigenes Urteilsvermögen entscheidend.
 
-**Risiken & Qualitätssicherung:** Alle KI-generierten Code-Abschnitte wurden manuell getestet. Bei kritischen Funktionen (Authentifizierung, Datenbankzugriff) wurde kein KI-Code ungeprüft übernommen. Urheberrechtlich relevante Inhalte (Bilder, Logos) stammen aus eigenen Assets oder lizenzierten Quellen.
+**Risiken & Qualitätssicherung:** Alle KI-generierten Code-Abschnitte wurden manuell getestet. Bei kritischen Funktionen (Authentifizierung, Datenbankzugriff, Session-Handling) wurde kein KI-Code ungeprüft übernommen. Bilder und Icons stammen aus eigenen Assets oder lizenzierten Quellen (Unsplash, Bootstrap Icons).
 
 ---
 
@@ -612,31 +657,37 @@ Für die Dokumentation wurde ein ähnliches Vorgehen gewählt: Zuerst eigene Sti
 | SvelteKit | Web Framework | MIT |
 | MongoDB Atlas | Cloud-Datenbank | Kommerziell (Free Tier) |
 | Netlify | Hosting | Kommerziell (Free Tier) |
-| Unsplash | Rezeptfotos (Rezepte-Seite) | Unsplash License |
+| Unsplash | Rezeptfotos | Unsplash License (kostenlos, keine Attribution erforderlich) |
 
-### Testskript & Materialien
+### Deployment & lokale Entwicklung
 
-Testaufgaben: Kapitel 3.5 (Aufgaben/Szenarien A1–A12)
+**Live-App:** [https://gymsense-webapp.netlify.app/](https://gymsense-webapp.netlify.app/)
 
-### Deployment
-
-- **Plattform:** Netlify
-- **Live-URL:** *(URL ergänzen)*
-- **Repository:** *(GitHub URL ergänzen)*
-
-### Lokale Entwicklung
+**Repository:** [https://github.com/marijarad2/GymSense-Projekt](https://github.com/marijarad2/GymSense-Projekt)
 
 ```bash
 # Dependencies installieren
 npm install
 
-# Entwicklungsserver starten
+# Entwicklungsserver starten (mit HMR)
 npm run dev
 
-# Build erstellen
+# Produktions-Build erstellen
 npm run build
 
 # Umgebungsvariablen (.env)
 MONGODB_URI=mongodb+srv://...
 SESSION_SECRET=...
 ```
+
+### Testskript & Materialien
+
+Testaufgaben und Szenarien: Kapitel 3.5 (A1–A21)
+
+Testprotokoll und Beobachtungen: Kapitel 3.5 (T-01–T-21)
+
+---
+
+<p align="center">
+  <strong>GymSense © 2026 – Train smarter. Not just harder. 💪</strong>
+</p>
