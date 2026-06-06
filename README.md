@@ -145,7 +145,9 @@ Es wurden drei Varianten konzipiert und skizziert:
 
 **Skizzen:**
 
-> 📎 *Skizzen werden separat als Bilder eingefügt (Variante A, B, C – handgezeichnet / digital)*
+![Skizzenvarianten GymSense](src/lib/assets/gymsense-sketches.png)
+
+*Abbildung X: Erste Skizzenvarianten für GymSense. Variante B wurde aufgrund der besseren Übersichtlichkeit und Erweiterbarkeit ausgewählt.*
 
 **Wesentliche Unterschiede:**
 - Variante A verzichtet auf jegliche Statistik und Gamification
