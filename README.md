@@ -615,7 +615,7 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 - **Referenz:** Kap. 3.4.1 (Profil-Screen)
 - **Aus Evaluation abgeleitet?** Nein – Swipe-Funktion in Evaluation explizit positiv bewertet (T-12)
 
-![Kalender](src/lib/assets/calendar.png)
+![Kalender](src/lib/assets/calender.png)
 
 *Abbildung X: Interaktiver Trainingskalender auf der Profilseite.*
 
