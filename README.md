@@ -486,7 +486,6 @@ Während des Tests äusserten die Testpersonen unter anderem folgende Gedanken:
 | U-02 | Kontaktmöglichkeit war schwer auffindbar | 2 – Kleines Problem |
 | U-03 | FAQ-Bereich war zu klein | 2 – Kleines Problem |
 | U-04 | Impressum, Datenschutz und AGB waren schwer auffindbar | 1 – Kosmetisches Problem |
-| U-05 | Health-Integration wurde teilweise missverstanden | 1 – Kosmetisches Problem |
 
 ---
 
@@ -508,15 +507,52 @@ Während des Tests äusserten die Testpersonen unter anderem folgende Gedanken:
 | U-02 | Kontaktformular ergänzt | ✅ Umgesetzt |
 | U-03 | FAQ-Bereich erweitert | ✅ Umgesetzt |
 | U-04 | Impressum, Datenschutz und AGB ergänzt | ✅ Umgesetzt |
-| U-05 | Hinweis auf Prototyp-Charakter ergänzt | ✅ Umgesetzt |
 
 ---
 
-#### Fazit
+##### U-01 – Löschfunktion für Trainingssätze
 
-Die beiden Testpersonen konnten sämtliche Aufgaben erfolgreich abschliessen. Die Navigation wurde als intuitiv wahrgenommen und alle zentralen Funktionen konnten ohne Unterstützung genutzt werden. Die identifizierten Usability-Probleme waren überwiegend kleiner Natur und konnten direkt in den Prototyp übernommen bzw. behoben werden.
+Während des Usability-Tests wurde festgestellt, dass Testpersonen eine Möglichkeit erwarteten, versehentlich erfasste Trainingssätze wieder entfernen zu können. Deshalb wurde eine Löschfunktion ergänzt, mit der einzelne Sätze direkt innerhalb der Trainingserfassung gelöscht werden können.
 
-Besonders positiv bewertet wurden die Trainingsdokumentation, die Fortschrittsübersicht, die persönlichen Rekorde, der GymSense Coach sowie der Dark Mode. Insgesamt bestätigt der Usability-Test, dass GymSense die definierten Anforderungen erfüllt und eine benutzerfreundliche Lösung für die strukturierte Trainingsdokumentation darstellt.
+![Löschfunktion Trainingssätze](src/lib/assets/satzlöschen.png)
+
+*Abbildung 1: Implementierte Löschfunktion für Trainingssätze.*
+
+---
+
+##### U-02 – Kontaktformular
+
+Die Testpersonen erwarteten eine einfachere Möglichkeit, Unterstützung oder Coaching-Anfragen zu stellen. Deshalb wurde ein eigenes Kontaktformular ergänzt, über das Nutzerinnen und Nutzer direkt mit dem GymSense-Team in Kontakt treten können.
+
+![Kontaktformular](src/lib/assets/kontakt.png)
+
+*Abbildung 2: Implementiertes Kontaktformular für Coaching-Anfragen.*
+
+---
+
+##### U-03 – FAQ-Bereich
+
+Zur Verbesserung der Benutzerunterstützung wurde der Help-Bereich erweitert. Häufig gestellte Fragen werden nun in einem übersichtlichen FAQ-Bereich beantwortet, sodass Nutzerinnen und Nutzer viele Anliegen selbstständig lösen können.
+
+![FAQ-Bereich](src/lib/assets/faq.png)
+
+*Abbildung 3: Erweiterter FAQ-Bereich mit häufigen Fragen und Antworten.*
+
+---
+
+##### U-04 – Impressum, Datenschutz und AGB
+
+Für eine höhere Professionalität und rechtliche Vollständigkeit wurden ein Impressum, eine Datenschutzerklärung sowie Allgemeine Geschäftsbedingungen ergänzt. Die Seiten sind über den Footer der Anwendung jederzeit erreichbar.
+
+![Rechtliche Seiten](src/lib/assets/agb.png)
+
+*Abbildung 4: Ergänzte rechtliche Seiten (Impressum, Datenschutz und AGB).*
+
+---
+
+#### Fazit der Verbesserungsmassnahmen
+
+Die identifizierten Usability-Probleme konnten vollständig behoben werden. Sämtliche Verbesserungsvorschläge aus dem Usability-Test wurden umgesetzt und in den finalen Prototyp integriert. Dadurch konnte die Benutzerfreundlichkeit von GymSense weiter verbessert werden. Insbesondere die Löschfunktion für Trainingssätze, das Kontaktformular, der erweiterte FAQ-Bereich sowie die rechtlichen Seiten tragen zu einer vollständigeren und professionelleren Benutzererfahrung bei.
 
 ## 4. Erweiterungen
 
