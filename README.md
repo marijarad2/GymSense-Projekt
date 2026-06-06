@@ -11,10 +11,10 @@
 
 <p align="center">
   <a href="https://gymsense-webapp.netlify.app/">
-    <img src="https://img.shields.io/badge/🌐_Live_App-gymsense--webapp.netlify.app-00C7B7?style=for-the-badge&logo=netlify"/>
+    <img src="https://img.shields.io/badge/_Live_App-gymsense--webapp.netlify.app-00C7B7?style=for-the-badge&logo=netlify"/>
   </a>
   <a href="https://github.com/marijarad2/GymSense-Projekt">
-    <img src="https://img.shields.io/badge/📁_GitHub-marijarad2%2FGymSense--Projekt-181717?style=for-the-badge&logo=github"/>
+    <img src="https://img.shields.io/badge/_GitHub-marijarad2%2FGymSense--Projekt-181717?style=for-the-badge&logo=github"/>
   </a>
 </p>
 
@@ -76,14 +76,14 @@ Zusätzlich fällt es insbesondere Einsteiger:innen schwer, Übungen korrekt aus
 
 | Workflow | Beschreibung |
 |---|---|
-| 🏋️ Training erfassen | Übungen, Sätze, Gewicht, Wiederholungen und Notizen eintragen |
-| 📈 Fortschritt verfolgen | Gewichtsentwicklung pro Übung und persönliche Rekorde (PR) visualisieren |
-| 📋 Trainingspläne | Vorgefertigte Pläne auswählen, starten und direkt ins Training übernehmen |
-| 🔍 Übungsbibliothek | Suche, Filter nach Muskelgruppe, Tipps, Videos, Lieblingsübung speichern |
-| 👤 Profil & Statistiken | Trainingsstreak, Wochenziel, Kalender, Health-Daten, Rekordübersicht |
-| 📍 Kursfinder | Fitnesskurse in der Nähe finden, nach Typ filtern, Google Maps Routen öffnen |
-| 🥗 Rezeptsystem | Fitness-Rezepte mit Kalorien, Protein, Anleitungen und Kategoriefilter |
-| 🤖 GymSense Coach | Regelbasierter Fitness-Assistent mit kontextbezogenen Antworten |
+|  Training erfassen | Übungen, Sätze, Gewicht, Wiederholungen und Notizen eintragen |
+|  Fortschritt verfolgen | Gewichtsentwicklung pro Übung und persönliche Rekorde (PR) visualisieren |
+|  Trainingspläne | Vorgefertigte Pläne auswählen, starten und direkt ins Training übernehmen |
+|  Übungsbibliothek | Suche, Filter nach Muskelgruppe, Tipps, Videos, Lieblingsübung speichern |
+|  Profil & Statistiken | Trainingsstreak, Wochenziel, Kalender, Health-Daten, Rekordübersicht |
+|  Kursfinder | Fitnesskurse in der Nähe finden, nach Typ filtern, Google Maps Routen öffnen |
+|  Rezeptsystem | Fitness-Rezepte mit Kalorien, Protein, Anleitungen und Kategoriefilter |
+|  GymSense Coach | Regelbasierter Fitness-Assistent mit kontextbezogenen Antworten |
 
 - **Annahmen:**
   - Nutzer:innen sind motiviert zu dokumentieren, wenn der Aufwand minimal ist
@@ -109,7 +109,7 @@ Zur Problemraumanalyse wurde eine Proto-Persona erarbeitet, die typische Nutzer:
 
 ---
 
-**🧑 Proto-Persona: "Fitness-Fabian"**
+** Proto-Persona: "Fitness-Fabian"**
 
 | Merkmal | Beschreibung |
 |---|---|
@@ -160,7 +160,7 @@ Es wurden drei Varianten konzipiert und skizziert:
 
 #### Gewählte Variante & Begründung
 
-**✅ Variante B – Dashboard-App** wurde gewählt aufgrund folgender Entscheidkriterien:
+** Variante B – Dashboard-App** wurde gewählt aufgrund folgender Entscheidkriterien:
 
 | Kriterium | Begründung |
 |---|---|
@@ -175,21 +175,21 @@ Es wurden drei Varianten konzipiert und skizziert:
 Die User Journey beschreibt den typischen Ablauf eines Nutzers innerhalb von GymSense. Ziel ist es, neue Nutzerinnen und Nutzer möglichst schnell von der Registrierung bis zur erfolgreichen Trainingsdokumentation zu führen. Dabei werden zentrale Funktionen wie Trainingspläne, Trainingserfassung, Fortschrittsanalyse und Profilfunktionen miteinander verbunden.
 
 ```text
-🆕 Registrierung / Login
+ Registrierung / Login
         ↓
-🏠 Startseite
+ Startseite
         ↓
-📋 Trainingsplan auswählen
+ Trainingsplan auswählen
         ↓
-🏋️ Training erfassen
+ Training erfassen
         ↓
-➕ Übungen & Sätze eintragen
+ Übungen & Sätze eintragen
         ↓
-💾 Training speichern
+ Training speichern
         ↓
-📈 Fortschritt analysieren
+ Fortschritt analysieren
         ↓
-👤 Profil prüfen
+ Profil prüfen
 ```
 
 #### Mockup
@@ -213,12 +213,12 @@ Das Mockup wurde in **Figma** erstellt und zeigt alle zentralen Screens: Startse
 | `/` | Startseite | Optional | Hero-Section, Willkommensbereich (logged in/out), Projektbeschreibung |
 | `/login` | Login | – | Anmeldung mit Passwort-Toggle |
 | `/register` | Registrierung | – | Konto erstellen mit Live-Passwortvalidierung & Stärkeanzeige |
-| `/logout` | Abmeldung | ✅ | POST-Action, redirect zur Startseite |
+| `/logout` | Abmeldung |  | POST-Action, redirect zur Startseite |
 | `/exercises` | Übungen | Optional | Bibliothek mit Suche, Muskelgruppenfilter, Videos, Favoriten |
-| `/plans` | Trainingspläne | ✅ | Vorgefertigte Pläne mit kontextbasierter Empfehlung und Startfunktion |
-| `/training` | Training erfassen | ✅ | Übungen hinzufügen, Sätze eintragen, Live-Zusammenfassung |
-| `/progress` | Fortschritt | ✅ | Gewichtsverlauf, persönliche Rekorde, PR-Badges, Toast |
-| `/profile` | Profil | ✅ | Statistiken, Kalender, Wochenziel, Health-Prototype, Streaks |
+| `/plans` | Trainingspläne |  | Vorgefertigte Pläne mit kontextbasierter Empfehlung und Startfunktion |
+| `/training` | Training erfassen |  | Übungen hinzufügen, Sätze eintragen, Live-Zusammenfassung |
+| `/progress` | Fortschritt |  | Gewichtsverlauf, persönliche Rekorde, PR-Badges, Toast |
+| `/profile` | Profil |  | Statistiken, Kalender, Wochenziel, Health-Prototype, Streaks |
 | `/recipes` | Rezepte | Optional | Fitness-Rezepte mit Kalorien, Protein, Kategoriefilter, Modal |
 | `/discover` | Kursfinder | Optional | Kurse filtern, Standort teilen, Distanzberechnung, Google Maps |
 | `/help` | FAQ / Help | Optional | Häufige Fragen & Antworten, Link zum Kontaktformular |
@@ -226,7 +226,7 @@ Das Mockup wurde in **Figma** erstellt und zeigt alle zentralen Screens: Startse
 | `/impressum` | Impressum | – | Rechtliche Angaben |
 | `/datenschutz` | Datenschutz | – | Datenschutzerklärung |
 | `/agb` | AGB | – | Allgemeine Geschäftsbedingungen |
-| `/api/training-plan/[id]` | API | ✅ | Trainingsplan per ID als JSON laden |
+| `/api/training-plan/[id]` | API |  | Trainingsplan per ID als JSON laden |
 
 ##### User Interface Design
 
@@ -236,7 +236,7 @@ Das Mockup wurde in **Figma** erstellt und zeigt alle zentralen Screens: Startse
 |---|---|
 | **Startseite (eingeloggt)** | Grosses Welcome-Hero mit Konfetti-Animation (6 fallende Emojis), Gradient, "Willkommen zurück"-Label |
 | **Training erfassen** | Übungsauswahl via Dropdown, dynamische Satzkarten, Live-Zusammenfassung (Übungen / Sätze / Volumen in Echtzeit) |
-| **Fortschritt** | Kartenraster pro Übung mit Balkendiagramm, PR-Badge 🎉, Differenzanzeige (+X kg), animierter Toast |
+| **Fortschritt** | Kartenraster pro Übung mit Balkendiagramm, PR-Badge , Differenzanzeige (+X kg), animierter Toast |
 | **Profil** | Stats-Grid, Dashboard-Karten (Wochenziel, Health, Streak, Coach-Tipp), interaktiver Monatskalender mit Swipe |
 | **Kursfinder** | Hero-Bild, Standort-Card mit Datenschutzhinweis, Typfilter, Kurskarten mit Distanz und Maps-Link |
 | **Rezepte** | Kategoriefilter-Buttons, Karten-Grid mit Bildern, Modal mit Zutaten & Anleitungen |
@@ -371,32 +371,32 @@ Die beiden Farbpaletten wurden bewusst aufeinander abgestimmt. Während der Ligh
 
 ```
 src/
-├── lib/
-│   ├── assets/              # Logo, Hero-Images (Light/Dark je Seite)
-│   ├── components/
-│   │   └── HeroSection.svelte   # Startseiten-Hero für nicht-eingeloggte User
-│   └── server/              # MongoDB-Verbindung, Datenbankhelfer
-├── routes/
-│   ├── +layout.server.ts    # Globaler Session-Load
-│   ├── +layout.svelte       # Navbar, Footer, Dark Mode Toggle, GymSense Coach
-│   ├── +page.svelte         # Startseite (Welcome Hero / Public Hero)
-│   ├── login/               # Login mit Passwort-Toggle
-│   ├── register/            # Registrierung + Live-Passwortvalidierung
-│   ├── logout/              # Logout POST-Action
-│   ├── exercises/           # Übungsbibliothek
-│   ├── plans/               # Trainingspläne mit Empfehlung
-│   ├── training/            # Training erfassen
-│   ├── progress/            # Fortschrittsansicht
-│   ├── profile/             # Profilseite mit Kalender & Health
-│   ├── recipes/             # Fitness-Rezeptsystem
-│   ├── discover/            # Kursfinder mit Geolocation
-│   ├── help/                # FAQ & Help
-│   ├── contact/             # Kontaktformular
-│   ├── impressum/           # Impressum
-│   ├── datenschutz/         # Datenschutz
-│   ├── agb/                 # AGB
-│   └── api/
-│       └── training-plan/[id]/  # REST-Endpunkt für Trainingsplan
+ lib/
+    assets/              # Logo, Hero-Images (Light/Dark je Seite)
+    components/
+       HeroSection.svelte   # Startseiten-Hero für nicht-eingeloggte User
+    server/              # MongoDB-Verbindung, Datenbankhelfer
+ routes/
+    +layout.server.ts    # Globaler Session-Load
+    +layout.svelte       # Navbar, Footer, Dark Mode Toggle, GymSense Coach
+    +page.svelte         # Startseite (Welcome Hero / Public Hero)
+    login/               # Login mit Passwort-Toggle
+    register/            # Registrierung + Live-Passwortvalidierung
+    logout/              # Logout POST-Action
+    exercises/           # Übungsbibliothek
+    plans/               # Trainingspläne mit Empfehlung
+    training/            # Training erfassen
+    progress/            # Fortschrittsansicht
+    profile/             # Profilseite mit Kalender & Health
+    recipes/             # Fitness-Rezeptsystem
+    discover/            # Kursfinder mit Geolocation
+    help/                # FAQ & Help
+    contact/             # Kontaktformular
+    impressum/           # Impressum
+    datenschutz/         # Datenschutz
+    agb/                 # AGB
+    api/
+        training-plan/[id]/  # REST-Endpunkt für Trainingsplan
 ```
 
 **Svelte 5 Runes – Verwendung im Projekt:**
@@ -585,7 +585,7 @@ Während des Tests äusserten die Testpersonen unter anderem folgende Gedanken:
 
 | Test ID | Aktivität | Erwartetes Resultat | Erfüllt |
 |----------|------------|--------------------|----------|
-| T-01 bis T-21 | Alle definierten Testfälle | Funktioniert gemäss Spezifikation | ✅ |
+| T-01 bis T-21 | Alle definierten Testfälle | Funktioniert gemäss Spezifikation |  |
 
 **Erfolgsquote: 21 von 21 Testfällen erfolgreich (100 %)**
 
@@ -601,10 +601,10 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 
 | Issue | Massnahme | Status |
 |---------|-------------|---------|
-| U-01 | Löschfunktion für Trainingssätze implementiert | ✅ Umgesetzt |
-| U-02 | Kontaktformular ergänzt | ✅ Umgesetzt |
-| U-03 | FAQ-Bereich erweitert | ✅ Umgesetzt |
-| U-04 | Impressum, Datenschutz und AGB ergänzt | ✅ Umgesetzt |
+| U-01 | Löschfunktion für Trainingssätze implementiert |  Umgesetzt |
+| U-02 | Kontaktformular ergänzt |  Umgesetzt |
+| U-03 | FAQ-Bereich erweitert |  Umgesetzt |
+| U-04 | Impressum, Datenschutz und AGB ergänzt |  Umgesetzt |
 
 ---
 
@@ -691,7 +691,7 @@ Für eine höhere Professionalität und rechtliche Vollständigkeit wurden ein I
 
 ### 4.4 Persönliche Rekorde (PR-Erkennung & Toast)
 
-- **Beschreibung & Nutzen:** Nach jedem Training werden automatisch persönliche Rekorde erkannt und auf der Fortschrittsseite mit einem "PR 🎉"-Badge hervorgehoben. Zusätzlich erscheint eine animierte Toast-Benachrichtigung ("Du hast Fortschritte gemacht 🚀") mit Slide-in-Animation, wenn Gewichtssteigerungen erkannt werden. Erhöht die Trainingsmotivation signifikant.
+- **Beschreibung & Nutzen:** Nach jedem Training werden automatisch persönliche Rekorde erkannt und auf der Fortschrittsseite mit einem "PR "-Badge hervorgehoben. Zusätzlich erscheint eine animierte Toast-Benachrichtigung ("Du hast Fortschritte gemacht ") mit Slide-in-Animation, wenn Gewichtssteigerungen erkannt werden. Erhöht die Trainingsmotivation signifikant.
 - **Wo umgesetzt:** `progress/+page.svelte` – `isPersonalBest`-Flag aus Server-Daten, `showToast`-State, `$effect` mit `setTimeout` (3 Sekunden), `@keyframes slideIn` CSS-Animation.
 - **Referenz:** Kap. 3.4.1, Kap. 3.5 (T-09, T-10)
 - **Aus Evaluation abgeleitet?** Nein – als besonders positiv hervorgehoben in Evaluation
@@ -704,7 +704,7 @@ Für eine höhere Professionalität und rechtliche Vollständigkeit wurden ein I
 
 ### 4.5 Interaktiver Trainingskalender mit Swipe
 
-- **Beschreibung & Nutzen:** Vollständiger Monatskalender auf der Profilseite mit Monat- und Jahresnavigation, Touch-Swipe-Unterstützung für Mobile, drei Eintragstypen (🏋️ Training, 💤 Rest Day, 🎟️ Kurs) und direkten Aktions-Buttons pro Kalendertag.
+- **Beschreibung & Nutzen:** Vollständiger Monatskalender auf der Profilseite mit Monat- und Jahresnavigation, Touch-Swipe-Unterstützung für Mobile, drei Eintragstypen ( Training,  Rest Day,  Kurs) und direkten Aktions-Buttons pro Kalendertag.
 - **Wo umgesetzt:** `profile/+page.svelte` – `getCalendarDays()`, `handleTouchStart/End()` (Swipe-Logik), `formatDateForDb()`, Form-Actions `?/addTraining`, `?/addRest`, `?/addCourse` im Server.
 - **Referenz:** Kap. 3.4.1 (Profil-Screen)
 - **Aus Evaluation abgeleitet?** Nein – Swipe-Funktion in Evaluation explizit positiv bewertet (T-12)
@@ -769,7 +769,7 @@ Für eine höhere Professionalität und rechtliche Vollständigkeit wurden ein I
 
 ### 4.10 Smart Welcome Experience (Onboarding-Animation)
 
-- **Beschreibung & Nutzen:** Neue Nutzer:innen erhalten nach der Registrierung eine besondere Willkommensseite mit Konfetti-Animation (6 fallende Emojis), personalisierter Begrüssung und animiertem Hero-Bereich via URL-Parameter `?registered=true`. Bestehende Nutzer:innen sehen "Schön, dass du zurück bist 💪". Verbessert das Onboarding-Erlebnis spürbar.
+- **Beschreibung & Nutzen:** Neue Nutzer:innen erhalten nach der Registrierung eine besondere Willkommensseite mit Konfetti-Animation (6 fallende Emojis), personalisierter Begrüssung und animiertem Hero-Bereich via URL-Parameter `?registered=true`. Bestehende Nutzer:innen sehen "Schön, dass du zurück bist ". Verbessert das Onboarding-Erlebnis spürbar.
 - **Wo umgesetzt:** `+page.svelte` – `isNewUser` via `page.url.searchParams.get('registered')`, `@keyframes confettiFall` und `welcomePop`, Conditional-Rendering im Template.
 - **Referenz:** Kap. 3.4.1 (Startseite)
 - **Aus Evaluation abgeleitet?** Nein – in Evaluation sehr positiv aufgenommen (T-01)
@@ -949,5 +949,5 @@ Testprotokoll und Beobachtungen: Kapitel 3.5 (T-01–T-21)
 ---
 
 <p align="center">
-  <strong>GymSense © 2026 – Train smarter. Not just harder. 💪</strong>
+  <strong>GymSense © 2026 – Train smarter. Not just harder. </strong>
 </p>
