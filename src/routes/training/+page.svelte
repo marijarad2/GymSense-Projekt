@@ -101,8 +101,41 @@
 		];
 	}
 
+	function removeSet(exerciseIndex, setIndex) {
+		const exercise = workoutExercises[exerciseIndex];
+
+		if (exercise.sets.length <= 1) return;
+
+		workoutExercises = workoutExercises.map((item, i) => {
+			if (i !== exerciseIndex) return item;
+
+			return {
+				...item,
+				sets: item.sets.filter((_, j) => j !== setIndex)
+			};
+		});
+	}
+
 	function removeExercise(index) {
 		workoutExercises = workoutExercises.filter((_, i) => i !== index);
+	}
+
+	function updateSet(exerciseIndex, setIndex, field, value) {
+		workoutExercises = workoutExercises.map((exercise, i) => {
+			if (i !== exerciseIndex) return exercise;
+
+			return {
+				...exercise,
+				sets: exercise.sets.map((set, j) => {
+					if (j !== setIndex) return set;
+
+					return {
+						...set,
+						[field]: value
+					};
+				})
+			};
+		});
 	}
 
 	const summary = $derived.by(() => {
@@ -112,7 +145,6 @@
 			(total, exercise) => total + exercise.sets.length,
 			0
 		);
-
 
 		const totalVolume = workoutExercises.reduce((total, exercise) => {
 			const exerciseVolume = exercise.sets.reduce((sum, set) => {
@@ -133,24 +165,6 @@
 	});
 
 	const workoutExercisesJson = $derived(JSON.stringify(workoutExercises));
-
-	function updateSet(exerciseIndex, setIndex, field, value) {
-	workoutExercises = workoutExercises.map((exercise, i) => {
-		if (i !== exerciseIndex) return exercise;
-
-		return {
-			...exercise,
-			sets: exercise.sets.map((set, j) => {
-				if (j !== setIndex) return set;
-
-				return {
-					...set,
-					[field]: value
-				};
-			})
-		};
-	});
-}
 </script>
 
 <section class="training-page">
@@ -244,6 +258,16 @@
 								class="form-control"
 							/>
 						</label>
+
+						<button
+							type="button"
+							class="delete-set-btn"
+							onclick={() => removeSet(exerciseIndex, setIndex)}
+							disabled={exercise.sets.length === 1}
+							title="Satz löschen"
+						>
+							🗑 Satz löschen
+						</button>
 					</div>
 				{/each}
 
@@ -436,14 +460,40 @@
 
 	.set-row {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr 1fr auto;
 		gap: 16px;
 		margin-bottom: 12px;
+		align-items: end;
 	}
 
 	label {
 		font-weight: 700;
 		color: #555;
+	}
+
+	.delete-set-btn {
+		background: #ff5b5b;
+		color: white;
+		border: none;
+		border-radius: 10px;
+		padding: 11px 13px;
+		cursor: pointer;
+		font-weight: 700;
+		height: fit-content;
+		transition:
+			background 0.2s ease,
+			transform 0.2s ease;
+	}
+
+	.delete-set-btn:hover:not(:disabled) {
+		background: #e04343;
+		transform: translateY(-2px);
+	}
+
+	.delete-set-btn:disabled {
+		opacity: 0.4;
+		cursor: not-allowed;
+		transform: none;
 	}
 
 	.note-label {
@@ -645,6 +695,15 @@
 
 	:global(body.dark-mode) .remove-btn {
 		color: #f7d1f8;
+	}
+
+	:global(body.dark-mode) .delete-set-btn {
+		background: #ff7a7a;
+		color: #2c2432;
+	}
+
+	:global(body.dark-mode) .delete-set-btn:hover:not(:disabled) {
+		background: #ff5e5e;
 	}
 
 	:global(body.dark-mode) .add-btn,
