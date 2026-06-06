@@ -196,7 +196,7 @@ Die User Journey beschreibt den typischen Ablauf eines Nutzers innerhalb von Gym
 
 Das Mockup wurde in **Figma** erstellt und zeigt alle zentralen Screens: Startseite, Training, Fortschritt, Übungen, Trainingspläne, Profil, Rezepte, Kursfinder.
 
-[Figma-Prototyp öffnen](https://www.figma.com/make/ZJ0UmeO8GG5QsTeIebbyHU/GymSense?t=HRRrIDqlPdY49fkT-6)
+[Figma-Prototyp öffnen](https://www.figma.com/make/ZJ0UmeO8GG5QsTeIebbyHU/GymSense?code-node-id=0-9&p=f&t=0w3pfuZBhW9BJytF-0&fullscreen=1)
 
 ---
 
