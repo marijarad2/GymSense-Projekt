@@ -172,23 +172,47 @@ Es wurden drei Varianten konzipiert und skizziert:
 
 #### End-to-End-Ablauf (User Journey)
 
-```
+Die User Journey beschreibt den typischen Ablauf eines Nutzers innerhalb von GymSense. Ziel ist es, neue Nutzerinnen und Nutzer möglichst schnell von der Registrierung bis zur erfolgreichen Trainingsdokumentation zu führen. Dabei werden zentrale Funktionen wie Trainingspläne, Trainingserfassung, Fortschrittsanalyse und Profilfunktionen miteinander verbunden.
+
+```text
 🆕 Registrierung / Login
         ↓
-🏠 Startseite  (Willkommen + Smart Welcome für neue Nutzer / Konfetti-Animation)
+🏠 Startseite
         ↓
-📋 Trainingsplan auswählen  (/plans  →  Empfehlung basierend auf Level)
+📋 Trainingsplan auswählen
         ↓
-🏋️ Training erfassen  (/training  →  Plan wird automatisch geladen)
+🏋️ Training erfassen
         ↓
-➕ Übungen & Sätze eintragen  →  Live-Zusammenfassung (Übungen / Sätze / Volumen)
+➕ Übungen & Sätze eintragen
         ↓
-💾 Training speichern  →  Fortschritt & Streak werden automatisch aktualisiert
+💾 Training speichern
         ↓
-📈 Fortschritt analysieren  (/progress  →  PRs, Verlauf, Toast-Benachrichtigung)
+📈 Fortschritt analysieren
         ↓
-👤 Profil prüfen  (/profile  →  Streak, Wochenziel, Kalender, Health-Daten)
+👤 Profil prüfen
 ```
+
+#### Visualisierung der User Journey
+
+Die folgende Abbildung zeigt die wichtigsten Stationen eines typischen Nutzers innerhalb von GymSense – von der Registrierung bis zur Analyse der persönlichen Fortschritte. Die Screenshots stammen aus dem finalen Prototyp und verdeutlichen den vollständigen End-to-End-Ablauf der Anwendung.
+
+##### Registrierung, Startseite und Trainingsplan
+
+<p align="center">
+  <img src="src/lib/assets/register.png" width="30%">
+  <img src="src/lib/assets/home.png" width="30%">
+  <img src="src/lib/assets/plans.png" width="30%">
+</p>
+
+##### Training, Fortschritt und Profil
+
+<p align="center">
+  <img src="src/lib/assets/training.png" width="30%">
+  <img src="src/lib/assets/progress.png" width="30%">
+  <img src="src/lib/assets/profile.png" width="30%">
+</p>
+
+*Abbildung X: Visualisierung der User Journey von der Registrierung bis zur Fortschrittsanalyse.*
 
 #### Mockup
 
