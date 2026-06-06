@@ -242,6 +242,8 @@ Das Mockup wurde in **Figma** erstellt und zeigt alle zentralen Screens: Startse
 
 ##### Designentscheidungen
 
+Bei der Gestaltung von GymSense wurde besonderer Wert auf eine moderne, motivierende und leicht verständliche Benutzeroberfläche gelegt. Die Anwendung soll sowohl für Einsteiger:innen als auch für erfahrene Fitnesssportler:innen intuitiv bedienbar sein. Deshalb wurden wiederkehrende Gestaltungselemente wie Karten, Farben, Icons und Hero-Bereiche konsequent auf allen Seiten eingesetzt. Durch die einheitliche Designsprache entsteht ein hoher Wiedererkennungswert und die Navigation wird vereinfacht. Zusätzlich wurde auf eine vollständige Responsiveness geachtet, damit die Anwendung sowohl auf Smartphones im Fitnessstudio als auch auf Tablets und Desktop-Geräten optimal genutzt werden kann.
+
 | Entscheidung | Begründung |
 |---|---|
 | **Farbschema Lila/Pink** (`#b06eb0`, `#f7d1f8`) | Unverwechselbar, modern, konsistent auf allen Screens |
@@ -250,6 +252,70 @@ Das Mockup wurde in **Figma** erstellt und zeigt alle zentralen Screens: Startse
 | **Hero-Sections pro Seite** | Jede Seite hat ein eigenes Hero-Bild mit Overlay, Gradient und Zoom-on-Hover |
 | **Responsive Design** | Grid-Breakpoints, angepasste Schriftgrössen, Touch-Swipe für Kalender |
 | **Bootstrap Icons** | Konsistentes Icon-System ohne externe Abhängigkeiten |
+
+#### Farbpalette
+
+GymSense verwendet ein konsistentes Farbsystem, das sowohl im Light Mode als auch im Dark Mode eingesetzt wird. Die gewählte Farbpalette basiert auf Violett- und Rosatönen, um einen modernen und motivierenden Fitness-Look zu erzeugen. Für den Dark Mode wurden dieselben Markenfarben verwendet, jedoch auf dunkleren Hintergründen, damit die visuelle Identität der Anwendung erhalten bleibt.
+
+### Light Mode
+
+| Zweck | HEX |
+|---------|---------|
+| Hintergrund | #FFFFFF |
+| Primärfarbe | #B06EB0 |
+| Hover Primärfarbe | #9A5A9A |
+| Heller Hintergrund | #FFF0FF |
+| Karten-Hintergrund | #FFFFFF |
+| Badge / Akzentfarbe | #B06EB0 |
+| Helle Akzentfläche | #F8F0F8 |
+| Rahmenfarbe | #F0D6F0 |
+| Haupttext | #333333 |
+| Sekundärtext | #777777 |
+
+![Light Mode Farbpalette](src/lib/assets/light-palette.png)
+
+*Abbildung X: Farbpalette des Light Modes.*
+
+![Light Mode Farbpalette](src/lib/assets/light-palette2.png)
+
+*Abbildung X: Farbpalette 2 des Light Modes.*
+
+---
+
+### Dark Mode
+
+| Zweck | HEX |
+|---------|---------|
+| Hintergrund | #1F1A24 |
+| Dunkler Verlauf | #121015 |
+| Karten-Hintergrund | #2C2432 |
+| Eingabefelder | #3A2A42 |
+| Primärfarbe | #F7D1F8 |
+| Hover Primärfarbe | #E8B9EA |
+| Akzentfläche | #3A2A42 |
+| Haupttext | #F5EAF5 |
+| Sekundärtext | #DDDDDD |
+| Fehlerfarbe | #FFB3C7 |
+
+![Dark Mode Farbpalette](src/lib/assets/dark-palette.png)
+
+*Abbildung X: Farbpalette des Dark Modes.*
+
+![Dark Mode Farbpalette](src/lib/assets/dark-palette2.png)
+
+*Abbildung X: Farbpalette 2 des Dark Modes.*
+
+---
+
+### Vergleich Light Mode und Dark Mode
+
+Die beiden Farbpaletten wurden bewusst aufeinander abgestimmt. Während der Light Mode auf helle Oberflächen und starke violette Akzente setzt, reduziert der Dark Mode die Blendwirkung in dunklen Umgebungen wie Fitnessstudios. Dadurch bleibt die Benutzeroberfläche angenehm lesbar und die Markenidentität von GymSense erhalten.
+
+| Light Mode | Dark Mode |
+|------------|-----------|
+| ![Light Mode](src/lib/assets/light-ui.png) | ![Dark Mode](src/lib/assets/dark-ui.png) |
+
+*Abbildung X: Vergleich derselben Seite im Light Mode und Dark Mode.*
 
 ---
 
