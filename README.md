@@ -741,6 +741,10 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 - **Referenz:** Kap. 3.4.1 (Informationsarchitektur), Footer in `+layout.svelte`
 - **Aus Evaluation abgeleitet?** Ja – als direkte Massnahme aus der Evaluation ergänzt
 
+![Rechtliche Seiten](src/lib/assets/agb.png)
+
+*Abbildung X: Impressum, Datenschutz und AGB.*
+
 ---
 
 ## 5. Projektorganisation
