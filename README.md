@@ -198,27 +198,13 @@ Die folgende Abbildung zeigt die wichtigsten Stationen eines typischen Nutzers i
 
 ##### Registrierung, Startseite und Trainingsplan
 
-<p align="center">
-  <img src="src/lib/assets/register.png" width="30%">
-  <img src="src/lib/assets/home.png" width="30%">
-  <img src="src/lib/assets/plans.png" width="30%">
-</p>
-
-##### Training, Fortschritt und Profil
-
-<p align="center">
-  <img src="src/lib/assets/training.png" width="30%">
-  <img src="src/lib/assets/progress.png" width="30%">
-  <img src="src/lib/assets/profile.png" width="30%">
-</p>
-
 *Abbildung X: Visualisierung der User Journey von der Registrierung bis zur Fortschrittsanalyse.*
 
 #### Mockup
 
 Das Mockup wurde in **Figma** erstellt und zeigt alle zentralen Screens: Startseite, Training, Fortschritt, Übungen, Trainingspläne, Profil, Rezepte, Kursfinder.
 
-[> 📎 *Figma-Link / Screenshots werden ergänzt*](https://www.figma.com/make/ZJ0UmeO8GG5QsTeIebbyHU/GymSense?t=HRRrIDqlPdY49fkT-6)
+[>Figma-Link:(https://www.figma.com/make/ZJ0UmeO8GG5QsTeIebbyHU/GymSense?t=HRRrIDqlPdY49fkT-6)]
 
 ---
 
@@ -264,7 +250,29 @@ Das Mockup wurde in **Figma** erstellt und zeigt alle zentralen Screens: Startse
 | **Rezepte** | Kategoriefilter-Buttons, Karten-Grid mit Bildern, Modal mit Zutaten & Anleitungen |
 | **Übungen** | Suchfeld + Muskelgruppen-Dropdown, Resultat-Counter, Tipps-Liste und YouTube-iframe pro Karte |
 
-> 📸 *Screenshots der fertigen App werden separat ergänzt*
+Die folgenden Screenshots zeigen ausgewählte Ansichten des finalen Prototyps. Nicht eingeloggte Nutzerinnen und Nutzer können die Startseite, die Übungsbibliothek sowie den Rezeptbereich verwenden. Nach der Anmeldung stehen zusätzliche Funktionen wie Trainingspläne, Trainingserfassung, Fortschrittsanalyse, Profilverwaltung und der Kursfinder zur Verfügung.
+
+<p align="center">
+  <img src="src/lib/assets/home-public.png" width="30%">
+  <img src="src/lib/assets/exercises-public.png" width="30%">
+  <img src="src/lib/assets/recipes-public.png" width="30%">
+</p>
+
+*Abbildung X: Öffentliche Bereiche für nicht eingeloggte Nutzerinnen und Nutzer (Startseite, Übungen, Rezepte).*
+
+<p align="center">
+  <img src="src/lib/assets/home-private.png" width="30%">
+  <img src="src/lib/assets/training-private.png" width="30%">
+  <img src="src/lib/assets/progress-private.png" width="30%">
+</p>
+
+<p align="center">
+  <img src="src/lib/assets/profile-private.png" width="30%">
+  <img src="src/lib/assets/discover-private.png" width="30%">
+  <img src="src/lib/assets/plans-private.png" width="30%">
+</p>
+
+*Abbildung X: Zentrale Funktionen für eingeloggte Nutzerinnen und Nutzer (Dashboard, Training, Fortschritt, Profil, Kursfinder und Trainingspläne).*
 
 ##### Designentscheidungen
 
