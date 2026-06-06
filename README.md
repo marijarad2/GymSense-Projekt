@@ -218,7 +218,7 @@ Die folgende Abbildung zeigt die wichtigsten Stationen eines typischen Nutzers i
 
 Das Mockup wurde in **Figma** erstellt und zeigt alle zentralen Screens: Startseite, Training, Fortschritt, Übungen, Trainingspläne, Profil, Rezepte, Kursfinder.
 
-> 📎 *Figma-Link / Screenshots werden ergänzt*
+[> 📎 *Figma-Link / Screenshots werden ergänzt*](https://www.figma.com/make/ZJ0UmeO8GG5QsTeIebbyHU/GymSense?t=HRRrIDqlPdY49fkT-6)
 
 ---
 
