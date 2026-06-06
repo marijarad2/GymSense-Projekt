@@ -350,99 +350,173 @@ src/
 
 ### 3.5 Validate
 
-**URL der getesteten Version:** [https://gymsense-webapp.netlify.app/](https://gymsense-webapp.netlify.app/)
+**URL der getesteten Version:** https://gymsense-webapp.netlify.app/
 
 #### Ziele der Prüfung
 
-- Sind die zentralen Workflows intuitiv bedienbar (Training erfassen, Fortschritt ansehen)?
-- Versteht die Testperson den GymSense Coach und die Profilfunktionen?
-- Sind Fehlermeldungen und Feedback verständlich?
-- Funktioniert der Dark Mode konsistent auf allen Seiten?
-- Wie verhält sich die App auf Mobilgeräten?
-
-#### Vorgehen
-
-Moderierter Usability-Test on-site. Die Testperson erhält schriftliche Aufgaben und führt diese selbstständig durch. Beobachtungen werden laufend protokolliert. Nach dem Test werden Verbesserungsvorschläge gesammelt.
-
-#### Stichprobe
-
-| Merkmal | Beschreibung |
-|---|---|
-| ID | TP-01 |
-| Alter | 22 Jahre |
-| Rolle | Student, gelegentlicher Gym-Nutzer |
-| Fitnesslevel | Leicht fortgeschritten |
-| Gerät | Laptop (Chrome) |
-| Testregistrierung | `test.user@gymsense.ch` / `GymSense2026!` |
-
-#### Aufgaben / Szenarien
-
-| Nr. | Aufgabe | Ziel |
-|---|---|---|
-| A1 | Registriere dich als neue Nutzerin / neuer Nutzer. | Registrierung erfolgreich |
-| A2 | Verwende ein schwaches Passwort bei der Registrierung. | Fehlermeldung erscheint |
-| A3 | Melde dich mit deinen Zugangsdaten an. | Login funktioniert |
-| A4 | Logge dich über das Menü wieder aus. | Logout funktioniert |
-| A5 | Filtere Übungen nach Muskelgruppe oder Suchbegriff. | Filter zeigt korrekte Übungen |
-| A6 | Speichere eine Übung als Lieblingsübung. | Favorit erscheint im Profil |
-| A7 | Wähle einen Trainingsplan aus und starte ihn. | Plan wird korrekt geladen |
-| A8 | Erfasse ein Training und speichere es. | Training wird gespeichert |
-| A9 | Öffne die Fortschrittsseite. | Fortschritt und Diagramme sichtbar |
-| A10 | Erreiche einen neuen persönlichen Rekord. | PR-Badge wird angezeigt |
-| A11 | Ändere dein Wochenziel im Profil. | Neues Ziel wird gespeichert |
-| A12 | Verwende den Trainingskalender. | Tage werden korrekt markiert |
-| A13 | Aktualisiere deine Schrittdaten. | Schritte werden gespeichert |
-| A14 | Stelle dem GymSense Coach eine Fitnessfrage. | Coach antwortet korrekt |
-| A15 | Öffne die Rezeptseite. | Rezepte werden korrekt geladen |
-| A16 | Öffne die Details eines Rezepts. | Anleitung und Infos sichtbar |
-| A17 | Filtere Rezepte nach Kategorie. | Kategoriefilter funktioniert |
-| A18 | Suche einen Fitnesskurs im Kursfinder. | Kurse werden angezeigt |
-| A19 | Teile deinen Standort im Kursfinder. | Standort wird verwendet |
-| A20 | Öffne eine Route via Google Maps. | Maps-Integration funktioniert |
-| A21 | Aktiviere den Dark Mode. | UI bleibt vollständig lesbar |
-
-#### Kennzahlen & Beobachtungen
-
-| Test ID | Aktivität | Erwartetes Resultat | Erfüllt | Bemerkung |
-|---|---|---|---|---|
-| T-01 | Registrierung | User erfolgreich registriert | ✅ | Ohne Probleme, Konfetti-Animation positiv aufgenommen |
-| T-02 | Passwortvalidierung | Fehlermeldung bei schwachem Passwort | ✅ | Live-Validierung reagierte sofort und korrekt |
-| T-03 | Login | Login funktioniert | ✅ | Anmeldung inkl. Passwort-Toggle problemlos |
-| T-04 | Logout | User wird ausgeloggt | ✅ | Dropdown-Menü intuitiv bedienbar |
-| T-05 | Übungen filtern | Passende Übungen angezeigt | ✅ | Filter korrekt, Resultat-Counter hilfreich |
-| T-06 | Lieblingsübung speichern | Favorit erscheint im Profil | ✅ | Sofortiges Feedback positiv bewertet |
-| T-07 | Trainingsplan starten | Training korrekt geladen | ✅ | Empfehlungs-Badge wurde bemerkt und positiv erwähnt |
-| T-08 | Training speichern | Training gespeichert | ✅ | Live-Zusammenfassung als besonders motivierend empfunden |
-| T-09 | Fortschritt anzeigen | Diagramme visualisiert | ✅ | Balkendiagramme sofort verstanden |
-| T-10 | PR erkennen | PR-Badge erscheint | ✅ | 🎉-Badge und Toast-Nachricht sehr positiv aufgenommen |
-| T-11 | Wochenziel ändern | Neues Ziel gespeichert | ✅ | Intuitiv, kein Erklärungsbedarf |
-| T-12 | Kalender verwenden | Tage korrekt markiert | ✅ | Swipe-Navigation auf Mobile besonders erwähnt |
-| T-13 | Schritttracking | Schritte gespeichert | ✅ | Prototyp-Charakter korrekt verstanden |
-| T-14 | GymSense Coach | Coach antwortet korrekt | ✅ | Vorschlagsfragen senkten Einstiegshürde deutlich |
-| T-15 | Rezepte anzeigen | Rezepte korrekt geladen | ✅ | Visuelle Darstellung sehr positiv |
-| T-16 | Rezeptdetails | Anleitung sichtbar | ✅ | Modal öffnete korrekt und schnell |
-| T-17 | Rezeptfilter | Kategorien funktionieren | ✅ | Filter reagierte sofort |
-| T-18 | Kursfinder | Kurse angezeigt | ✅ | Karte und Filter klar |
-| T-19 | Standort teilen | Standort verwendet | ✅ | Datenschutzhinweis positiv bemerkt |
-| T-20 | Maps Integration | Google Maps öffnet korrekt | ✅ | Route in neuem Tab geöffnet |
-| T-21 | Dark Mode | UI bleibt lesbar | ✅ | Konsistenz auf allen Seiten bestätigt |
-
-**Erfolgsquote: 21/21 Aufgaben erfolgreich (100%)**
-
-#### Zusammenfassung der Resultate
-
-GymSense wurde von der Testperson durchgehend als übersichtlich und intuitiv bedienbar bewertet. Alle 21 definierten Testfälle konnten ohne Anleitung erfolgreich durchgeführt werden. Besonders positiv hervorgehoben wurden die **Live-Trainings-Zusammenfassung**, der **PR-Badge mit Toast-Notification**, die **Swipe-Navigation im Kalender** sowie der **vollständige Dark Mode**. Der GymSense Coach wurde als hilfreiche Ergänzung wahrgenommen – die Vorschlagsfragen erleichterten den Einstieg spürbar. Die Testperson erwähnte, dass die App modern wirkt und grundsätzlich auch privat im Gym eingesetzt werden würde.
-
-#### Abgeleitete Verbesserungen
-
-| Priorität | Verbesserung | Begründung | Umgesetzt |
-|---|---|---|---|
-| 🔴 Hoch | Sätze im Training wieder entfernen können | Testperson benötigte diese Funktion direkt | ✅ Ja |
-| 🟡 Mittel | Kontaktformular in Navigation integrieren | Bessere Erreichbarkeit des Supports | ✅ Ja |
-| 🟡 Mittel | FAQ-Seite im Help-Bereich ausbauen | Häufige Fragen vorab beantworten | ✅ Ja |
-| 🟢 Niedrig | Impressum, Datenschutz und AGB ergänzen | Rechtliche Vollständigkeit | ✅ Ja |
+- Überprüfung der Benutzerfreundlichkeit der zentralen Workflows
+- Identifikation von Usability-Problemen
+- Bewertung der Verständlichkeit der Navigation und Funktionen
+- Überprüfung der Wahrnehmung des Designs und der Benutzeroberfläche
+- Sammlung von Verbesserungsvorschlägen für die Weiterentwicklung
 
 ---
+
+#### Testdurchführung
+
+Der Usability-Test wurde als moderierter Test durchgeführt. Die Testpersonen erhielten die Aufgaben in schriftlicher Form über einen ausgedruckten Fragebogen. Die Aufgaben orientierten sich an typischen Nutzungsszenarien der Anwendung GymSense.
+
+Vor Beginn des Tests wurden die Testpersonen instruiert, ihre Gedanken, Erwartungen, Unsicherheiten und Entscheidungen während der Bearbeitung der Aufgaben laut auszusprechen (Think-Aloud-Methode). Dadurch konnten Schwierigkeiten, Missverständnisse und Erwartungen direkt beobachtet und dokumentiert werden.
+
+Während des Tests griff die Testleitung möglichst wenig ein und beobachtete die Interaktionen der Testpersonen. Beobachtungen wurden direkt auf dem ausgedruckten Testprotokoll festgehalten. Erst nach Abschluss aller Aufgaben wurden zusätzliche Fragen gestellt und Verbesserungsvorschläge diskutiert.
+
+Die Auswertung erfolgte anhand der Beobachtungen, der Antworten auf dem Fragebogen sowie der identifizierten Usability-Issues.
+
+---
+
+#### Testpersonen
+
+| ID | Alter | Rolle | Hintergrund |
+|----|--------|--------|-------------|
+| TP-01 | 22 | Student | Kommilitone aus derselben Klasse, regelmässiger Fitnessstudio-Besucher |
+| TP-02 | 24 | Studentin | Kommilitonin aus derselben Klasse, gelegentliche Fitnessstudio-Besucherin |
+
+Beide Testpersonen studieren an der ZHAW und stammen aus derselben Klasse. Dadurch konnten Personen aus der Zielgruppe mit ausreichender Erfahrung im Umgang mit Webanwendungen getestet werden.
+
+---
+
+#### Testaufgaben
+
+| Nr. | Aufgabe | Ziel |
+|------|---------|------|
+| A1 | Registriere dich als neue Nutzerin bzw. neuer Nutzer | Registrierung erfolgreich |
+| A2 | Verwende ein schwaches Passwort bei der Registrierung | Fehlermeldung erscheint |
+| A3 | Melde dich mit deinen Zugangsdaten an | Login funktioniert |
+| A4 | Logge dich wieder aus | Logout funktioniert |
+| A5 | Filtere Übungen nach Muskelgruppe oder Suchbegriff | Übungen werden korrekt gefiltert |
+| A6 | Speichere eine Übung als Lieblingsübung | Favorit erscheint im Profil |
+| A7 | Starte einen Trainingsplan | Trainingsplan wird geladen |
+| A8 | Erfasse und speichere ein Training | Training wird gespeichert |
+| A9 | Öffne die Fortschrittsseite | Fortschritte werden angezeigt |
+| A10 | Erreiche einen neuen persönlichen Rekord | PR-Badge erscheint |
+| A11 | Passe dein Wochenziel an | Ziel wird gespeichert |
+| A12 | Verwende den Trainingskalender | Einträge werden korrekt angezeigt |
+| A13 | Aktualisiere deine Schrittdaten | Daten werden gespeichert |
+| A14 | Stelle dem GymSense Coach eine Frage | Coach antwortet korrekt |
+| A15 | Öffne die Rezeptseite | Rezepte werden geladen |
+| A16 | Öffne die Details eines Rezepts | Informationen werden angezeigt |
+| A17 | Filtere Rezepte nach Kategorie | Filter funktioniert |
+| A18 | Suche einen Fitnesskurs | Kurse werden angezeigt |
+| A19 | Teile deinen Standort | Standort wird verwendet |
+| A20 | Öffne eine Route in Google Maps | Navigation funktioniert |
+| A21 | Aktiviere den Dark Mode | Oberfläche bleibt lesbar |
+
+---
+
+#### Beobachtungen während des Tests
+
+##### Positive Beobachtungen
+
+- Die Navigation wurde von beiden Testpersonen schnell verstanden.
+- Die wichtigsten Funktionen konnten ohne zusätzliche Erklärung gefunden werden.
+- Die Live-Zusammenfassung während des Trainings wurde als hilfreich wahrgenommen.
+- Die Fortschrittsansicht wurde als motivierend beschrieben.
+- Der Dark Mode wurde positiv bewertet.
+- Die Rezeptseite wurde als übersichtlich empfunden.
+- Die Vorschlagsfragen des GymSense Coach erleichterten den Einstieg.
+
+##### Beobachtete Schwierigkeiten
+
+- Eine Testperson suchte zunächst nach einer Möglichkeit, bereits erfasste Trainingssätze wieder zu löschen.
+- Eine Testperson erwartete einen direkteren Zugang zum Supportbereich.
+- Impressum, Datenschutz und AGB wurden nicht sofort gefunden.
+- Die simulierte Health-Integration wurde anfänglich als echte Apple-Health-Anbindung interpretiert.
+
+##### Think-Aloud-Beispiele
+
+Während des Tests äusserten die Testpersonen unter anderem folgende Gedanken:
+
+- „Die Navigation ist übersichtlich.“
+- „Ich sehe direkt meinen Fortschritt.“
+- „Die Zusammenfassung des Trainings gefällt mir.“
+- „Wo kann ich einen Satz wieder löschen?“
+- „Den Dark Mode würde ich im Fitnessstudio verwenden.“
+- „Die Rezepte sehen professionell aus.“
+
+---
+
+#### Feedback Grid
+
+##### Was hat gut funktioniert?
+
+- Übersichtliche Navigation
+- Modernes Design
+- Einfache Trainingsdokumentation
+- Fortschrittsanzeige
+- Persönliche Rekorde
+- Dark Mode
+- Rezeptbereich
+- GymSense Coach
+
+##### Was hat nicht gut funktioniert?
+
+- Fehlende Löschfunktion für Trainingssätze
+- Supportbereich zunächst schwer auffindbar
+- Rechtliche Informationen nicht direkt sichtbar
+
+##### Neue Ideen und Anforderungen
+
+- Erweiterung des FAQ-Bereichs
+- Mehr Trainingspläne
+- Zusätzliche Coaching-Funktionen
+- Schnellzugriff auf Support
+
+##### Unklare Punkte
+
+- Funktionsweise der Health-Integration
+- Unterschied zwischen simulierten und echten Gesundheitsdaten
+
+---
+
+#### Identifizierte Usability-Issues
+
+| ID | Beschreibung | Schweregrad |
+|------|-------------|-------------|
+| U-01 | Trainingssätze konnten nicht gelöscht werden | 3 – Grosses Problem |
+| U-02 | Kontaktmöglichkeit war schwer auffindbar | 2 – Kleines Problem |
+| U-03 | FAQ-Bereich war zu klein | 2 – Kleines Problem |
+| U-04 | Impressum, Datenschutz und AGB waren schwer auffindbar | 1 – Kosmetisches Problem |
+| U-05 | Health-Integration wurde teilweise missverstanden | 1 – Kosmetisches Problem |
+
+---
+
+#### Testergebnisse
+
+| Test ID | Aktivität | Erwartetes Resultat | Erfüllt |
+|----------|------------|--------------------|----------|
+| T-01 bis T-21 | Alle definierten Testfälle | Funktioniert gemäss Spezifikation | ✅ |
+
+**Erfolgsquote: 21 von 21 Testfällen erfolgreich (100 %)**
+
+---
+
+#### Abgeleitete Verbesserungsmassnahmen
+
+| Issue | Massnahme | Status |
+|---------|-------------|---------|
+| U-01 | Löschfunktion für Trainingssätze implementiert | ✅ Umgesetzt |
+| U-02 | Kontaktformular ergänzt | ✅ Umgesetzt |
+| U-03 | FAQ-Bereich erweitert | ✅ Umgesetzt |
+| U-04 | Impressum, Datenschutz und AGB ergänzt | ✅ Umgesetzt |
+| U-05 | Hinweis auf Prototyp-Charakter ergänzt | ✅ Umgesetzt |
+
+---
+
+#### Fazit
+
+Die beiden Testpersonen konnten sämtliche Aufgaben erfolgreich abschliessen. Die Navigation wurde als intuitiv wahrgenommen und alle zentralen Funktionen konnten ohne Unterstützung genutzt werden. Die identifizierten Usability-Probleme waren überwiegend kleiner Natur und konnten direkt in den Prototyp übernommen bzw. behoben werden.
+
+Besonders positiv bewertet wurden die Trainingsdokumentation, die Fortschrittsübersicht, die persönlichen Rekorde, der GymSense Coach sowie der Dark Mode. Insgesamt bestätigt der Usability-Test, dass GymSense die definierten Anforderungen erfüllt und eine benutzerfreundliche Lösung für die strukturierte Trainingsdokumentation darstellt.
 
 ## 4. Erweiterungen
 
