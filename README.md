@@ -147,7 +147,7 @@ Es wurden drei Varianten konzipiert und skizziert:
 
 ![Skizzenvarianten GymSense](src/lib/assets/gymsense-sketches.png)
 
-*Abbildung X: Erste Skizzenvarianten für GymSense. Variante B wurde aufgrund der besseren Übersichtlichkeit und Erweiterbarkeit ausgewählt.*
+*Abbildung 1: Erste Skizzenvarianten für GymSense. Variante B wurde aufgrund der besseren Übersichtlichkeit und Erweiterbarkeit ausgewählt.*
 
 **Wesentliche Unterschiede:**
 - Variante A verzichtet auf jegliche Statistik und Gamification
@@ -192,19 +192,11 @@ Die User Journey beschreibt den typischen Ablauf eines Nutzers innerhalb von Gym
 👤 Profil prüfen
 ```
 
-#### Visualisierung der User Journey
-
-Die folgende Abbildung zeigt die wichtigsten Stationen eines typischen Nutzers innerhalb von GymSense – von der Registrierung bis zur Analyse der persönlichen Fortschritte. Die Screenshots stammen aus dem finalen Prototyp und verdeutlichen den vollständigen End-to-End-Ablauf der Anwendung.
-
-##### Registrierung, Startseite und Trainingsplan
-
-*Abbildung X: Visualisierung der User Journey von der Registrierung bis zur Fortschrittsanalyse.*
-
 #### Mockup
 
 Das Mockup wurde in **Figma** erstellt und zeigt alle zentralen Screens: Startseite, Training, Fortschritt, Übungen, Trainingspläne, Profil, Rezepte, Kursfinder.
 
-[>Figma-Link:(https://www.figma.com/make/ZJ0UmeO8GG5QsTeIebbyHU/GymSense?t=HRRrIDqlPdY49fkT-6)]
+[Figma-Prototyp öffnen](https://www.figma.com/make/ZJ0UmeO8GG5QsTeIebbyHU/GymSense?t=HRRrIDqlPdY49fkT-6)
 
 ---
 
@@ -258,7 +250,7 @@ Die folgenden Screenshots zeigen ausgewählte Ansichten des finalen Prototyps. N
   <img src="src/lib/assets/recipes-public.png" width="30%">
 </p>
 
-*Abbildung X: Öffentliche Bereiche für nicht eingeloggte Nutzerinnen und Nutzer (Startseite, Übungen, Rezepte).*
+*Abbildung 2: Öffentliche Bereiche für nicht eingeloggte Nutzerinnen und Nutzer (Startseite, Übungen, Rezepte).*
 
 <p align="center">
   <img src="src/lib/assets/home-private.png" width="30%">
@@ -272,7 +264,7 @@ Die folgenden Screenshots zeigen ausgewählte Ansichten des finalen Prototyps. N
   <img src="src/lib/assets/plans-private.png" width="30%">
 </p>
 
-*Abbildung X: Zentrale Funktionen für eingeloggte Nutzerinnen und Nutzer (Dashboard, Training, Fortschritt, Profil, Kursfinder und Trainingspläne).*
+*Abbildung 3: Zentrale Funktionen für eingeloggte Nutzerinnen und Nutzer (Dashboard, Training, Fortschritt, Profil, Kursfinder und Trainingspläne).*
 
 ##### Designentscheidungen
 
@@ -308,11 +300,11 @@ GymSense verwendet ein konsistentes Farbsystem, das sowohl im Light Mode als auc
 
 ![Light Mode Farbpalette](src/lib/assets/light-palette.png)
 
-*Abbildung X: Farbpalette des Light Modes.*
+*Abbildung 4: Farbpalette des Light Modes.*
 
 ![Light Mode Farbpalette](src/lib/assets/light-palette2.png)
 
-*Abbildung X: Farbpalette 2 des Light Modes.*
+*Abbildung 5: Farbpalette 2 des Light Modes.*
 
 ---
 
@@ -333,11 +325,11 @@ GymSense verwendet ein konsistentes Farbsystem, das sowohl im Light Mode als auc
 
 ![Dark Mode Farbpalette](src/lib/assets/dark-palette.png)
 
-*Abbildung X: Farbpalette des Dark Modes.*
+*Abbildung 6: Farbpalette des Dark Modes.*
 
 ![Dark Mode Farbpalette](src/lib/assets/dark-palette2.png)
 
-*Abbildung X: Farbpalette 2 des Dark Modes.*
+*Abbildung 7: Farbpalette 2 des Dark Modes.*
 
 ---
 
@@ -349,7 +341,7 @@ Die beiden Farbpaletten wurden bewusst aufeinander abgestimmt. Während der Ligh
 |------------|-----------|
 | ![Light Mode](src/lib/assets/light-ui.png) | ![Dark Mode](src/lib/assets/dark-ui.png) |
 
-*Abbildung X: Vergleich derselben Seite im Light Mode und Dark Mode.*
+*Abbildung 8: Vergleich derselben Seite im Light Mode und Dark Mode.*
 
 ---
 
@@ -616,7 +608,7 @@ Während des Usability-Tests wurde festgestellt, dass Testpersonen eine Möglich
 
 ![Löschfunktion Trainingssätze](src/lib/assets/satzlöschen.png)
 
-*Abbildung 1: Implementierte Löschfunktion für Trainingssätze.*
+*Abbildung 9: Implementierte Löschfunktion für Trainingssätze.*
 
 ---
 
@@ -626,7 +618,7 @@ Die Testpersonen erwarteten eine einfachere Möglichkeit, Unterstützung oder Co
 
 ![Kontaktformular](src/lib/assets/kontakt.png)
 
-*Abbildung 2: Implementiertes Kontaktformular für Coaching-Anfragen.*
+*Abbildung 10: Implementiertes Kontaktformular für Coaching-Anfragen.*
 
 ---
 
@@ -636,7 +628,7 @@ Zur Verbesserung der Benutzerunterstützung wurde der Help-Bereich erweitert. H�
 
 ![FAQ-Bereich](src/lib/assets/faq.png)
 
-*Abbildung 3: Erweiterter FAQ-Bereich mit häufigen Fragen und Antworten.*
+*Abbildung 11: Erweiterter FAQ-Bereich mit häufigen Fragen und Antworten.*
 
 ---
 
@@ -646,7 +638,7 @@ Für eine höhere Professionalität und rechtliche Vollständigkeit wurden ein I
 
 ![Rechtliche Seiten](src/lib/assets/agb.png)
 
-*Abbildung 4: Ergänzte rechtliche Seiten (Impressum, Datenschutz und AGB).*
+*Abbildung 12: Ergänzte rechtliche Seiten (Impressum, Datenschutz und AGB).*
 
 ---
 
@@ -665,7 +657,7 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 
 ![Dark Mode](src/lib/assets/darkmode.png)
 
-*Abbildung X: GymSense im Dark Mode.*
+*Abbildung 13: GymSense im Dark Mode.*
 
 ---
 
@@ -678,7 +670,7 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 
 ![GymSense Coach](src/lib/assets/ki.png)
 
-*Abbildung X: Regelbasierter GymSense Coach mit Vorschlagsfragen.*
+*Abbildung 14: Regelbasierter GymSense Coach mit Vorschlagsfragen.*
 
 ---
 
@@ -691,7 +683,7 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 
 ![Trainings-Zusammenfassung](src/lib/assets/trainingzusammenfassung.png)
 
-*Abbildung X: Live-Zusammenfassung während der Trainingserfassung.*
+*Abbildung 15: Live-Zusammenfassung während der Trainingserfassung.*
 
 ---
 
@@ -704,7 +696,7 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 
 ![PR Badge](src/lib/assets/fortschritte.png)
 
-*Abbildung X: Persönlicher Rekord mit PR-Badge und Benachrichtigung.*
+*Abbildung 16: Persönlicher Rekord mit PR-Badge und Benachrichtigung.*
 
 ---
 
@@ -717,7 +709,7 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 
 ![Kalender](src/lib/assets/calender.png)
 
-*Abbildung X: Interaktiver Trainingskalender auf der Profilseite.*
+*Abbildung 17: Interaktiver Trainingskalender auf der Profilseite.*
 
 ---
 
@@ -730,7 +722,7 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 
 ![Passwort-Stärke](src/lib/assets/password.png)
 
-*Abbildung X: Live-Validierung der Passwortstärke.*
+*Abbildung 18: Live-Validierung der Passwortstärke.*
 
 ---
 
@@ -743,7 +735,7 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 
 ![Health Tracking](src/lib/assets/health.png)
 
-*Abbildung X: Apple-Health-Prototyp mit Aktivitätsanalyse.*
+*Abbildung 19: Apple-Health-Prototyp mit Aktivitätsanalyse.*
 
 ---
 
@@ -756,7 +748,7 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 
 ![Rezepte](src/lib/assets/recipes.png)
 
-*Abbildung X: Fitness-Rezepte mit Kategorien und Detailansicht.*
+*Abbildung 20: Fitness-Rezepte mit Kategorien und Detailansicht.*
 
 ---
 
@@ -769,7 +761,7 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 
 ![Kursfinder](src/lib/assets/discover.png)
 
-*Abbildung X: Kursfinder mit Geolocation und Distanzberechnung.*
+*Abbildung 21: Kursfinder mit Geolocation und Distanzberechnung.*
 
 ---
 
@@ -782,7 +774,7 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 
 ![Welcome](src/lib/assets/welcome.png)
 
-*Abbildung X: Personalisierte Willkommensseite nach der Registrierung.*
+*Abbildung 22: Personalisierte Willkommensseite nach der Registrierung.*
 
 ---
 
@@ -795,7 +787,7 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 
 ![Plan Empfehlung](src/lib/assets/recommendation.png)
 
-*Abbildung X: Empfohlener Trainingsplan basierend auf dem Nutzerprofil.*
+*Abbildung 23: Empfohlener Trainingsplan basierend auf dem Nutzerprofil.*
 
 ---
 
@@ -817,7 +809,7 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 
 ![FAQ](src/lib/assets/faq.png)
 
-*Abbildung X: Erweiterter FAQ-Bereich.*
+*Abbildung 24: Erweiterter FAQ-Bereich.*
 
 ---
 
@@ -830,7 +822,7 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 
 ![Kontaktformular](src/lib/assets/kontakt.png)
 
-*Abbildung X: Coaching-Kontaktformular.*
+*Abbildung 25: Coaching-Kontaktformular.*
 
 ---
 
@@ -843,7 +835,7 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 
 ![Rechtliche Seiten](src/lib/assets/agb.png)
 
-*Abbildung X: Impressum, Datenschutz und AGB.*
+*Abbildung 26: Impressum, Datenschutz und AGB.*
 
 ---
 
