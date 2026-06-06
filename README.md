@@ -591,6 +591,12 @@ Während des Tests äusserten die Testpersonen unter anderem folgende Gedanken:
 
 ---
 
+#### Zusammenfassung der Resultate
+
+Die identifizierten Usability-Probleme konnten vollständig behoben werden. Sämtliche Verbesserungsvorschläge aus dem Usability-Test wurden umgesetzt und in den finalen Prototyp integriert. Dadurch konnte die Benutzerfreundlichkeit von GymSense weiter verbessert werden. Insbesondere die Löschfunktion für Trainingssätze, das Kontaktformular, der erweiterte FAQ-Bereich sowie die rechtlichen Seiten tragen zu einer vollständigeren und professionelleren Benutzererfahrung bei.
+
+---
+
 #### Abgeleitete Verbesserungsmassnahmen
 
 | Issue | Massnahme | Status |
@@ -641,10 +647,6 @@ Für eine höhere Professionalität und rechtliche Vollständigkeit wurden ein I
 *Abbildung 12: Ergänzte rechtliche Seiten (Impressum, Datenschutz und AGB).*
 
 ---
-
-#### Fazit der Verbesserungsmassnahmen
-
-Die identifizierten Usability-Probleme konnten vollständig behoben werden. Sämtliche Verbesserungsvorschläge aus dem Usability-Test wurden umgesetzt und in den finalen Prototyp integriert. Dadurch konnte die Benutzerfreundlichkeit von GymSense weiter verbessert werden. Insbesondere die Löschfunktion für Trainingssätze, das Kontaktformular, der erweiterte FAQ-Bereich sowie die rechtlichen Seiten tragen zu einer vollständigeren und professionelleren Benutzererfahrung bei.
 
 ## 4. Erweiterungen
 
