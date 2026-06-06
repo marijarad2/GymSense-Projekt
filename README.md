@@ -563,6 +563,10 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 - **Referenz:** `+layout.svelte`, alle Seiten-Komponenten (Styles-Abschnitt)
 - **Aus Evaluation abgeleitet?** Nein – von Beginn an geplant, in Evaluation auf allen 21 Screens bestätigt (T-21)
 
+![Dark Mode](src/lib/assets/darkmode.png)
+
+*Abbildung X: GymSense im Dark Mode.*
+
 ---
 
 ### 4.2 GymSense Coach (regelbasierter Fitness-Assistent)
@@ -571,6 +575,10 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 - **Wo umgesetzt:** `+layout.svelte` – `answerCoach()`-Funktion, Chat-UI als Fixed-Widget mit Toggle-Button, `coachMessages`-State, `suggestedQuestions`-Derived.
 - **Referenz:** `+layout.svelte`, Kap. 3.4.1 (Informationsarchitektur)
 - **Aus Evaluation abgeleitet?** Nein – von Beginn an geplant, in Evaluation sehr positiv bewertet (T-14)
+
+![GymSense Coach](src/lib/assets/ki.png)
+
+*Abbildung X: Regelbasierter GymSense Coach mit Vorschlagsfragen.*
 
 ---
 
@@ -581,6 +589,10 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 - **Referenz:** Kap. 3.4.2 (Wichtige Funktionen), Kap. 3.5 (T-08)
 - **Aus Evaluation abgeleitet?** Nein – in Evaluation als besonders motivierend bewertet
 
+![Trainings-Zusammenfassung](src/lib/assets/trainingzusammenfassung.png)
+
+*Abbildung X: Live-Zusammenfassung während der Trainingserfassung.*
+
 ---
 
 ### 4.4 Persönliche Rekorde (PR-Erkennung & Toast)
@@ -589,6 +601,10 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 - **Wo umgesetzt:** `progress/+page.svelte` – `isPersonalBest`-Flag aus Server-Daten, `showToast`-State, `$effect` mit `setTimeout` (3 Sekunden), `@keyframes slideIn` CSS-Animation.
 - **Referenz:** Kap. 3.4.1, Kap. 3.5 (T-09, T-10)
 - **Aus Evaluation abgeleitet?** Nein – als besonders positiv hervorgehoben in Evaluation
+
+![PR Badge](src/lib/assets/fortschritte.png)
+
+*Abbildung X: Persönlicher Rekord mit PR-Badge und Benachrichtigung.*
 
 ---
 
@@ -599,6 +615,10 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 - **Referenz:** Kap. 3.4.1 (Profil-Screen)
 - **Aus Evaluation abgeleitet?** Nein – Swipe-Funktion in Evaluation explizit positiv bewertet (T-12)
 
+![Kalender](src/lib/assets/calendar.png)
+
+*Abbildung X: Interaktiver Trainingskalender auf der Profilseite.*
+
 ---
 
 ### 4.6 Passwort-Stärke-Anzeige (Live-Validierung)
@@ -607,6 +627,10 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 - **Wo umgesetzt:** `register/+page.svelte` – `$derived`-Regelobjekte, `strength`-State, `strengthClass`-Klassen, `@keyframes shake`.
 - **Referenz:** Kap. 3.4.1, Kap. 3.5 (T-01, T-02)
 - **Aus Evaluation abgeleitet?** Nein – in Evaluation als positives Detail erwähnt
+
+![Passwort-Stärke](src/lib/assets/password.png)
+
+*Abbildung X: Live-Validierung der Passwortstärke.*
 
 ---
 
@@ -617,6 +641,10 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 - **Referenz:** Kap. 3.4.1 (Profil-Screen), Kap. 3.5 (T-13)
 - **Aus Evaluation abgeleitet?** Nein – Prototyp-Charakter in Evaluation korrekt verstanden
 
+![Health Tracking](src/lib/assets/health.png)
+
+*Abbildung X: Apple-Health-Prototyp mit Aktivitätsanalyse.*
+
 ---
 
 ### 4.8 Rezeptsystem mit Kategoriefilter & Modal
@@ -625,6 +653,10 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 - **Wo umgesetzt:** `recipes/+page.svelte` – statisches Rezept-Array (15 Einträge), `selectedCategory`-Filter, Modal-State `selectedRecipe`, `filteredRecipes` als `$derived.by()` mit Login-Check (`data.user ? allRecipes : allRecipes.slice(0, 4)`).
 - **Referenz:** Kap. 3.4.1, Kap. 3.5 (T-15–T-17)
 - **Aus Evaluation abgeleitet?** Nein – in Evaluation durchgehend positiv bewertet
+
+![Rezepte](src/lib/assets/recipes.png)
+
+*Abbildung X: Fitness-Rezepte mit Kategorien und Detailansicht.*
 
 ---
 
@@ -635,6 +667,10 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 - **Referenz:** Kap. 3.4.1, Kap. 3.5 (T-18–T-20)
 - **Aus Evaluation abgeleitet?** Nein – vollständig geplant und in Evaluation positiv bewertet
 
+![Kursfinder](src/lib/assets/discover.png)
+
+*Abbildung X: Kursfinder mit Geolocation und Distanzberechnung.*
+
 ---
 
 ### 4.10 Smart Welcome Experience (Onboarding-Animation)
@@ -644,6 +680,10 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 - **Referenz:** Kap. 3.4.1 (Startseite)
 - **Aus Evaluation abgeleitet?** Nein – in Evaluation sehr positiv aufgenommen (T-01)
 
+![Welcome](src/lib/assets/welcome.png)
+
+*Abbildung X: Personalisierte Willkommensseite nach der Registrierung.*
+
 ---
 
 ### 4.11 Kontextbasierte Plan-Empfehlung
@@ -652,6 +692,10 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 - **Wo umgesetzt:** `plans/+page.svelte` – `data.recommendation` aus Server-Load, `class:recommended`-Binding, `recommendation-card`-Sektion.
 - **Referenz:** Kap. 3.4.1 (Trainingspläne-Screen), Kap. 3.5 (T-07)
 - **Aus Evaluation abgeleitet?** Nein – Empfehlungs-Badge in Evaluation bemerkt und positiv erwähnt
+
+![Plan Empfehlung](src/lib/assets/recommendation.png)
+
+*Abbildung X: Empfohlener Trainingsplan basierend auf dem Nutzerprofil.*
 
 ---
 
@@ -671,6 +715,10 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 - **Referenz:** Kap. 3.4.1 (Informationsarchitektur)
 - **Aus Evaluation abgeleitet?** Ja – als direkte Massnahme aus der Evaluation umgesetzt
 
+![FAQ](src/lib/assets/faq.png)
+
+*Abbildung X: Erweiterter FAQ-Bereich.*
+
 ---
 
 ### 4.14 Coaching-Kontaktformular
@@ -679,6 +727,10 @@ Die identifizierten Usability-Probleme konnten vollständig behoben werden. Säm
 - **Wo umgesetzt:** `contact/+page.svelte` – Formular mit SvelteKit Form Action, Lade-Animation via State.
 - **Referenz:** Kap. 3.4.1 (Informationsarchitektur)
 - **Aus Evaluation abgeleitet?** Ja – Testperson wünschte bessere Erreichbarkeit des Supports
+
+![Kontaktformular](src/lib/assets/kontakt.png)
+
+*Abbildung X: Coaching-Kontaktformular.*
 
 ---
 
